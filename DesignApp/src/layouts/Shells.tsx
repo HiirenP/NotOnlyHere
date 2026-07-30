@@ -1,30 +1,30 @@
 import { NavLink } from 'react-router-dom';
 import {
-  Bell,
+  Calendar,
   Circle,
   Compass,
   Home,
   LayoutDashboard,
   LogOut,
-  Menu,
   MessageCircle,
-  Plus,
   Search,
   Settings,
   Shield,
   Sparkles,
   Users,
+  Video,
 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { currentUser } from '@/data/mock';
 import { FeedRightRail } from '@/components/social';
 
 const memberNav = [
-  { to: '/design/app/feed', label: 'Home', icon: Home },
+  { to: '/design/app/feed', label: 'Feed', icon: Home },
+  { to: '/design/app/profile', label: 'Connections', icon: Users },
+  { to: '/design/app/events', label: 'Events', icon: Calendar },
+  { to: '/design/app/resources', label: 'Resources', icon: Video },
   { to: '/design/app/circles', label: 'Circles', icon: Circle },
   { to: '/design/app/messages', label: 'Messages', icon: MessageCircle },
-  { to: '/design/app/ava', label: 'Ava', icon: Sparkles },
-  { to: '/design/app/explore', label: 'Explore', icon: Compass },
 ];
 
 const adminNav = [
@@ -47,107 +47,57 @@ type MemberShellProps = {
 
 export function MemberShell({ children, title, showRightRail = true, fullWidth = false }: MemberShellProps) {
   return (
-    <div className="min-h-screen bg-background-200/40">
-      {/* Top bar — Facebook style */}
-      <header className="sticky top-0 z-50 bg-background-100/95 backdrop-blur-md border-b border-background-200 shadow-sm">
-        <div className="max-w-[1400px] mx-auto px-4 h-14 flex items-center gap-4">
-          <NavLink to="/design/app/feed" className="shrink-0">
-            <img
-              src="https://static.readdy.ai/image/625b665eabd64e8e26dc00b3dfd3bc8f/0f7f3e340b64adaf58909c4de1c45074.png"
-              alt="NotOnlyHere"
-              className="h-8 w-auto"
-            />
-          </NavLink>
-
-          {/* Search bar */}
-          <div className="hidden sm:flex flex-1 max-w-md">
-            <div className="relative w-full">
-              <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-foreground-400" />
-              <NavLink
-                to="/design/app/search"
-                className="block w-full font-mono text-sm text-foreground-500 bg-background-200/70 hover:bg-background-200 rounded-full pl-11 pr-4 py-2.5 transition-colors"
-              >
-                Search NotOnlyHere
-              </NavLink>
-            </div>
-          </div>
-
-          {/* Center nav icons — desktop */}
-          <nav className="hidden md:flex items-center gap-1 flex-1 justify-center max-w-md">
-            {memberNav.slice(0, 5).map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                className={({ isActive }) =>
-                  `relative flex items-center justify-center w-14 h-12 rounded-xl transition-colors ${
-                    isActive ? 'text-primary-600 bg-primary-50' : 'text-foreground-500 hover:bg-background-200'
-                  }`
-                }
-                title={item.label}
-              >
-                <item.icon size={22} />
-              </NavLink>
-            ))}
-          </nav>
-
-          {/* Right actions */}
-          <div className="flex items-center gap-1 ml-auto">
-            <NavLink to="/design/app/composer" className="hidden sm:flex w-10 h-10 items-center justify-center rounded-full bg-background-200 hover:bg-background-300 transition-colors" aria-label="Create">
-              <Plus size={20} />
+    <div className="min-h-screen bg-[#EEF0F4] font-ui">
+      <div className="max-w-[1440px] mx-auto px-4 lg:px-6 py-5">
+        <div className="flex gap-6">
+          {/* Left sidebar — Pickbook style */}
+          <aside className="hidden lg:flex w-[260px] shrink-0 flex-col sticky top-5 self-start h-[calc(100vh-40px)]">
+            <NavLink to="/design/app/feed" className="flex items-center gap-2 mb-6 px-2">
+              <img
+                src="https://static.readdy.ai/image/625b665eabd64e8e26dc00b3dfd3bc8f/0f7f3e340b64adaf58909c4de1c45074.png"
+                alt="NotOnlyHere"
+                className="h-9 w-auto"
+              />
             </NavLink>
-            <NavLink to="/design/app/notifications" className="relative w-10 h-10 flex items-center justify-center rounded-full bg-background-200 hover:bg-background-300 transition-colors" aria-label="Notifications">
-              <Bell size={20} />
-              <span className="absolute top-1 right-1 w-4 h-4 bg-danger-500 text-background-50 text-[10px] font-mono rounded-full flex items-center justify-center">3</span>
-            </NavLink>
-            <NavLink to="/design/app/settings" className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-background-200 hover:ring-primary-300 transition-all" aria-label="Profile">
-              <img src={currentUser.avatar} alt="" className="w-full h-full object-cover" />
-            </NavLink>
-            <button type="button" className="md:hidden w-10 h-10 flex items-center justify-center rounded-full bg-background-200" aria-label="Menu">
-              <Menu size={20} />
-            </button>
-          </div>
-        </div>
-      </header>
 
-      {/* 3-column layout */}
-      <div className="max-w-[1400px] mx-auto px-4 py-4">
-        <div className={`flex gap-6 ${fullWidth ? '' : 'justify-center'}`}>
-          {/* Left sidebar */}
-          <aside className="hidden lg:block w-[280px] shrink-0 sticky top-20 self-start space-y-2">
-            <NavLink to="/design/app/profile" className="flex items-center gap-3 p-2 rounded-xl hover:bg-background-100 transition-colors">
-              <img src={currentUser.avatar} alt="" className="w-9 h-9 rounded-full object-cover" />
-              <span className="font-mono text-sm text-foreground-900">{currentUser.displayName}</span>
+            {/* Profile card */}
+            <NavLink to="/design/app/profile" className="card-elevated p-4 mb-4 flex items-center gap-3 hover:shadow-md transition-shadow">
+              <img src={currentUser.avatar} alt="" className="w-12 h-12 rounded-full object-cover ring-2 ring-accent-200" />
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-foreground-950 truncate">{currentUser.displayName}</p>
+                <p className="text-xs text-foreground-500 truncate">@{currentUser.username}</p>
+              </div>
             </NavLink>
-            {memberNav.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                className={({ isActive }) =>
-                  `flex items-center gap-3 p-2.5 rounded-xl font-mono text-sm transition-colors ${
-                    isActive ? 'bg-background-100 text-primary-700 shadow-sm' : 'text-foreground-700 hover:bg-background-100'
-                  }`
-                }
-              >
-                <item.icon size={20} className={item.to.includes('ava') ? 'text-accent-600' : ''} />
-                {item.label}
-              </NavLink>
-            ))}
-            <div className="pt-4 border-t border-background-300 mt-4">
-              <p className="font-mono text-[10px] uppercase tracking-widest text-foreground-500 px-2 mb-2">Shortcuts</p>
-              {['Anxiety Support', 'New Parents', 'Work Stress'].map((name) => (
-                <NavLink key={name} to="/design/app/circles/detail" className="flex items-center gap-3 p-2 rounded-xl hover:bg-background-100 transition-colors">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-300 to-accent-400" />
-                  <span className="font-mono text-xs text-foreground-700 truncate">{name}</span>
+
+            {/* Nav */}
+            <nav className="flex-1 space-y-1">
+              {memberNav.map((item) => (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  className={({ isActive }) =>
+                    `relative flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                      isActive
+                        ? 'nav-active-indicator bg-white text-accent-600 shadow-sm'
+                        : 'text-foreground-600 hover:bg-white/70 hover:text-foreground-900'
+                    }`
+                  }
+                >
+                  <item.icon size={20} />
+                  {item.label}
                 </NavLink>
               ))}
-            </div>
+            </nav>
+
+            <NavLink to="/design/app/settings" className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-foreground-600 hover:bg-white/70 transition-colors mt-4">
+              <Settings size={20} />
+              Settings
+            </NavLink>
           </aside>
 
-          {/* Main content */}
-          <main className={`flex-1 min-w-0 page-enter ${fullWidth ? 'max-w-none' : 'max-w-[680px]'}`}>
-            {title && (
-              <h1 className="font-display text-xl uppercase tracking-tight text-foreground-950 mb-4 lg:hidden">{title}</h1>
-            )}
+          {/* Center column */}
+          <main className={`flex-1 min-w-0 page-enter pb-20 lg:pb-0 ${fullWidth ? 'max-w-none' : 'max-w-[600px]'}`}>
+            {title && <h1 className="font-display text-xl uppercase text-foreground-950 mb-4 lg:hidden">{title}</h1>}
             {children}
           </main>
 
@@ -157,11 +107,11 @@ export function MemberShell({ children, title, showRightRail = true, fullWidth =
       </div>
 
       {/* Mobile bottom nav */}
-      <nav className="lg:hidden fixed bottom-0 inset-x-0 z-50 bg-background-100/95 backdrop-blur border-t border-background-200 px-2 py-1.5 grid grid-cols-5 safe-area-pb">
+      <nav className="lg:hidden fixed bottom-0 inset-x-0 z-50 bg-white/95 backdrop-blur border-t border-background-200 px-2 py-2 grid grid-cols-5 shadow-lg">
         {[
-          { to: '/design/app/feed', icon: Home, label: 'Home' },
+          { to: '/design/app/feed', icon: Home, label: 'Feed' },
           { to: '/design/app/circles', icon: Circle, label: 'Circles' },
-          { to: '/design/app/composer', icon: Plus, label: 'Create' },
+          { to: '/design/app/composer', icon: Sparkles, label: 'Post' },
           { to: '/design/app/messages', icon: MessageCircle, label: 'Chat' },
           { to: '/design/app/profile', icon: Users, label: 'Profile' },
         ].map((item) => (
@@ -169,12 +119,10 @@ export function MemberShell({ children, title, showRightRail = true, fullWidth =
             key={item.to}
             to={item.to}
             className={({ isActive }) =>
-              `flex flex-col items-center gap-0.5 py-2 text-[10px] font-mono uppercase ${
-                isActive ? 'text-primary-600' : 'text-foreground-500'
-              }`
+              `flex flex-col items-center gap-0.5 py-1.5 text-[10px] font-medium ${isActive ? 'text-accent-600' : 'text-foreground-500'}`
             }
           >
-            <item.icon size={20} />
+            <item.icon size={22} />
             {item.label}
           </NavLink>
         ))}
@@ -182,6 +130,8 @@ export function MemberShell({ children, title, showRightRail = true, fullWidth =
     </div>
   );
 }
+
+// Fix NavLink isActive in icon strokeWidth - that's wrong syntax. Let me fix Shells - I used isActive inside icon which is invalid.
 
 export function AdminShell({ children, title }: { children: ReactNode; title: string }) {
   return (
@@ -228,14 +178,14 @@ export function AdminShell({ children, title }: { children: ReactNode; title: st
 
 export function AuthShell({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-background-50 flex flex-col">
+    <div className="min-h-screen bg-background-50 flex flex-col font-ui">
       <header className="px-6 py-5 flex items-center justify-between">
         <img
           src="https://static.readdy.ai/image/625b665eabd64e8e26dc00b3dfd3bc8f/0f7f3e340b64adaf58909c4de1c45074.png"
           alt="NotOnlyHere"
           className="h-8"
         />
-        <NavLink to="/design" className="font-mono text-xs uppercase tracking-widest text-foreground-600 hover:gradient-text">
+        <NavLink to="/design" className="text-xs font-medium text-foreground-600 hover:text-accent-600 transition-colors">
           Design catalog
         </NavLink>
       </header>

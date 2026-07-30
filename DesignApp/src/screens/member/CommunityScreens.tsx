@@ -1,29 +1,18 @@
 import { SegmentedControl } from '@/design-system';
-import { CircleMomentsRail, CreatePostCard, PostCard } from '@/components/social';
+import { CircleMomentsRail, CreatePostCard, FeedSearchBar, PostCard } from '@/components/social';
 import { feedPosts } from '@/data/mock';
 import { MemberShell } from '@/layouts/Shells';
-import { useState } from 'react';
 
 export function FeedScreen() {
-  const [mode, setMode] = useState('relevant');
   return (
     <MemberShell showRightRail>
+      <FeedSearchBar />
       <CircleMomentsRail />
       <CreatePostCard />
-      <div className="flex items-center justify-between mb-4 px-1">
-        <SegmentedControl
-          value={mode}
-          onChange={setMode}
-          options={[
-            { value: 'relevant', label: 'Relevant' },
-            { value: 'chronological', label: 'Recent' },
-          ]}
-        />
-      </div>
       {feedPosts.map((post) => (
         <PostCard key={post.id} post={post} />
       ))}
-      <button type="button" className="w-full py-3 font-mono text-xs uppercase tracking-wider text-foreground-500 hover:bg-background-100 rounded-xl transition-colors">
+      <button type="button" className="w-full py-3 text-sm font-medium text-foreground-500 hover:bg-white rounded-2xl transition-colors">
         Load more posts
       </button>
     </MemberShell>
@@ -100,7 +89,7 @@ export function SearchScreen() {
 export function PostDetailScreen() {
   return (
     <MemberShell showRightRail={false}>
-      <PostCard post={feedPosts[0]} showComments={false} />
+      <PostCard post={feedPosts[0]} showCommentInput={false} />
       <div className="bg-background-100 rounded-2xl border border-background-200 shadow-sm p-4">
         <h2 className="font-mono text-xs uppercase tracking-widest text-foreground-500 mb-4">Comments (12)</h2>
         <div className="space-y-4 mb-4">

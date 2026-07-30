@@ -63,9 +63,9 @@
   }
 
   body {
-    background-color: oklch(var(--background-50));
+    background-color: oklch(var(--background-200));
     color: oklch(var(--foreground-950));
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -95,6 +95,23 @@
 @layer utilities {
   .font-display {
     font-family: 'Anton', sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .font-ui {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  .card-elevated {
+    @apply bg-white rounded-3xl border border-background-200/80 shadow-[0_2px_16px_rgba(0,0,0,0.06)];
+  }
+
+  .nav-active-indicator::before {
+    content: '';
+    @apply absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-full bg-accent-500;
   }
 
   .gradient-text {

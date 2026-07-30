@@ -1,119 +1,130 @@
-import { Globe, Heart, MessageCircle, MoreHorizontal, Share2, Users } from 'lucide-react';
+import { AtSign, Bookmark, Heart, Image, MessageCircle, MoreHorizontal, Send, Smile } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { FeedPost } from '@/data/mock';
+import { currentUser } from '@/data/mock';
 
-function AudienceIcon({ audience }: { audience: string }) {
-  if (audience === 'Circle') return <Users size={12} />;
-  return <Globe size={12} />;
+function formatReactions(n: number) {
+  if (n >= 1000) return `${(n / 1000).toFixed(1).replace(/\.0$/, '')}k`;
+  return String(n);
 }
 
 function ImageGrid({ images }: { images: NonNullable<FeedPost['images']> }) {
   if (images.length === 1) {
     return (
-      <div className="rounded-xl overflow-hidden border border-background-200">
-        <img src={images[0].src} alt={images[0].alt} className="w-full max-h-[480px] object-cover" />
+      <div className="relative rounded-2xl overflow-hidden bg-background-100">
+        <img src={images[0].src} alt={images[0].alt} className="w-full max-h-[420px] object-cover" />
       </div>
     );
   }
+
   return (
-    <div className={`grid gap-1 rounded-xl overflow-hidden ${images.length === 2 ? 'grid-cols-2' : 'grid-cols-2'}`}>
+    <div className="grid grid-cols-2 gap-1 rounded-2xl overflow-hidden">
       {images.slice(0, 4).map((img, i) => (
-        <div key={i} className={`relative ${images.length === 3 && i === 0 ? 'row-span-2' : ''}`}>
-          <img src={img.src} alt={img.alt} className="w-full h-full min-h-[160px] object-cover" />
+        <div key={i} className={`relative ${images.length === 3 && i === 0 ? 'row-span-2' : 'aspect-square'}`}>
+          <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
+          {images.length > 4 && i === 3 && (
+            <div className="absolute inset-0 bg-black/50 flex items-center justify-center text-white text-xl font-semibold">
+              +{images.length - 4}
+            </div>
+          )}
         </div>
       ))}
     </div>
   );
 }
 
-export function PostCard({ post, showComments = true }: { post: FeedPost; showComments?: boolean }) {
+export function PostCard({ post, showCommentInput = true }: { post: FeedPost; showCommentInput?: boolean }) {
   return (
-    <article className="bg-background-100 rounded-2xl border border-background-200 shadow-sm overflow-hidden mb-4 animate-fade-up">
+    <article className="card-elevated overflow-hidden mb-5 animate-fade-up">
       {/* Header */}
-      <div className="flex items-start justify-between p-4 pb-3">
+      <div className="flex items-center justify-between px-5 pt-5 pb-3">
         <div className="flex items-center gap-3 min-w-0">
           {post.anonymous ? (
-            <div className="w-11 h-11 rounded-full bg-gradient-to-br from-accent-200 to-accent-400 flex items-center justify-center shrink-0">
-              <span className="font-mono text-sm text-accent-800">?</span>
-            </div>
+            <div className="w-11 h-11 rounded-full bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center shrink-0 text-white font-semibold">?</div>
           ) : (
-            <img src={post.avatar} alt="" className="w-11 h-11 rounded-full object-cover ring-2 ring-background-200 shrink-0" />
+            <img src={post.avatar} alt="" className="w-11 h-11 rounded-full object-cover shrink-0" />
           )}
           <div className="min-w-0">
-            <div className="flex items-center gap-2 flex-wrap">
-              <Link to="/design/app/profile" className="font-mono text-sm font-medium text-foreground-900 hover:underline truncate">
-                {post.author}
-              </Link>
-              {post.anonymous && (
-                <span className="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 bg-accent-100 text-accent-700 rounded-full">Anonymous</span>
-              )}
-            </div>
-            <div className="flex items-center gap-1.5 font-mono text-[11px] text-foreground-500">
-              <Link to="/design/app/circles/detail" className="hover:underline">{post.circle}</Link>
-              <span>·</span>
-              <span>{post.time}</span>
-              <span>·</span>
-              <span className="flex items-center gap-0.5"><AudienceIcon audience={post.audience} /> {post.audience}</span>
-            </div>
+            <Link to="/design/app/profile" className="text-sm font-semibold text-foreground-950 hover:underline block truncate">
+              {post.author}
+            </Link>
+            <p className="text-xs text-foreground-500">{post.time} ago · {post.circle}</p>
           </div>
         </div>
-        <button type="button" className="w-9 h-9 rounded-full flex items-center justify-center text-foreground-500 hover:bg-background-200 transition-colors shrink-0" aria-label="More options">
-          <MoreHorizontal size={18} />
+        <button type="button" className="w-9 h-9 rounded-full flex items-center justify-center text-foreground-400 hover:bg-background-100 transition-colors" aria-label="More">
+          <MoreHorizontal size={20} />
         </button>
       </div>
 
-      {/* Content */}
-      <div className="px-4 pb-3">
-        <p className="font-mono text-sm text-foreground-800 leading-relaxed whitespace-pre-wrap">{post.content}</p>
+      {/* Caption */}
+      <div className="px-5 pb-4">
+        <p className="text-sm text-foreground-800 leading-relaxed">{post.content}</p>
+        {post.anonymous && (
+          <span className="inline-block mt-2 text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 bg-accent-100 text-accent-700 rounded-full">Anonymous</span>
+        )}
       </div>
 
-      {/* Images */}
+      {/* Media */}
       {post.images && post.images.length > 0 && (
-        <div className="px-4 pb-3">
+        <div className="px-5 pb-4">
           <ImageGrid images={post.images} />
         </div>
       )}
 
-      {/* Reaction summary */}
-      <div className="px-4 py-2 flex items-center justify-between text-foreground-500">
-        <div className="flex items-center gap-1.5">
+      {/* Stats row — reference style */}
+      <div className="px-5 py-3 flex items-center justify-between border-t border-background-100">
+        <div className="flex items-center gap-2">
           <span className="flex -space-x-1">
-            <span className="w-5 h-5 rounded-full bg-primary-500 flex items-center justify-center text-[10px]">💙</span>
-            <span className="w-5 h-5 rounded-full bg-accent-400 flex items-center justify-center text-[10px]">🤗</span>
+            <span className="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center text-[10px]">❤️</span>
+            <span className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center text-[10px]">👍</span>
+            <span className="w-5 h-5 rounded-full bg-yellow-100 flex items-center justify-center text-[10px]">🤗</span>
           </span>
-          <span className="font-mono text-xs hover:underline cursor-pointer">{post.reactions}</span>
+          <span className="text-xs text-foreground-600">
+            <strong className="font-semibold text-foreground-800">{formatReactions(post.reactions)}</strong> Likes
+            <span className="mx-1.5 text-foreground-300">•</span>
+            <Link to="/design/app/post" className="hover:underline"><strong className="font-semibold text-foreground-800">{post.comments}</strong> Comments</Link>
+          </span>
         </div>
-        <div className="flex items-center gap-3 font-mono text-xs">
-          <Link to="/design/app/post" className="hover:underline">{post.comments} comments</Link>
-          <span>{post.shares} shares</span>
-        </div>
+        <span className="text-xs text-foreground-500">{post.shares} Shares</span>
       </div>
 
       {/* Action bar */}
-      <div className="mx-4 border-t border-background-200 flex items-center">
-        <button type="button" className={`flex-1 flex items-center justify-center gap-2 py-3 font-mono text-xs uppercase tracking-wider transition-colors hover:bg-background-200 rounded-lg ${post.liked ? 'text-primary-600' : 'text-foreground-600'}`}>
-          <Heart size={18} className={post.liked ? 'fill-primary-500' : ''} />
-          Support
-        </button>
-        <Link to="/design/app/post" className="flex-1 flex items-center justify-center gap-2 py-3 font-mono text-xs uppercase tracking-wider text-foreground-600 hover:bg-background-200 rounded-lg transition-colors">
-          <MessageCircle size={18} />
-          Comment
-        </Link>
-        <button type="button" className="flex-1 flex items-center justify-center gap-2 py-3 font-mono text-xs uppercase tracking-wider text-foreground-600 hover:bg-background-200 rounded-lg transition-colors">
-          <Share2 size={18} />
-          Share
+      <div className="px-5 py-2 flex items-center justify-between border-t border-background-100">
+        <div className="flex items-center flex-1">
+          <button type="button" className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm transition-colors hover:bg-background-100 ${post.liked ? 'text-red-500' : 'text-foreground-600'}`}>
+            <Heart size={20} className={post.liked ? 'fill-red-500' : ''} />
+            Like
+          </button>
+          <Link to="/design/app/post" className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm text-foreground-600 hover:bg-background-100 transition-colors">
+            <MessageCircle size={20} />
+            Comment
+          </Link>
+          <button type="button" className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm text-foreground-600 hover:bg-background-100 transition-colors">
+            <Send size={20} />
+            Share
+          </button>
+        </div>
+        <button type="button" className="w-10 h-10 flex items-center justify-center text-foreground-500 hover:bg-background-100 rounded-xl transition-colors ml-1" aria-label="Save">
+          <Bookmark size={20} />
         </button>
       </div>
 
-      {/* Comment preview */}
-      {showComments && post.topComments && post.topComments.length > 0 && (
-        <div className="px-4 py-3 bg-background-50/50 border-t border-background-200 space-y-2">
-          {post.topComments.map((c, i) => (
-            <p key={i} className="font-mono text-xs text-foreground-700">
-              <strong className="text-foreground-900">{c.author}</strong> {c.text}
-            </p>
-          ))}
-          <Link to="/design/app/post" className="font-mono text-xs text-foreground-500 hover:underline">View all {post.comments} comments</Link>
+      {/* Inline comment input — reference style */}
+      {showCommentInput && (
+        <div className="px-5 py-4 border-t border-background-100 flex items-center gap-3">
+          <img src={currentUser.avatar} alt="" className="w-9 h-9 rounded-full object-cover shrink-0" />
+          <div className="flex-1 relative">
+            <input
+              type="text"
+              placeholder="Write your comment..."
+              className="w-full text-sm text-foreground-800 bg-background-100 border border-background-200 rounded-full pl-4 pr-24 py-2.5 focus:outline-none focus:ring-2 focus:ring-accent-300 focus:border-transparent"
+            />
+            <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-0.5">
+              <button type="button" className="w-8 h-8 flex items-center justify-center text-foreground-400 hover:text-foreground-600 rounded-full"><Smile size={16} /></button>
+              <button type="button" className="w-8 h-8 flex items-center justify-center text-foreground-400 hover:text-foreground-600 rounded-full"><AtSign size={16} /></button>
+              <button type="button" className="w-8 h-8 flex items-center justify-center text-foreground-400 hover:text-foreground-600 rounded-full"><Image size={16} /></button>
+            </div>
+          </div>
         </div>
       )}
     </article>

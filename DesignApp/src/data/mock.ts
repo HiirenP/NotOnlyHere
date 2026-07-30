@@ -204,6 +204,12 @@ export const suggestedConnections = [
   { name: 'Chris Park', username: 'chrisp', avatar: images.avatar2, mutual: 2 },
 ];
 
+export const friendRequests = [
+  { name: 'Emerson Calzoni', avatar: images.avatar3, mutual: 4 },
+  { name: 'James Levin', avatar: images.avatar2, mutual: 2 },
+  { name: 'Taylor Brooks', avatar: images.avatar4, mutual: 6 },
+];
+
 export const upcomingEvents = [
   { title: 'Community Check-in', date: 'Aug 2', time: '6:00 PM', attendees: 42 },
   { title: 'Mindful Breathing', date: 'Aug 9', time: '4:00 PM', attendees: 18 },

@@ -2,47 +2,54 @@ import { Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { CircleHighlight } from '@/data/mock';
 import { circleHighlights } from '@/data/mock';
-import { currentUser } from '@/data/mock';
+import { currentUser, images } from '@/data/mock';
 
-function HighlightItem({ item }: { item: CircleHighlight }) {
+const storyImages = [
+  images.postNature,
+  images.avatar2,
+  images.postGroup,
+  images.avatar3,
+  images.postCoffee,
+];
+
+function StoryCard({ item, index }: { item: CircleHighlight; index: number }) {
   if (item.isYours) {
     return (
-      <button type="button" className="flex flex-col items-center gap-2 shrink-0 w-[76px] group">
-        <div className="relative w-[68px] h-[68px] rounded-full p-[3px] bg-gradient-to-br from-primary-400 via-accent-400 to-primary-500">
-          <div className="w-full h-full rounded-full bg-background-100 flex items-center justify-center overflow-hidden border-2 border-background-50">
-            <img src={currentUser.avatar} alt="" className="w-full h-full object-cover opacity-80" />
-            <div className="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-primary-500 border-2 border-background-50 flex items-center justify-center">
-              <Plus size={14} className="text-background-50" />
-            </div>
+      <button type="button" className="relative shrink-0 w-[108px] h-[168px] rounded-2xl overflow-hidden group">
+        <img src={currentUser.avatar} alt="" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute bottom-0 inset-x-0 p-2.5 bg-gradient-to-t from-black/70 to-transparent">
+          <div className="w-8 h-8 rounded-full bg-accent-500 border-2 border-white flex items-center justify-center mb-1">
+            <Plus size={16} className="text-white" />
           </div>
+          <span className="text-white text-[11px] font-medium leading-tight block">Create moment</span>
         </div>
-        <span className="font-mono text-[10px] text-foreground-700 text-center leading-tight truncate w-full">Your moment</span>
       </button>
     );
   }
 
+  const storyImg = storyImages[index % storyImages.length];
   return (
-    <Link to={`/design/app/circles/detail`} className="flex flex-col items-center gap-2 shrink-0 w-[76px] group">
-      <div className={`relative w-[68px] h-[68px] rounded-full p-[3px] ${item.hasNew ? 'bg-gradient-to-br from-primary-400 via-accent-400 to-primary-500' : 'bg-background-300'}`}>
-        <div className="w-full h-full rounded-full overflow-hidden border-2 border-background-50">
-          <img src={item.thumb} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+    <Link to="/design/app/circles/detail" className="relative shrink-0 w-[108px] h-[168px] rounded-2xl overflow-hidden group">
+      <div className={`absolute inset-0 p-[2px] rounded-2xl ${item.hasNew ? 'bg-gradient-to-b from-accent-500 via-primary-400 to-primary-500' : 'bg-background-300'}`}>
+        <div className="w-full h-full rounded-[14px] overflow-hidden">
+          <img src={storyImg} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
         </div>
       </div>
-      <span className="font-mono text-[10px] text-foreground-700 text-center leading-tight truncate w-full">{item.name}</span>
+      <div className="absolute bottom-0 inset-x-0 p-2.5 bg-gradient-to-t from-black/75 via-black/30 to-transparent pointer-events-none">
+        <img src={item.thumb} alt="" className="w-7 h-7 rounded-full border-2 border-white mb-1 object-cover" />
+        <span className="text-white text-[11px] font-medium leading-tight block truncate">{item.name}</span>
+      </div>
     </Link>
   );
 }
 
 export function CircleMomentsRail() {
   return (
-    <div className="bg-background-100 rounded-2xl border border-background-200 shadow-sm p-4 mb-4 overflow-hidden">
-      <div className="flex items-center justify-between mb-3 px-1">
-        <h2 className="font-mono text-xs uppercase tracking-widest text-foreground-600">Circle moments</h2>
-        <span className="font-mono text-[10px] text-foreground-400">Updates from your circles</span>
-      </div>
-      <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide -mx-1 px-1">
-        {circleHighlights.map((item) => (
-          <HighlightItem key={item.id} item={item} />
+    <div className="card-elevated p-4 mb-4">
+      <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide">
+        {circleHighlights.map((item, i) => (
+          <StoryCard key={item.id} item={item} index={i} />
         ))}
       </div>
     </div>
