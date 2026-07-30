@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background-50: 0.99 0.002 255;
+    --background-100: 0.985 0.004 255;
+    --background-200: 0.965 0.008 255;
+    --background-300: 0.92 0.012 255;
+    --background-400: 0.86 0.016 255;
+    --background-500: 0.80 0.020 255;
+    --background-600: 0.72 0.024 255;
+    --background-700: 0.64 0.026 255;
+    --background-800: 0.56 0.026 255;
+    --background-900: 0.48 0.026 255;
+    --background-950: 0.24 0.025 255;
+
+    --foreground-50: 0.98 0.004 255;
+    --foreground-100: 0.95 0.008 255;
+    --foreground-200: 0.90 0.012 255;
+    --foreground-300: 0.82 0.018 255;
+    --foreground-400: 0.72 0.025 255;
+    --foreground-500: 0.62 0.030 255;
+    --foreground-600: 0.52 0.035 255;
+    --foreground-700: 0.44 0.038 255;
+    --foreground-800: 0.34 0.040 255;
+    --foreground-900: 0.24 0.040 255;
+    --foreground-950: 0.16 0.038 255;
+
+    --primary-50: 0.97 0.02 195;
+    --primary-100: 0.94 0.04 195;
+    --primary-200: 0.88 0.07 195;
+    --primary-300: 0.82 0.10 195;
+    --primary-400: 0.76 0.12 195;
+    --primary-500: 0.73 0.115 195;
+    --primary-600: 0.64 0.12 195;
+    --primary-700: 0.56 0.11 195;
+    --primary-800: 0.46 0.10 195;
+    --primary-900: 0.38 0.09 195;
+    --primary-950: 0.22 0.07 195;
+
+    --accent-50: 0.97 0.02 285;
+    --accent-100: 0.94 0.04 285;
+    --accent-200: 0.88 0.08 285;
+    --accent-300: 0.80 0.13 285;
+    --accent-400: 0.72 0.17 285;
+    --accent-500: 0.55 0.215 285;
+    --accent-600: 0.48 0.20 285;
+    --accent-700: 0.42 0.19 285;
+    --accent-800: 0.36 0.17 285;
+    --accent-900: 0.30 0.15 285;
+    --accent-950: 0.20 0.12 285;
+
+    --motion-duration-fast: 150ms;
+    --motion-duration-base: 220ms;
+    --motion-duration-slow: 320ms;
+    --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: oklch(var(--background-50));
+    color: oklch(var(--foreground-950));
+    font-family: 'IBM Plex Mono', monospace;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.02;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 128px 128px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Anton', sans-serif;
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #2563EB 0%, #3B82F6 35%, #06B6D4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-btn {
+    background: linear-gradient(135deg, #2563EB 0%, #3B82F6 35%, #06B6D4 100%);
+    transition: opacity var(--motion-duration-fast) var(--motion-ease), transform var(--motion-duration-fast) var(--motion-ease);
+  }
+
+  .gradient-btn:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
+  }
+
+  .gradient-btn:active {
+    transform: scale(0.98);
+  }
+
+  .surface-card {
+    @apply bg-background-100 border border-background-200;
+  }
+
+  .surface-elevated {
+    @apply bg-background-50 border border-background-200 shadow-sm;
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background-50;
+  }
+
+  .page-enter {
+    animation: fadeUp var(--motion-duration-base) var(--motion-ease) forwards;
+  }
+}
