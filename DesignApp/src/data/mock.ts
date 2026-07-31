@@ -22,6 +22,7 @@ export type FeedPost = {
   author: string;
   username: string;
   avatar?: string;
+  jobTitle?: string;
   anonymous: boolean;
   circle: string;
   circleId: string;
@@ -73,6 +74,7 @@ export const feedPosts: FeedPost[] = [
     author: 'Jordan Lee',
     username: 'jordanl',
     avatar: images.avatar2,
+    jobTitle: 'Peer supporter at NotOnlyHere',
     anonymous: false,
     circle: 'Anxiety Support',
     circleId: 'c1',
@@ -111,6 +113,7 @@ export const feedPosts: FeedPost[] = [
     author: 'Sam Rivera',
     username: 'samr',
     avatar: images.avatar3,
+    jobTitle: 'Community member',
     anonymous: false,
     circle: 'New Parents',
     circleId: 'c2',
@@ -220,11 +223,22 @@ export const currentUser = {
   username: 'alexm',
   avatar: images.avatar1,
   cover: images.profileCover,
+  title: 'Community member at NotOnlyHere',
   bio: 'Finding calm in community. Here for peer support and honest conversations.',
   joinedAt: 'March 2025',
   connections: 48,
   circles: 6,
+  posts: 256,
+  followers: 2500,
+  following: 365,
 };
+
+export const todaysNews = [
+  { id: 'n1', title: 'New peer support resources added this week', time: '2hr' },
+  { id: 'n2', title: 'Community check-in event this Saturday', time: '3hr' },
+  { id: 'n3', title: 'Tips for supporting a friend in crisis', time: '5hr' },
+  { id: 'n4', title: 'Anxiety Support circle reaches 2,000 members', time: '8hr' },
+];
 
 export const conversations = [
   { id: 'm1', name: 'Jordan Lee', avatar: images.avatar2, preview: 'Thanks for checking in yesterday.', time: '10:42 AM', unread: true, online: true },
