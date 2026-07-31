@@ -1,5 +1,6 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import {
+  Bell,
   Calendar,
   Circle,
   Compass,
@@ -7,24 +8,29 @@ import {
   LayoutDashboard,
   LogOut,
   MessageCircle,
+  Moon,
   Search,
   Settings,
   Shield,
   Sparkles,
+  User,
   Users,
   Video,
 } from 'lucide-react';
 import type { ReactNode } from 'react';
-import { currentUser } from '@/data/mock';
 import { FeedRightRail } from '@/components/social';
+import { currentUser } from '@/data/mock';
 
 const memberNav = [
-  { to: '/design/app/feed', label: 'Feed', icon: Home },
-  { to: '/design/app/profile', label: 'Connections', icon: Users },
-  { to: '/design/app/events', label: 'Events', icon: Calendar },
-  { to: '/design/app/resources', label: 'Resources', icon: Video },
-  { to: '/design/app/circles', label: 'Circles', icon: Circle },
-  { to: '/design/app/messages', label: 'Messages', icon: MessageCircle },
+  { to: '/design/app/feed', label: 'Feed', icon: Home, badge: null },
+  { to: '/design/app/profile', label: 'View Profile', icon: User, badge: null },
+  { to: '/design/app/circles', label: 'Groups', icon: Circle, badge: null },
+  { to: '/design/app/messages', label: 'Messages', icon: MessageCircle, badge: 2 },
+  { to: '/design/app/notifications', label: 'Notifications', icon: Bell, badge: 3 },
+  { to: '/design/app/events', label: 'Events', icon: Calendar, badge: null },
+  { to: '/design/app/resources', label: 'Resources', icon: Video, badge: null },
+  { to: '/design/app/ava', label: 'Ava AI', icon: Sparkles, badge: null },
+  { to: '/design/app/explore', label: 'Explore', icon: Compass, badge: null },
 ];
 
 const adminNav = [
@@ -32,7 +38,7 @@ const adminNav = [
   { to: '/design/admin/users', label: 'Users', icon: Users },
   { to: '/design/admin/circles', label: 'Circles', icon: Circle },
   { to: '/design/admin/safety', label: 'Safety alerts', icon: Shield },
-  { to: '/design/admin/content', label: 'Content', icon: Sparkles },
+  { to: '/design/admin/content', label: 'Content', icon: Video },
   { to: '/design/admin/donations', label: 'Donations', icon: Settings },
   { to: '/design/admin/analytics', label: 'Analytics', icon: Compass },
   { to: '/design/admin/audit', label: 'Audit log', icon: Search },
@@ -43,86 +49,108 @@ type MemberShellProps = {
   title?: string;
   showRightRail?: boolean;
   fullWidth?: boolean;
+  showTopSearch?: boolean;
 };
 
-export function MemberShell({ children, title, showRightRail = true, fullWidth = false }: MemberShellProps) {
+export function MemberShell({ children, showRightRail = false, fullWidth = false, showTopSearch = false }: MemberShellProps) {
+  const location = useLocation();
+  const isFeed = location.pathname.includes('/feed');
+
   return (
-    <div className="min-h-screen bg-[#EEF0F4] font-ui">
-      <div className="max-w-[1440px] mx-auto px-4 lg:px-6 py-5">
-        <div className="flex gap-6">
-          {/* Left sidebar — Pickbook style */}
-          <aside className="hidden lg:flex w-[260px] shrink-0 flex-col sticky top-5 self-start h-[calc(100vh-40px)]">
-            <NavLink to="/design/app/feed" className="flex items-center gap-2 mb-6 px-2">
-              <img
-                src="https://static.readdy.ai/image/625b665eabd64e8e26dc00b3dfd3bc8f/0f7f3e340b64adaf58909c4de1c45074.png"
-                alt="NotOnlyHere"
-                className="h-9 w-auto"
-              />
+    <div className="min-h-screen bg-[#eff2f6] font-ui">
+      <div className="max-w-[1500px] mx-auto flex">
+        {/* Left sidebar — Stackbros Social */}
+        <aside className="hidden lg:flex w-[280px] shrink-0 flex-col min-h-screen bg-white border-r border-[#e8eaed] sticky top-0">
+          <div className="p-5 border-b border-[#e8eaed]">
+            <NavLink to="/design/app/feed">
+              <img src="https://static.readdy.ai/image/625b665eabd64e8e26dc00b3dfd3bc8f/0f7f3e340b64adaf58909c4de1c45074.png" alt="NotOnlyHere" className="h-9" />
             </NavLink>
+          </div>
 
-            {/* Profile card */}
-            <NavLink to="/design/app/profile" className="card-elevated p-4 mb-4 flex items-center gap-3 hover:shadow-md transition-shadow">
-              <img src={currentUser.avatar} alt="" className="w-12 h-12 rounded-full object-cover ring-2 ring-accent-200" />
-              <div className="min-w-0">
-                <p className="text-sm font-semibold text-foreground-950 truncate">{currentUser.displayName}</p>
-                <p className="text-xs text-foreground-500 truncate">@{currentUser.username}</p>
-              </div>
-            </NavLink>
+          <NavLink to="/design/app/profile" className="mx-4 mt-4 p-3 flex items-center gap-3 rounded-xl bg-[#f5f6f8] hover:bg-[#eef0f4] transition-colors">
+            <img src={currentUser.avatar} alt="" className="w-11 h-11 rounded-full object-cover ring-2 ring-[#0f6fec]/20" />
+            <div className="min-w-0">
+              <p className="text-sm font-bold text-[#14191e] truncate">{currentUser.displayName}</p>
+              <p className="text-xs text-[#676a79] truncate">@{currentUser.username}</p>
+            </div>
+          </NavLink>
 
-            {/* Nav */}
-            <nav className="flex-1 space-y-1">
-              {memberNav.map((item) => (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  className={({ isActive }) =>
-                    `relative flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
-                      isActive
-                        ? 'nav-active-indicator bg-white text-accent-600 shadow-sm'
-                        : 'text-foreground-600 hover:bg-white/70 hover:text-foreground-900'
-                    }`
-                  }
-                >
-                  <item.icon size={20} />
-                  {item.label}
-                </NavLink>
-              ))}
-            </nav>
+          <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
+            {memberNav.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${
+                    isActive ? 'bg-[#0f6fec]/10 text-[#0f6fec]' : 'text-[#676a79] hover:bg-[#f5f6f8] hover:text-[#14191e]'
+                  }`
+                }
+              >
+                <item.icon size={20} />
+                <span className="flex-1">{item.label}</span>
+                {item.badge && (
+                  <span className="min-w-[20px] h-5 px-1.5 bg-[#d6293e] text-white text-[10px] font-bold rounded-full flex items-center justify-center">{item.badge}</span>
+                )}
+              </NavLink>
+            ))}
+          </nav>
 
-            <NavLink to="/design/app/settings" className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-foreground-600 hover:bg-white/70 transition-colors mt-4">
+          <div className="p-4 border-t border-[#e8eaed] space-y-1">
+            <NavLink to="/design/app/settings" className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-[#676a79] hover:bg-[#f5f6f8] hover:text-[#14191e] transition-colors">
               <Settings size={20} />
               Settings
             </NavLink>
-          </aside>
+            <button type="button" className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-[#676a79] hover:bg-[#f5f6f8] transition-colors">
+              <Moon size={20} />
+              Dark mode
+            </button>
+          </div>
+        </aside>
 
-          {/* Center column */}
-          <main className={`flex-1 min-w-0 page-enter pb-20 lg:pb-0 ${fullWidth ? 'max-w-none' : 'max-w-[600px]'}`}>
-            {title && <h1 className="font-display text-xl uppercase text-foreground-950 mb-4 lg:hidden">{title}</h1>}
-            {children}
-          </main>
+        {/* Main + optional right rail */}
+        <div className="flex-1 flex min-w-0">
+          <div className={`flex-1 min-w-0 ${fullWidth ? '' : 'max-w-[700px]'} mx-auto px-4 py-5 pb-24 lg:pb-5`}>
+            {/* Mobile top bar */}
+            <div className="lg:hidden flex items-center justify-between mb-4">
+              <img src="https://static.readdy.ai/image/625b665eabd64e8e26dc00b3dfd3bc8f/0f7f3e340b64adaf58909c4de1c45074.png" alt="" className="h-8" />
+              <div className="flex items-center gap-2">
+                <NavLink to="/design/app/notifications" className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-[#e8eaed]">
+                  <Bell size={18} />
+                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#d6293e] text-white text-[9px] font-bold rounded-full flex items-center justify-center">3</span>
+                </NavLink>
+                <NavLink to="/design/app/messages" className="w-10 h-10 flex items-center justify-center rounded-xl bg-white border border-[#e8eaed]">
+                  <MessageCircle size={18} />
+                </NavLink>
+              </div>
+            </div>
 
-          {/* Right rail */}
-          {showRightRail && !fullWidth && <FeedRightRail />}
+            {(showTopSearch || isFeed) && (
+              <div className="relative mb-4">
+                <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#a1a5b3]" />
+                <NavLink to="/design/app/search" className="block w-full text-sm text-[#a1a5b3] bg-white border border-[#e8eaed] rounded-xl pl-12 pr-4 py-3 shadow-sm hover:border-[#0f6fec]/30 transition-colors">
+                  Search posts, people, groups...
+                </NavLink>
+              </div>
+            )}
+
+            <main className="page-enter">{children}</main>
+          </div>
+
+          {(showRightRail || isFeed) && <FeedRightRail />}
         </div>
       </div>
 
       {/* Mobile bottom nav */}
-      <nav className="lg:hidden fixed bottom-0 inset-x-0 z-50 bg-white/95 backdrop-blur border-t border-background-200 px-2 py-2 grid grid-cols-5 shadow-lg">
+      <nav className="lg:hidden fixed bottom-0 inset-x-0 z-50 bg-white border-t border-[#e8eaed] px-2 py-2 grid grid-cols-5 shadow-[0_-2px_10px_rgba(0,0,0,0.06)]">
         {[
           { to: '/design/app/feed', icon: Home, label: 'Feed' },
-          { to: '/design/app/circles', icon: Circle, label: 'Circles' },
+          { to: '/design/app/circles', icon: Circle, label: 'Groups' },
           { to: '/design/app/composer', icon: Sparkles, label: 'Post' },
           { to: '/design/app/messages', icon: MessageCircle, label: 'Chat' },
-          { to: '/design/app/profile', icon: Users, label: 'Profile' },
+          { to: '/design/app/profile', icon: User, label: 'Profile' },
         ].map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            className={({ isActive }) =>
-              `flex flex-col items-center gap-0.5 py-1.5 text-[10px] font-medium ${isActive ? 'text-accent-600' : 'text-foreground-500'}`
-            }
-          >
-            <item.icon size={22} />
+          <NavLink key={item.to} to={item.to} className={({ isActive }) => `flex flex-col items-center gap-0.5 py-1 text-[10px] font-semibold ${isActive ? 'text-[#0f6fec]' : 'text-[#a1a5b3]'}`}>
+            <item.icon size={20} />
             {item.label}
           </NavLink>
         ))}
@@ -131,46 +159,34 @@ export function MemberShell({ children, title, showRightRail = true, fullWidth =
   );
 }
 
-// Fix NavLink isActive in icon strokeWidth - that's wrong syntax. Let me fix Shells - I used isActive inside icon which is invalid.
-
 export function AdminShell({ children, title }: { children: ReactNode; title: string }) {
   return (
-    <div className="min-h-screen bg-background-100 flex">
-      <aside className="hidden md:flex w-72 flex-col border-r border-background-300 bg-background-950 text-background-50">
-        <div className="px-6 py-6 border-b border-background-800">
-          <p className="font-mono text-[10px] uppercase tracking-widest text-background-400">Admin panel</p>
-          <h2 className="font-display text-xl uppercase tracking-tight mt-1">NotOnlyHere</h2>
+    <div className="min-h-screen bg-[#eff2f6] flex font-ui">
+      <aside className="hidden md:flex w-[260px] flex-col bg-[#14191e] text-white shrink-0">
+        <div className="p-5 border-b border-white/10">
+          <p className="text-[10px] uppercase tracking-widest text-white/50 font-semibold">Admin panel</p>
+          <h2 className="text-lg font-bold mt-1">NotOnlyHere</h2>
         </div>
-        <nav className="flex-1 py-4">
+        <nav className="flex-1 p-3 space-y-0.5">
           {adminNav.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-5 py-3 font-mono text-xs uppercase tracking-wider transition-colors duration-150 ${
-                  isActive ? 'bg-background-800 text-background-50' : 'text-background-300 hover:bg-background-900 hover:text-background-50'
-                }`
-              }
-            >
-              <item.icon size={16} />
+            <NavLink key={item.to} to={item.to} className={({ isActive }) => `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors ${isActive ? 'bg-[#0f6fec] text-white' : 'text-white/70 hover:bg-white/10 hover:text-white'}`}>
+              <item.icon size={18} />
               {item.label}
             </NavLink>
           ))}
         </nav>
-        <div className="p-5 border-t border-background-800">
-          <button type="button" className="flex items-center gap-2 font-mono text-xs text-background-400 hover:text-background-100">
-            <LogOut size={14} />
+        <div className="p-4 border-t border-white/10">
+          <button type="button" className="flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors">
+            <LogOut size={16} />
             Sign out
           </button>
         </div>
       </aside>
-
-      <div className="flex-1 min-w-0">
-        <header className="sticky top-0 z-40 bg-background-50/95 backdrop-blur border-b border-background-200 px-6 py-5">
-          <p className="font-mono text-[10px] uppercase tracking-widest text-foreground-500">Operations</p>
-          <h1 className="font-display text-2xl uppercase tracking-tight text-foreground-950">{title}</h1>
-        </header>
-        <main className="page-enter p-6">{children}</main>
+      <div className="flex-1 min-w-0 p-5">
+        <div className="mb-5">
+          <h1 className="text-xl font-bold text-[#14191e]">{title}</h1>
+        </div>
+        <main className="page-enter">{children}</main>
       </div>
     </div>
   );
@@ -178,18 +194,22 @@ export function AdminShell({ children, title }: { children: ReactNode; title: st
 
 export function AuthShell({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-background-50 flex flex-col font-ui">
-      <header className="px-6 py-5 flex items-center justify-between">
-        <img
-          src="https://static.readdy.ai/image/625b665eabd64e8e26dc00b3dfd3bc8f/0f7f3e340b64adaf58909c4de1c45074.png"
-          alt="NotOnlyHere"
-          className="h-8"
-        />
-        <NavLink to="/design" className="text-xs font-medium text-foreground-600 hover:text-accent-600 transition-colors">
-          Design catalog
-        </NavLink>
-      </header>
-      <main className="flex-1 flex items-center justify-center px-4 py-10 page-enter">{children}</main>
+    <div className="min-h-screen bg-[#eff2f6] font-ui flex">
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-[#0f6fec] to-[#6610f2] p-12 flex-col justify-between text-white">
+        <img src="https://static.readdy.ai/image/625b665eabd64e8e26dc00b3dfd3bc8f/0f7f3e340b64adaf58909c4de1c45074.png" alt="" className="h-10 brightness-0 invert" />
+        <div>
+          <h2 className="text-4xl font-bold leading-tight mb-4">Real people.<br />Real connections.</h2>
+          <p className="text-white/80 text-lg max-w-md">Join a warm peer-support community. Share, connect, and find support — all in your browser.</p>
+        </div>
+        <p className="text-white/50 text-sm">© NotOnlyHere · Peer support for people 16+</p>
+      </div>
+      <div className="flex-1 flex flex-col">
+        <header className="lg:hidden px-6 py-5 flex items-center justify-between">
+          <img src="https://static.readdy.ai/image/625b665eabd64e8e26dc00b3dfd3bc8f/0f7f3e340b64adaf58909c4de1c45074.png" alt="" className="h-8" />
+          <NavLink to="/design" className="text-xs font-semibold text-[#0f6fec]">Design catalog</NavLink>
+        </header>
+        <main className="flex-1 flex items-center justify-center p-6 page-enter">{children}</main>
+      </div>
     </div>
   );
 }

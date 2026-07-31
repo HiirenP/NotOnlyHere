@@ -1,111 +1,88 @@
-import { Button, CardHeader, SegmentedControl } from '@/design-system';
+import { Link } from 'react-router-dom';
+import { PageHeader, TBtn, TCard, TTabs } from '@/components/template';
 import { events, resources } from '@/data/mock';
 import { MemberShell } from '@/layouts/Shells';
+import { useState } from 'react';
 
 export function AvaScreen() {
   return (
-    <MemberShell showRightRail={false}>
-      <div className="max-w-2xl mx-auto">
-        <div className="bg-gradient-to-r from-primary-50 to-accent-50 rounded-2xl border border-primary-200 p-4 mb-4">
-          <p className="font-mono text-xs uppercase tracking-widest text-primary-800 mb-1">AI companion — not a therapist</p>
-          <p className="font-mono text-sm text-foreground-700">
-            Ava offers supportive conversation. For crisis support, visit our{' '}
-            <button type="button" className="underline text-primary-700">crisis resources</button>.
-          </p>
-        </div>
-        <div className="bg-background-100 rounded-2xl border border-background-200 shadow-sm overflow-hidden">
-          <div className="p-4 border-b border-background-200 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-400 to-accent-500 flex items-center justify-center text-background-50 text-lg">✨</div>
-            <div>
-              <p className="font-mono text-sm text-foreground-900">Ava</p>
-              <p className="font-mono text-[10px] text-foreground-500">3 of 20 messages remaining today</p>
-            </div>
-          </div>
-          <div className="p-4 space-y-4 min-h-80 bg-background-50/30">
-            <div className="flex justify-start">
-              <div className="max-w-[85%] bg-background-200 rounded-2xl rounded-bl-md px-4 py-3">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-foreground-500 block mb-1">Ava · AI</span>
-                <p className="font-mono text-sm text-foreground-800">Hi Alex. What would feel helpful to talk about today?</p>
-              </div>
-            </div>
-            <div className="flex justify-end">
-              <div className="max-w-[85%] bg-primary-100 rounded-2xl rounded-br-md px-4 py-3">
-                <p className="font-mono text-sm text-foreground-800">I'm feeling overwhelmed about work this week.</p>
-              </div>
-            </div>
-            <div className="flex justify-start">
-              <div className="max-w-[85%] bg-background-200 rounded-2xl rounded-bl-md px-4 py-3">
-                <p className="font-mono text-sm text-foreground-800">That sounds heavy. Would it help to name one small thing that felt manageable today?</p>
-              </div>
-            </div>
-          </div>
-          <div className="p-4 border-t border-background-200 flex gap-2">
-            <input className="flex-1 font-mono text-sm px-4 py-3 bg-background-200/60 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-300" placeholder="Message Ava..." />
-            <Button className="rounded-full px-5">Send</Button>
+    <MemberShell>
+      <PageHeader title="Ava AI" subtitle="Your private AI companion" />
+      <TCard className="bg-[#0f6fec]/5 border-[#0f6fec]/20 mb-4">
+        <p className="text-xs font-bold text-[#0f6fec] uppercase mb-1">AI companion — not a therapist</p>
+        <p className="text-sm text-[#676a79]">Ava offers supportive conversation. For crisis support, visit our <button type="button" className="text-[#0f6fec] font-semibold underline">crisis resources</button>.</p>
+      </TCard>
+      <TCard className="p-0 overflow-hidden">
+        <div className="p-4 border-b border-[#e8eaed] flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#0f6fec] to-[#6610f2] flex items-center justify-center text-white">✨</div>
+          <div>
+            <p className="text-sm font-bold text-[#14191e]">Ava</p>
+            <p className="text-xs text-[#676a79]">3 of 20 messages remaining today</p>
           </div>
         </div>
-      </div>
+        <div className="p-4 space-y-4 min-h-80 bg-[#f5f6f8]/30">
+          <div className="flex justify-start"><div className="max-w-[85%] bg-white border border-[#e8eaed] rounded-2xl rounded-bl-md px-4 py-3 text-sm"><span className="text-[10px] font-bold text-[#a1a5b3] uppercase block mb-1">Ava · AI</span>Hi Alex. What would feel helpful today?</div></div>
+          <div className="flex justify-end"><div className="max-w-[85%] bg-[#0f6fec]/10 rounded-2xl rounded-br-md px-4 py-3 text-sm">I'm feeling overwhelmed about work.</div></div>
+          <div className="flex justify-start"><div className="max-w-[85%] bg-white border border-[#e8eaed] rounded-2xl rounded-bl-md px-4 py-3 text-sm">Would it help to name one small thing that felt manageable today?</div></div>
+        </div>
+        <div className="p-4 border-t border-[#e8eaed] flex gap-2">
+          <input className="flex-1 text-sm bg-[#f5f6f8] rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#0f6fec]/10" placeholder="Message Ava..." />
+          <TBtn>Send</TBtn>
+        </div>
+      </TCard>
     </MemberShell>
   );
 }
 
 export function MoodScreen() {
+  const [period, setPeriod] = useState('30');
   return (
-    <MemberShell showRightRail={false}>
-      <div className="max-w-xl mx-auto space-y-4">
-        <div className="bg-background-100 rounded-2xl border border-background-200 shadow-sm p-6">
-          <h2 className="font-display text-xl uppercase text-foreground-950 mb-1">How are you feeling today?</h2>
-          <p className="font-mono text-xs text-foreground-500 mb-6">Private to you. Not shared on your profile.</p>
-          <div className="grid grid-cols-5 gap-2 mb-6">
-            {['😔', '😕', '😐', '🙂', '😊'].map((emoji, i) => (
-              <button key={i} type="button" className={`p-4 rounded-xl border text-2xl transition-all hover:scale-105 ${i === 3 ? 'border-primary-500 bg-primary-50 shadow-sm' : 'border-background-200 hover:border-background-300'}`}>
-                {emoji}
-              </button>
-            ))}
-          </div>
-          <textarea className="w-full min-h-24 font-mono text-sm p-4 bg-background-200/40 rounded-xl border-0 focus:ring-2 focus:ring-primary-300 focus:outline-none mb-4" placeholder="Optional private note..." />
-          <Button fullWidth>Save check-in</Button>
+    <MemberShell>
+      <PageHeader title="Mood check-in" subtitle="Private to you — not shared on your profile" />
+      <TCard className="mb-4">
+        <h3 className="text-sm font-bold text-[#14191e] mb-4">How are you feeling today?</h3>
+        <div className="grid grid-cols-5 gap-2 mb-4">
+          {['😔', '😕', '😐', '🙂', '😊'].map((e, i) => (
+            <button key={i} type="button" className={`p-4 rounded-xl border text-2xl transition-all ${i === 3 ? 'border-[#0f6fec] bg-[#0f6fec]/5 shadow-sm' : 'border-[#e8eaed] hover:border-[#0f6fec]/30'}`}>{e}</button>
+          ))}
         </div>
-        <div className="bg-background-100 rounded-2xl border border-background-200 shadow-sm p-6">
-          <CardHeader title="Your trend" subtitle="Last 30 days" />
-          <SegmentedControl value="30" options={[{ value: '7', label: '7 days' }, { value: '30', label: '30 days' }]} className="mb-4" />
-          <div className="h-40 flex items-end gap-2 p-2">
-            {[3, 2, 4, 3, 5, 4, 3, 4, 5, 4, 3, 4, 5, 4].map((v, i) => (
-              <div key={i} className="flex-1 bg-primary-400/80 rounded-t-sm hover:bg-primary-500 transition-colors" style={{ height: `${v * 18}%` }} title={`Day ${i + 1}: ${v}/5`} />
-            ))}
-          </div>
+        <textarea className="w-full min-h-24 text-sm p-4 bg-[#f5f6f8] rounded-xl border-0 focus:ring-2 focus:ring-[#0f6fec]/10 focus:outline-none mb-4" placeholder="Optional private note..." />
+        <TBtn className="w-full">Save check-in</TBtn>
+      </TCard>
+      <TCard>
+        <h3 className="text-sm font-bold text-[#14191e] mb-3">Your trend</h3>
+        <TTabs tabs={[{ id: '7', label: '7 days' }, { id: '30', label: '30 days' }]} active={period} onChange={setPeriod} />
+        <div className="h-40 flex items-end gap-1.5 mt-4">
+          {[3, 2, 4, 3, 5, 4, 3, 4, 5, 4, 3, 4, 5, 4].map((v, i) => (
+            <div key={i} className="flex-1 bg-[#0f6fec]/70 hover:bg-[#0f6fec] rounded-t-md transition-colors" style={{ height: `${v * 18}%` }} />
+          ))}
         </div>
-      </div>
+      </TCard>
     </MemberShell>
   );
 }
 
 export function EventsScreen() {
   return (
-    <MemberShell showRightRail={false} fullWidth>
-      <div className="max-w-3xl mx-auto">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-          <h1 className="font-display text-2xl uppercase text-foreground-950">Events</h1>
-          <SegmentedControl value="list" options={[{ value: 'month', label: 'Month' }, { value: 'list', label: 'List' }]} />
-        </div>
-        <div className="space-y-4">
-          {events.map((event) => (
-            <div key={event.id} className="bg-background-100 rounded-2xl border border-background-200 shadow-sm overflow-hidden flex flex-col sm:flex-row">
-              <div className="sm:w-32 bg-primary-500 text-background-50 flex sm:flex-col items-center justify-center p-4 gap-1">
-                <span className="font-display text-2xl uppercase">{event.date.split(' ')[0]}</span>
-                <span className="font-mono text-xs">{event.date.split(' ')[1]}</span>
-              </div>
-              <div className="flex-1 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                  <h3 className="font-mono text-base text-foreground-900">{event.title}</h3>
-                  <p className="font-mono text-xs text-foreground-500 mt-1">{event.time} · {event.location}</p>
-                  <p className="font-mono text-xs text-foreground-600 mt-2">{event.rsvp} attending</p>
-                </div>
-                <Button size="sm">RSVP</Button>
-              </div>
+    <MemberShell fullWidth>
+      <PageHeader title="Events" subtitle="Community events and workshops" action={<TBtn variant="soft" size="sm">Staff: Create event</TBtn>} />
+      <div className="space-y-4">
+        {events.map((event) => (
+          <TCard key={event.id} className="p-0 overflow-hidden flex flex-col sm:flex-row">
+            <div className="sm:w-28 bg-[#0f6fec] text-white flex sm:flex-col items-center justify-center p-4 shrink-0">
+              <span className="text-2xl font-bold">{event.date.split(' ')[0]}</span>
+              <span className="text-xs opacity-80">{event.date.split(' ')[1]}</span>
             </div>
-          ))}
-        </div>
+            <div className="flex-1 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <h3 className="text-sm font-bold text-[#14191e]">{event.title}</h3>
+                <p className="text-xs text-[#676a79] mt-1">{event.time} · {event.location}</p>
+                <p className="text-xs text-[#0f6fec] font-semibold mt-2">{event.rsvp} attending</p>
+              </div>
+              <TBtn size="sm">RSVP</TBtn>
+            </div>
+          </TCard>
+        ))}
       </div>
     </MemberShell>
   );
@@ -113,28 +90,21 @@ export function EventsScreen() {
 
 export function ResourcesScreen() {
   return (
-    <MemberShell showRightRail={false} fullWidth>
-      <div className="max-w-3xl mx-auto">
-        <input className="w-full font-mono text-sm px-5 py-4 bg-background-100 border border-background-200 rounded-2xl shadow-sm mb-6 focus:outline-none focus:ring-2 focus:ring-primary-300" placeholder="Search resources..." />
-        <div className="grid sm:grid-cols-2 gap-4">
-          {resources.map((r) => (
-            <div key={r.id} className="bg-background-100 rounded-2xl border border-background-200 shadow-sm p-5 hover:shadow-md transition-shadow">
-              <div className="w-12 h-12 rounded-xl bg-primary-100 flex items-center justify-center text-xl mb-3">
-                {r.type === 'Video' ? '🎬' : '📄'}
-              </div>
-              <h3 className="font-mono text-sm text-foreground-900">{r.title}</h3>
-              <p className="font-mono text-xs text-foreground-500 mt-1">{r.type} · {r.access}</p>
-              {r.progress > 0 && r.progress < 100 && (
-                <div className="mt-3 h-1.5 bg-background-200 rounded-full overflow-hidden">
-                  <div className="h-full bg-primary-500 rounded-full" style={{ width: `${r.progress}%` }} />
-                </div>
-              )}
-              <Button size="sm" className="mt-4" variant={r.progress === 100 ? 'secondary' : 'primary'}>
-                {r.progress === 100 ? 'Completed' : r.progress > 0 ? 'Continue' : 'Open'}
-              </Button>
-            </div>
-          ))}
-        </div>
+    <MemberShell fullWidth>
+      <PageHeader title="Resources" subtitle="Learning library and progress" />
+      <input className="w-full text-sm px-5 py-3.5 bg-white border border-[#e8eaed] rounded-xl shadow-sm mb-5 focus:outline-none focus:ring-2 focus:ring-[#0f6fec]/10" placeholder="Search resources..." />
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {resources.map((r) => (
+          <TCard key={r.id} className="hover:shadow-md transition-shadow">
+            <div className="w-12 h-12 rounded-xl bg-[#0f6fec]/10 flex items-center justify-center text-2xl mb-3">{r.type === 'Video' ? '🎬' : '📄'}</div>
+            <h3 className="text-sm font-bold text-[#14191e]">{r.title}</h3>
+            <p className="text-xs text-[#676a79] mt-1">{r.type} · {r.access}</p>
+            {r.progress > 0 && r.progress < 100 && (
+              <div className="mt-3 h-1.5 bg-[#f5f6f8] rounded-full"><div className="h-full bg-[#0f6fec] rounded-full" style={{ width: `${r.progress}%` }} /></div>
+            )}
+            <TBtn size="sm" className="mt-4" variant={r.progress === 100 ? 'outline' : 'primary'}>{r.progress === 100 ? 'Completed' : r.progress > 0 ? 'Continue' : 'Open'}</TBtn>
+          </TCard>
+        ))}
       </div>
     </MemberShell>
   );
@@ -142,26 +112,25 @@ export function ResourcesScreen() {
 
 export function ExploreScreen() {
   const items = [
-    { title: 'Search', desc: 'Find posts, members, and circles', emoji: '🔍', to: '/design/app/search' },
-    { title: 'Events', desc: 'Browse upcoming community events', emoji: '📅', to: '/design/app/events' },
-    { title: 'Resources', desc: 'Learning library and progress', emoji: '📚', to: '/design/app/resources' },
-    { title: 'Ava', desc: 'AI companion support chat', emoji: '✨', to: '/design/app/ava' },
-    { title: 'Mood', desc: 'Private daily check-in', emoji: '💭', to: '/design/app/mood' },
-    { title: 'Blog', desc: 'Published stories and articles', emoji: '✍️', to: '/design' },
+    { title: 'Search', desc: 'Find posts, members, groups', emoji: '🔍', to: '/design/app/search' },
+    { title: 'Events', desc: 'Upcoming community events', emoji: '📅', to: '/design/app/events' },
+    { title: 'Resources', desc: 'Learning library', emoji: '📚', to: '/design/app/resources' },
+    { title: 'Ava AI', desc: 'AI companion chat', emoji: '✨', to: '/design/app/ava' },
+    { title: 'Mood', desc: 'Private check-in', emoji: '💭', to: '/design/app/mood' },
   ];
   return (
-    <MemberShell showRightRail={false} fullWidth>
-      <div className="max-w-3xl mx-auto">
-        <h1 className="font-display text-2xl uppercase text-foreground-950 mb-6">Explore</h1>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {items.map((item) => (
-            <a key={item.title} href={item.to} className="bg-background-100 rounded-2xl border border-background-200 shadow-sm p-6 hover:shadow-md hover:border-primary-200 transition-all group">
+    <MemberShell fullWidth>
+      <PageHeader title="Explore" subtitle="Discover everything NotOnlyHere offers" />
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {items.map((item) => (
+          <Link key={item.title} to={item.to} className="block">
+            <TCard className="hover:shadow-md hover:border-[#0f6fec]/20 transition-all h-full">
               <span className="text-3xl">{item.emoji}</span>
-              <h3 className="font-mono text-sm text-foreground-900 mt-3 group-hover:text-primary-700 transition-colors">{item.title}</h3>
-              <p className="font-mono text-xs text-foreground-500 mt-1">{item.desc}</p>
-            </a>
-          ))}
-        </div>
+              <h3 className="text-sm font-bold text-[#14191e] mt-3">{item.title}</h3>
+              <p className="text-xs text-[#676a79] mt-1">{item.desc}</p>
+            </TCard>
+          </Link>
+        ))}
       </div>
     </MemberShell>
   );
@@ -169,30 +138,28 @@ export function ExploreScreen() {
 
 export function SettingsScreen() {
   const sections = [
-    { title: 'Profile', desc: 'Edit display name, bio, avatar' },
-    { title: 'Connections', desc: 'Manage requests and connections' },
-    { title: 'Blocked accounts', desc: 'View and unblock members' },
-    { title: 'Active sessions', desc: 'Devices signed into your account' },
+    { title: 'Profile', desc: 'Display name, bio, avatar' },
+    { title: 'Connections', desc: 'Requests and connections' },
+    { title: 'Blocked accounts', desc: 'Manage blocked members' },
+    { title: 'Active sessions', desc: 'Signed-in devices' },
     { title: 'Ava data & consent', desc: 'AI preferences and history' },
-    { title: 'Account data export', desc: 'Request your data (GDPR)' },
-    { title: 'Account & security', desc: 'Password, deletion' },
+    { title: 'Account data export', desc: 'GDPR data request' },
+    { title: 'Account & security', desc: 'Password and deletion' },
   ];
   return (
-    <MemberShell showRightRail={false}>
-      <div className="max-w-xl mx-auto">
-        <h1 className="font-display text-2xl uppercase text-foreground-950 mb-6">Settings</h1>
-        <div className="bg-background-100 rounded-2xl border border-background-200 shadow-sm overflow-hidden divide-y divide-background-200">
-          {sections.map((s) => (
-            <button key={s.title} type="button" className="w-full text-left p-4 hover:bg-background-200/50 transition-colors flex justify-between items-center group">
-              <div>
-                <p className="font-mono text-sm text-foreground-900 group-hover:text-primary-700 transition-colors">{s.title}</p>
-                <p className="font-mono text-xs text-foreground-500 mt-0.5">{s.desc}</p>
-              </div>
-              <span className="text-foreground-400">›</span>
-            </button>
-          ))}
-        </div>
-      </div>
+    <MemberShell>
+      <PageHeader title="Settings" subtitle="Manage your account and preferences" />
+      <TCard className="p-0 overflow-hidden divide-y divide-[#e8eaed]">
+        {sections.map((s) => (
+          <button key={s.title} type="button" className="w-full text-left p-4 hover:bg-[#f5f6f8] transition-colors flex justify-between items-center group">
+            <div>
+              <p className="text-sm font-semibold text-[#14191e] group-hover:text-[#0f6fec] transition-colors">{s.title}</p>
+              <p className="text-xs text-[#676a79] mt-0.5">{s.desc}</p>
+            </div>
+            <span className="text-[#a1a5b3]">›</span>
+          </button>
+        ))}
+      </TCard>
     </MemberShell>
   );
 }

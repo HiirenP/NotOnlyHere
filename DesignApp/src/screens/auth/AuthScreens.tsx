@@ -1,42 +1,39 @@
 import { Link } from 'react-router-dom';
-import { Button, Input } from '@/design-system';
+import { TBtn, TCard, TDivider } from '@/components/template';
 import { AuthShell } from '@/layouts/Shells';
+
+function AuthField({ label, type = 'text', placeholder }: { label: string; type?: string; placeholder?: string }) {
+  return (
+    <div>
+      <label className="block text-sm font-semibold text-[#14191e] mb-2">{label}</label>
+      <input type={type} placeholder={placeholder} className="w-full text-sm px-4 py-3 bg-[#f5f6f8] border border-[#e8eaed] rounded-xl focus:outline-none focus:border-[#0f6fec] focus:ring-2 focus:ring-[#0f6fec]/10" />
+    </div>
+  );
+}
 
 export function LoginScreen() {
   return (
     <AuthShell>
-      <div className="w-full max-w-md surface-card p-8 md:p-10 animate-fade-up">
-        <div className="text-center mb-8">
-          <h1 className="font-display text-3xl md:text-4xl tracking-tighter text-foreground-950 uppercase mb-3 leading-[0.9]">
-            Welcome <span className="gradient-text">Back</span>
-          </h1>
-          <p className="font-mono text-sm text-foreground-600 leading-relaxed">
-            Sign in to access your Circles, messages, community feed, and more — all in your browser.
-          </p>
-        </div>
-        <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
-          <Input label="Email or Username" placeholder="you@example.com" />
-          <Input label="Password" type="password" placeholder="••••••••" />
+      <TCard className="w-full max-w-md p-8 shadow-lg">
+        <h1 className="text-2xl font-bold text-[#14191e] mb-2">Welcome back</h1>
+        <p className="text-sm text-[#676a79] mb-6">Sign in to your community account</p>
+        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+          <AuthField label="Email or username" placeholder="you@example.com" />
+          <AuthField label="Password" type="password" placeholder="••••••••" />
           <div className="flex justify-end">
-            <Link to="/design/auth/forgot-password" className="font-mono text-xs text-foreground-500 hover:gradient-text">
-              Forgot password?
-            </Link>
+            <Link to="/design/auth/forgot-password" className="text-sm font-semibold text-[#0f6fec] hover:underline">Forgot password?</Link>
           </div>
-          <Button fullWidth size="lg">Log In</Button>
+          <TBtn className="w-full py-3">Sign in</TBtn>
         </form>
-        <div className="flex items-center gap-4 my-6">
-          <div className="flex-1 h-px bg-background-200" />
-          <span className="font-mono text-xs uppercase tracking-widest text-foreground-400">or</span>
-          <div className="flex-1 h-px bg-background-200" />
-        </div>
+        <TDivider label="or" />
         <div className="space-y-3">
-          <Button variant="secondary" fullWidth>Continue with Google</Button>
-          <Button variant="secondary" fullWidth>Continue with Apple</Button>
+          <TBtn variant="outline" className="w-full">Continue with Google</TBtn>
+          <TBtn variant="outline" className="w-full">Continue with Apple</TBtn>
         </div>
-        <p className="font-mono text-xs text-center text-foreground-600 mt-6">
-          New here? <Link to="/design/auth/register" className="gradient-text">Join NotOnlyHere</Link>
+        <p className="text-sm text-center text-[#676a79] mt-6">
+          New here? <Link to="/design/auth/register" className="font-semibold text-[#0f6fec] hover:underline">Create account</Link>
         </p>
-      </div>
+      </TCard>
     </AuthShell>
   );
 }
@@ -44,29 +41,27 @@ export function LoginScreen() {
 export function RegisterScreen() {
   return (
     <AuthShell>
-      <div className="w-full max-w-lg surface-card p-8 md:p-10 animate-fade-up">
-        <div className="text-center mb-8">
-          <h1 className="font-display text-3xl md:text-4xl tracking-tighter text-foreground-950 uppercase mb-3 leading-[0.9]">
-            Join <span className="gradient-text">NotOnlyHere</span>
-          </h1>
-          <p className="font-mono text-sm text-foreground-600">A peer-support community for people 16 and older.</p>
-        </div>
+      <TCard className="w-full max-w-lg p-8 shadow-lg">
+        <h1 className="text-2xl font-bold text-[#14191e] mb-2">Join NotOnlyHere</h1>
+        <p className="text-sm text-[#676a79] mb-6">A peer-support community for people 16 and older</p>
         <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-          <Input label="Display name" placeholder="How you want to appear" />
-          <Input label="Username" placeholder="@username" />
-          <Input label="Email" type="email" placeholder="you@example.com" />
-          <Input label="Password" type="password" hint="At least 8 characters with a number and symbol" />
-          <label className="flex items-start gap-3 font-mono text-xs text-foreground-600">
-            <input type="checkbox" className="mt-1" />
+          <div className="grid sm:grid-cols-2 gap-4">
+            <AuthField label="Display name" placeholder="Your name" />
+            <AuthField label="Username" placeholder="@username" />
+          </div>
+          <AuthField label="Email" type="email" placeholder="you@example.com" />
+          <AuthField label="Password" type="password" placeholder="Min. 8 characters" />
+          <label className="flex items-start gap-3 text-sm text-[#676a79]">
+            <input type="checkbox" className="mt-1 rounded" />
             I confirm I am 16 or older
           </label>
-          <label className="flex items-start gap-3 font-mono text-xs text-foreground-600">
-            <input type="checkbox" className="mt-1" />
+          <label className="flex items-start gap-3 text-sm text-[#676a79]">
+            <input type="checkbox" className="mt-1 rounded" />
             I accept the Terms and Community Guidelines
           </label>
-          <Button fullWidth size="lg">Create account</Button>
+          <TBtn className="w-full py-3">Create account</TBtn>
         </form>
-      </div>
+      </TCard>
     </AuthShell>
   );
 }
@@ -74,13 +69,14 @@ export function RegisterScreen() {
 export function VerifyEmailScreen() {
   return (
     <AuthShell>
-      <div className="w-full max-w-md surface-card p-8 text-center animate-fade-up">
-        <h1 className="font-display text-3xl uppercase text-foreground-950 mb-3">Check your email</h1>
-        <p className="font-mono text-sm text-foreground-600 leading-relaxed mb-6">
-          We sent a verification link to <strong>you@example.com</strong>. The link expires in 24 hours.
+      <TCard className="w-full max-w-md p-8 text-center shadow-lg">
+        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#0f6fec]/10 flex items-center justify-center text-3xl">✉️</div>
+        <h1 className="text-2xl font-bold text-[#14191e] mb-2">Check your email</h1>
+        <p className="text-sm text-[#676a79] mb-6 leading-relaxed">
+          We sent a verification link to <strong className="text-[#14191e]">you@example.com</strong>. The link expires in 24 hours.
         </p>
-        <Button variant="secondary" fullWidth>Resend email</Button>
-      </div>
+        <TBtn variant="soft" className="w-full">Resend email</TBtn>
+      </TCard>
     </AuthShell>
   );
 }
@@ -88,14 +84,17 @@ export function VerifyEmailScreen() {
 export function ForgotPasswordScreen() {
   return (
     <AuthShell>
-      <div className="w-full max-w-md surface-card p-8 animate-fade-up">
-        <h1 className="font-display text-3xl uppercase text-foreground-950 mb-3">Reset password</h1>
-        <p className="font-mono text-sm text-foreground-600 mb-6">Enter your email and we will send a reset link.</p>
+      <TCard className="w-full max-w-md p-8 shadow-lg">
+        <h1 className="text-2xl font-bold text-[#14191e] mb-2">Reset password</h1>
+        <p className="text-sm text-[#676a79] mb-6">Enter your email and we'll send a reset link</p>
         <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-          <Input label="Email" type="email" />
-          <Button fullWidth>Send reset link</Button>
+          <AuthField label="Email" type="email" />
+          <TBtn className="w-full py-3">Send reset link</TBtn>
         </form>
-      </div>
+        <p className="text-sm text-center mt-4">
+          <Link to="/design/auth/login" className="font-semibold text-[#0f6fec] hover:underline">Back to sign in</Link>
+        </p>
+      </TCard>
     </AuthShell>
   );
 }
