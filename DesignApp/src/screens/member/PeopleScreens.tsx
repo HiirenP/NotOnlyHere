@@ -13,9 +13,9 @@ export function CirclesScreen() {
 
   return (
     <MemberShell fullWidth>
-      <PageHeader title="Groups" subtitle="Discover and join peer-support communities" action={<TBtn>Create group</TBtn>} />
-      <TSearch placeholder="Search groups..." className="mb-4" />
-      <TTabs tabs={[{ id: 'joined', label: `Your groups (${joined.length})` }, { id: 'discover', label: 'Discover' }]} active={tab} onChange={setTab} />
+      <PageHeader title="Circles" subtitle="Discover and join peer-support communities" action={<TBtn>Create circle</TBtn>} />
+      <TSearch placeholder="Search circles..." className="mb-4" />
+      <TTabs tabs={[{ id: 'joined', label: `Your circles (${joined.length})` }, { id: 'discover', label: 'Discover' }]} active={tab} onChange={setTab} />
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {(tab === 'joined' ? joined : discover).map((circle) => (
           <GroupCard key={circle.id} circle={circle} />
@@ -76,7 +76,7 @@ export function CircleDetailScreen() {
                   <TAvatar src={[images.avatar1, images.avatar2, images.avatar3][i]} name={admin} />
                   <div>
                     <p className="text-sm font-semibold text-[#14191e]">{admin}</p>
-                    <p className="text-xs text-[#0f6fec] font-semibold">Group Admin</p>
+                    <p className="text-xs text-[#0f6fec] font-semibold">Circle Admin</p>
                   </div>
                 </div>
               ))}
@@ -112,7 +112,7 @@ export function ProfileScreen() {
           <p className="text-sm text-[#676a79] mt-4">{currentUser.bio}</p>
           <div className="flex gap-6 mt-3 text-sm">
             <span><strong className="text-[#14191e]">{currentUser.connections}</strong> <span className="text-[#676a79]">connections</span></span>
-            <span><strong className="text-[#14191e]">{currentUser.circles}</strong> <span className="text-[#676a79]">groups</span></span>
+            <span><strong className="text-[#14191e]">{currentUser.circles}</strong> <span className="text-[#676a79]">circles</span></span>
           </div>
         </div>
       </TCard>
@@ -121,7 +121,15 @@ export function ProfileScreen() {
         <div className="p-4">
           {tab === 'posts' && feedPosts.slice(0, 2).map((p) => <PostCard key={p.id} post={p} />)}
           {tab === 'about' && <p className="text-sm text-[#676a79] p-2">{currentUser.bio}</p>}
-          {tab === 'connections' && <p className="text-sm text-[#676a79] p-2">{currentUser.connections} connections</p>}
+          {tab === 'connections' && (
+            <div className="p-2 space-y-3">
+              <p className="text-sm text-[#676a79]">
+                Connections are people you&apos;ve mutually agreed to connect with. Once connected, you can send private messages.
+              </p>
+              <p className="text-sm font-semibold text-[#14191e]">{currentUser.connections} connections</p>
+              <TBtn variant="soft" size="sm">Manage connection requests</TBtn>
+            </div>
+          )}
         </div>
       </TCard>
     </MemberShell>

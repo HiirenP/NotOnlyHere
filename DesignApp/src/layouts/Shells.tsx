@@ -12,7 +12,6 @@ import {
   LogOut,
   MessageCircle,
   Moon,
-  Newspaper,
   Search,
   Settings,
   Shield,
@@ -28,19 +27,21 @@ import { currentUser } from '@/data/mock';
 
 const sidebarNav = [
   { to: '/design/app/feed', label: 'Feed', icon: Home },
-  { to: '/design/app/profile', label: 'Connections', icon: Users },
-  { to: '/design/app/explore', label: 'Latest news', icon: Newspaper },
-  { to: '/design/app/events', label: 'Events', icon: Calendar },
-  { to: '/design/app/circles', label: 'Groups', icon: Circle },
+  { to: '/design/app/profile', label: 'My profile', icon: User },
+  { to: '/design/app/circles', label: 'Circles', icon: Circle },
+  { to: '/design/app/messages', label: 'Messages', icon: MessageCircle, badge: 2 },
   { to: '/design/app/notifications', label: 'Notifications', icon: Bell, badge: 3 },
-  { to: '/design/app/settings', label: 'Settings', icon: Settings },
+  { to: '/design/app/ava', label: 'Ava', icon: Sparkles },
+  { to: '/design/app/events', label: 'Events', icon: Calendar },
+  { to: '/design/app/resources', label: 'Resources', icon: Video },
+  { to: '/design/app/explore', label: 'Explore', icon: Compass },
 ];
 
 const headerNav = [
   { to: '/design/app/feed', label: 'Feed' },
-  { to: '/design/app/circles', label: 'Groups' },
+  { to: '/design/app/circles', label: 'Circles' },
   { to: '/design/app/explore', label: 'Explore' },
-  { to: '/design/app/resources', label: 'Resources' },
+  { to: '/design/app/ava', label: 'Ava' },
 ];
 
 const adminNav = [
@@ -53,11 +54,6 @@ const adminNav = [
   { to: '/design/admin/donations', label: 'Donations', icon: Settings },
   { to: '/design/admin/audit', label: 'Audit log', icon: Search },
 ];
-
-function formatCount(n: number) {
-  if (n >= 1000) return `${(n / 1000).toFixed(1).replace(/\.0$/, '')}K`;
-  return String(n);
-}
 
 function MemberTopHeader() {
   return (
@@ -89,21 +85,14 @@ function MemberTopHeader() {
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `flex items-center gap-1 px-3 py-2 text-sm font-semibold rounded-lg transition-colors ${
+                `px-3 py-2 text-sm font-semibold rounded-lg transition-colors ${
                   isActive ? 'text-[#0f6fec]' : 'text-[#676a79] hover:text-[#14191e] hover:bg-[#f5f6f8]'
                 }`
               }
             >
               {item.label}
-              <ChevronDown size={14} className="opacity-50" />
             </NavLink>
           ))}
-          <NavLink
-            to="/design/app/profile"
-            className="px-3 py-2 text-sm font-semibold text-[#676a79] hover:text-[#14191e] hover:bg-[#f5f6f8] rounded-lg transition-colors"
-          >
-            My network
-          </NavLink>
         </nav>
 
         <div className="flex items-center gap-2 ml-auto lg:ml-0">
@@ -158,17 +147,17 @@ function MemberLeftSidebar() {
           <div className="flex items-center justify-between mt-4 pt-3 border-t border-[#e8eaed] text-center">
             <div className="flex-1">
               <p className="text-sm font-bold text-[#14191e]">{currentUser.posts}</p>
-              <p className="text-[10px] text-[#676a79] font-medium">Post</p>
+              <p className="text-[10px] text-[#676a79] font-medium">Posts</p>
             </div>
             <div className="w-px h-8 bg-[#e8eaed]" />
             <div className="flex-1">
-              <p className="text-sm font-bold text-[#14191e]">{formatCount(currentUser.followers)}</p>
-              <p className="text-[10px] text-[#676a79] font-medium">Followers</p>
+              <p className="text-sm font-bold text-[#14191e]">{currentUser.connections}</p>
+              <p className="text-[10px] text-[#676a79] font-medium">Connections</p>
             </div>
             <div className="w-px h-8 bg-[#e8eaed]" />
             <div className="flex-1">
-              <p className="text-sm font-bold text-[#14191e]">{currentUser.following}</p>
-              <p className="text-[10px] text-[#676a79] font-medium">Following</p>
+              <p className="text-sm font-bold text-[#14191e]">{currentUser.circles}</p>
+              <p className="text-[10px] text-[#676a79] font-medium">Circles</p>
             </div>
           </div>
         </div>
@@ -197,9 +186,9 @@ function MemberLeftSidebar() {
             </NavLink>
           ))}
         </nav>
-        <div className="px-4 py-3 border-t border-[#e8eaed]">
-          <NavLink to="/design/app/profile" className="text-sm font-semibold text-[#0f6fec] hover:underline">
-            View Profile
+        <div className="px-4 py-3 border-t border-[#e8eaed] space-y-1">
+          <NavLink to="/design/app/settings" className="flex items-center gap-2 text-sm font-semibold text-[#676a79] hover:text-[#14191e] px-1 py-1">
+            <Settings size={16} /> Settings
           </NavLink>
         </div>
       </div>
@@ -207,11 +196,14 @@ function MemberLeftSidebar() {
       {/* Footer links */}
       <div className="px-2 text-[11px] text-[#a1a5b3] leading-relaxed">
         <div className="flex flex-wrap gap-x-2 gap-y-1">
-          {['About', 'Settings', 'Support', 'Privacy', 'Terms'].map((link) => (
+          {['About', 'Support', 'Privacy', 'Terms'].map((link) => (
             <button key={link} type="button" className="hover:text-[#676a79] hover:underline">
               {link}
             </button>
           ))}
+          <NavLink to="/design/app/settings" className="hover:text-[#676a79] hover:underline">
+            Settings
+          </NavLink>
         </div>
         <p className="mt-2">© 2026 NotOnlyHere</p>
       </div>
@@ -262,7 +254,7 @@ export function MemberShell({ children, showRightRail = false, fullWidth = false
       <nav className="lg:hidden fixed bottom-0 inset-x-0 z-50 bg-white border-t border-[#e8eaed] px-2 py-2 grid grid-cols-5 shadow-[0_-2px_10px_rgba(0,0,0,0.06)]">
         {[
           { to: '/design/app/feed', icon: Home, label: 'Feed' },
-          { to: '/design/app/circles', icon: Circle, label: 'Groups' },
+          { to: '/design/app/circles', icon: Circle, label: 'Circles' },
           { to: '/design/app/composer', icon: Sparkles, label: 'Post' },
           { to: '/design/app/messages', icon: MessageCircle, label: 'Chat' },
           { to: '/design/app/profile', icon: User, label: 'Profile' },

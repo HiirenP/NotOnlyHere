@@ -57,11 +57,11 @@ export function SearchScreen() {
   const [tab, setTab] = useState('posts');
   return (
     <MemberShell fullWidth>
-      <PageHeader title="Search" subtitle="Find posts, people, and groups" />
-      <TSearch placeholder="Search posts, members, groups..." className="mb-4" />
-      <TTabs tabs={[{ id: 'posts', label: 'Posts' }, { id: 'members', label: 'People' }, { id: 'circles', label: 'Groups' }]} active={tab} onChange={setTab} />
+      <PageHeader title="Search" subtitle="Find posts, people, and circles" />
+      <TSearch placeholder="Search posts, members, circles..." className="mb-4" />
+      <TTabs tabs={[{ id: 'posts', label: 'Posts' }, { id: 'members', label: 'People' }, { id: 'circles', label: 'Circles' }]} active={tab} onChange={setTab} />
       <TCard>
-        <TEmpty title="Start searching" description="Find posts, members, and groups you are eligible to see." />
+        <TEmpty title="Start searching" description="Find posts, members, and circles you are eligible to see." />
       </TCard>
     </MemberShell>
   );

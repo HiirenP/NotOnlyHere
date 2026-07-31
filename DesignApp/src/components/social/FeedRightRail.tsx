@@ -1,4 +1,3 @@
-import { Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { TAvatar, TCard } from '@/components/template';
 import { circles, suggestedConnections, todaysNews } from '@/data/mock';
@@ -8,7 +7,7 @@ export function FeedRightRail() {
     <aside className="hidden xl:block w-[300px] shrink-0 space-y-4 sticky top-[86px] self-start max-h-[calc(100vh-100px)] overflow-y-auto scrollbar-hide">
       {/* Who to follow */}
       <TCard className="!rounded-lg">
-        <h3 className="text-sm font-bold text-[#14191e] mb-4">Who to follow</h3>
+        <h3 className="text-sm font-bold text-[#14191e] mb-4">Suggested connections</h3>
         <div className="space-y-4">
           {suggestedConnections.map((p) => (
             <div key={p.username} className="flex items-center gap-3">
@@ -19,9 +18,9 @@ export function FeedRightRail() {
               </div>
               <button
                 type="button"
-                className="w-8 h-8 rounded-md bg-[#0f6fec]/10 hover:bg-[#0f6fec] text-[#0f6fec] hover:text-white flex items-center justify-center transition-colors shrink-0"
+                className="text-xs font-semibold px-3 py-1.5 rounded-md bg-[#0f6fec]/10 hover:bg-[#0f6fec] text-[#0f6fec] hover:text-white transition-colors shrink-0"
               >
-                <Plus size={16} />
+                Connect
               </button>
             </div>
           ))}
