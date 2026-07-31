@@ -1,7 +1,8 @@
+import { Bell, Calendar, Circle, Compass, Download, Lock, Search, Shield, Sparkles, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { PageHeader, TBtn, TCard } from '@/components/template';
-import { events, resources } from '@/data/mock';
+import { ColorIcon, PageHeader, TBtn, TCard } from '@/components/template';
+import { events, images, resources } from '@/data/mock';
 import { MemberShell } from '@/layouts/Shells';
 
 const avaStarters = [
@@ -31,14 +32,14 @@ export function AvaScreen() {
           <h3 className="text-sm font-bold text-[#14191e] mb-4">How Ava works</h3>
           <div className="space-y-4">
             {[
-              { title: 'Private chat', desc: 'Only you can read your Ava conversations. They are not shown on your profile or in circles.' },
-              { title: 'Supportive, not clinical', desc: 'Ava offers warm, non-clinical conversation. It does not diagnose, prescribe, or replace professional care.' },
-              { title: 'Daily limit', desc: 'You can send up to 50 messages per day. Your count resets at midnight UTC.' },
-              { title: 'Your data', desc: 'Messages are sent to our AI provider under a no-training contract. You can delete history anytime in Settings.' },
-              { title: 'Optional extras', desc: 'You can separately opt in to personalization and circle recommendations in Settings > Ava data & consent.' },
+              { title: 'Private chat', desc: 'Only you can read your Ava conversations. They are not shown on your profile or in circles.', icon: Lock, color: 'blue' as const },
+              { title: 'Supportive, not clinical', desc: 'Ava offers warm, non-clinical conversation. It does not diagnose, prescribe, or replace professional care.', icon: Shield, color: 'green' as const },
+              { title: 'Daily limit', desc: 'You can send up to 50 messages per day. Your count resets at midnight UTC.', icon: Calendar, color: 'yellow' as const },
+              { title: 'Your data', desc: 'Messages are sent to our AI provider under a no-training contract. You can delete history anytime in Settings.', icon: Download, color: 'purple' as const },
+              { title: 'Optional extras', desc: 'You can separately opt in to personalization and circle recommendations in Settings > Ava data & consent.', icon: Sparkles, color: 'pink' as const },
             ].map((item) => (
               <div key={item.title} className="flex gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#0f6fec]/10 text-[#0f6fec] flex items-center justify-center shrink-0 text-sm">✓</div>
+                <ColorIcon icon={item.icon} color={item.color} size="sm" />
                 <div>
                   <p className="text-sm font-semibold text-[#14191e]">{item.title}</p>
                   <p className="text-xs text-[#676a79] mt-0.5 leading-relaxed">{item.desc}</p>
@@ -193,18 +194,24 @@ export function EventsScreen() {
       <PageHeader title="Events" subtitle="Community events and workshops" action={<TBtn variant="soft" size="sm">Staff: Create event</TBtn>} />
       <div className="space-y-4">
         {events.map((event) => (
-          <TCard key={event.id} className="p-0 overflow-hidden flex flex-col sm:flex-row">
-            <div className="sm:w-28 bg-[#0f6fec] text-white flex sm:flex-col items-center justify-center p-4 shrink-0">
-              <span className="text-2xl font-bold">{event.date.split(' ')[0]}</span>
-              <span className="text-xs opacity-80">{event.date.split(' ')[1]}</span>
-            </div>
-            <div className="flex-1 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div>
-                <h3 className="text-sm font-bold text-[#14191e]">{event.title}</h3>
-                <p className="text-xs text-[#676a79] mt-1">{event.time} · {event.location}</p>
-                <p className="text-xs text-[#0f6fec] font-semibold mt-2">{event.rsvp} attending</p>
+          <TCard key={event.id} className="p-0 overflow-hidden">
+            <div className="flex flex-col sm:flex-row">
+              <div className="relative sm:w-48 h-36 sm:h-auto shrink-0">
+                <img src={event.cover} alt="" className="w-full h-full object-cover" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent sm:hidden" />
               </div>
-              <TBtn size="sm">RSVP</TBtn>
+              <div className="flex-1 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <ColorIcon icon={Calendar} color="red" size="sm" />
+                    <span className="text-xs font-semibold text-[#0f6fec]">{event.date}</span>
+                  </div>
+                  <h3 className="text-sm font-bold text-[#14191e]">{event.title}</h3>
+                  <p className="text-xs text-[#676a79] mt-1">{event.time} · {event.location}</p>
+                  <p className="text-xs text-[#0cbc87] font-semibold mt-2">{event.rsvp} attending</p>
+                </div>
+                <TBtn size="sm">RSVP</TBtn>
+              </div>
             </div>
           </TCard>
         ))}
@@ -220,14 +227,21 @@ export function ResourcesScreen() {
       <input className="w-full text-sm px-5 py-3.5 bg-white border border-[#e8eaed] rounded-xl shadow-sm mb-5 focus:outline-none focus:ring-2 focus:ring-[#0f6fec]/10" placeholder="Search resources..." />
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {resources.map((r) => (
-          <TCard key={r.id} className="hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 rounded-xl bg-[#0f6fec]/10 flex items-center justify-center text-2xl mb-3">{r.type === 'Video' ? '🎬' : '📄'}</div>
-            <h3 className="text-sm font-bold text-[#14191e]">{r.title}</h3>
-            <p className="text-xs text-[#676a79] mt-1">{r.type} · {r.access}</p>
-            {r.progress > 0 && r.progress < 100 && (
-              <div className="mt-3 h-1.5 bg-[#f5f6f8] rounded-full"><div className="h-full bg-[#0f6fec] rounded-full" style={{ width: `${r.progress}%` }} /></div>
-            )}
-            <TBtn size="sm" className="mt-4" variant={r.progress === 100 ? 'outline' : 'primary'}>{r.progress === 100 ? 'Completed' : r.progress > 0 ? 'Continue' : 'Open'}</TBtn>
+          <TCard key={r.id} className="p-0 overflow-hidden hover:shadow-md transition-shadow">
+            <div className="relative h-36">
+              <img src={r.cover} alt="" className="w-full h-full object-cover" loading="lazy" />
+              <div className="absolute top-3 left-3">
+                <span className="text-[10px] font-bold uppercase px-2 py-1 rounded-md bg-white/90 text-[#676a79]">{r.type}</span>
+              </div>
+            </div>
+            <div className="p-4">
+              <h3 className="text-sm font-bold text-[#14191e]">{r.title}</h3>
+              <p className="text-xs text-[#676a79] mt-1">{r.access}</p>
+              {r.progress > 0 && r.progress < 100 && (
+                <div className="mt-3 h-1.5 bg-[#f5f6f8] rounded-full"><div className="h-full bg-[#0f6fec] rounded-full" style={{ width: `${r.progress}%` }} /></div>
+              )}
+              <TBtn size="sm" className="mt-4" variant={r.progress === 100 ? 'outline' : 'primary'}>{r.progress === 100 ? 'Completed' : r.progress > 0 ? 'Continue' : 'Open'}</TBtn>
+            </div>
           </TCard>
         ))}
       </div>
@@ -237,23 +251,31 @@ export function ResourcesScreen() {
 
 export function ExploreScreen() {
   const items = [
-    { title: 'Search', desc: 'Find posts, members, circles', emoji: '🔍', to: '/design/app/search' },
-    { title: 'Circles', desc: 'Peer-support communities', emoji: '⭕', to: '/design/app/circles' },
-    { title: 'Events', desc: 'Upcoming community events', emoji: '📅', to: '/design/app/events' },
-    { title: 'Resources', desc: 'Learning library', emoji: '📚', to: '/design/app/resources' },
-    { title: 'Ava', desc: 'Private AI companion chat', emoji: '✨', to: '/design/app/ava' },
-    { title: 'Mood', desc: 'Private check-in', emoji: '💭', to: '/design/app/mood' },
+    { title: 'Search', desc: 'Find posts, members, circles', image: images.exploreSearch, icon: Search, color: 'blue' as const, to: '/design/app/search' },
+    { title: 'Circles', desc: 'Peer-support communities', image: images.exploreCircles, icon: Circle, color: 'teal' as const, to: '/design/app/circles' },
+    { title: 'Events', desc: 'Upcoming community events', image: images.exploreEvents, icon: Calendar, color: 'red' as const, to: '/design/app/events' },
+    { title: 'Resources', desc: 'Learning library', image: images.exploreResources, icon: Compass, color: 'yellow' as const, to: '/design/app/resources' },
+    { title: 'Ava', desc: 'Private AI companion chat', image: images.exploreAva, icon: Sparkles, color: 'pink' as const, to: '/design/app/ava' },
+    { title: 'Mood', desc: 'Private check-in', image: images.exploreMood, icon: Bell, color: 'purple' as const, to: '/design/app/mood' },
   ];
   return (
     <MemberShell fullWidth>
       <PageHeader title="Explore" subtitle="Discover everything NotOnlyHere offers" />
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {items.map((item) => (
-          <Link key={item.title} to={item.to} className="block">
-            <TCard className="hover:shadow-md hover:border-[#0f6fec]/20 transition-all h-full">
-              <span className="text-3xl">{item.emoji}</span>
-              <h3 className="text-sm font-bold text-[#14191e] mt-3">{item.title}</h3>
-              <p className="text-xs text-[#676a79] mt-1">{item.desc}</p>
+          <Link key={item.title} to={item.to} className="block group">
+            <TCard className="p-0 overflow-hidden hover:shadow-md hover:border-[#0f6fec]/20 transition-all h-full">
+              <div className="relative h-32">
+                <img src={item.image} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-3 left-3">
+                  <ColorIcon icon={item.icon} color={item.color} size="sm" className="!bg-white/90 shadow-sm" />
+                </div>
+              </div>
+              <div className="p-4">
+                <h3 className="text-sm font-bold text-[#14191e] group-hover:text-[#0f6fec] transition-colors">{item.title}</h3>
+                <p className="text-xs text-[#676a79] mt-1">{item.desc}</p>
+              </div>
             </TCard>
           </Link>
         ))}
@@ -264,21 +286,22 @@ export function ExploreScreen() {
 
 export function SettingsScreen() {
   const sections = [
-    { title: 'Profile', desc: 'Display name, bio, avatar' },
-    { title: 'Connections', desc: 'Requests and mutual connections for messaging' },
-    { title: 'Blocked accounts', desc: 'Manage blocked members' },
-    { title: 'Active sessions', desc: 'Signed-in devices' },
-    { title: 'Ava data & consent', desc: 'AI preferences, consent, and chat history' },
-    { title: 'Account data export', desc: 'GDPR data request' },
-    { title: 'Account & security', desc: 'Password and deletion' },
+    { title: 'Profile', desc: 'Display name, bio, avatar', icon: User, color: 'blue' as const },
+    { title: 'Connections', desc: 'Requests and mutual connections for messaging', icon: User, color: 'green' as const },
+    { title: 'Blocked accounts', desc: 'Manage blocked members', icon: Shield, color: 'red' as const },
+    { title: 'Active sessions', desc: 'Signed-in devices', icon: Lock, color: 'purple' as const },
+    { title: 'Ava data & consent', desc: 'AI preferences, consent, and chat history', icon: Sparkles, color: 'pink' as const },
+    { title: 'Account data export', desc: 'GDPR data request', icon: Download, color: 'teal' as const },
+    { title: 'Account & security', desc: 'Password and deletion', icon: Shield, color: 'orange' as const },
   ];
   return (
     <MemberShell>
       <PageHeader title="Settings" subtitle="Manage your account and preferences" />
       <TCard className="p-0 overflow-hidden divide-y divide-[#e8eaed]">
         {sections.map((s) => (
-          <button key={s.title} type="button" className="w-full text-left p-4 hover:bg-[#f5f6f8] transition-colors flex justify-between items-center group">
-            <div>
+          <button key={s.title} type="button" className="w-full text-left p-4 hover:bg-[#f5f6f8] transition-colors flex items-center gap-3 group">
+            <ColorIcon icon={s.icon} color={s.color} size="sm" />
+            <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-[#14191e] group-hover:text-[#0f6fec] transition-colors">{s.title}</p>
               <p className="text-xs text-[#676a79] mt-0.5">{s.desc}</p>
             </div>

@@ -5,7 +5,7 @@ import { currentUser } from '@/data/mock';
 
 function ImageGrid({ images }: { images: NonNullable<FeedPost['images']> }) {
   if (images.length === 1) {
-    return <img src={images[0].src} alt={images[0].alt} className="w-full max-h-[420px] object-cover rounded-lg" />;
+    return <img src={images[0].src} alt={images[0].alt} className="w-full max-h-[420px] object-cover rounded-lg" loading="lazy" />;
   }
   return (
     <div className="grid grid-cols-2 gap-1 rounded-lg overflow-hidden">
@@ -27,7 +27,7 @@ export function PostCard({ post, showCommentInput = true }: { post: FeedPost; sh
           {post.anonymous ? (
             <div className="w-10 h-10 rounded-full bg-[#6610f2]/15 text-[#6610f2] flex items-center justify-center font-bold text-sm">?</div>
           ) : (
-            <img src={post.avatar} alt="" className="w-10 h-10 rounded-full object-cover" />
+            <img src={post.avatar} alt="" className="w-10 h-10 rounded-full object-cover" loading="lazy" />
           )}
           <div>
             <Link to="/design/app/profile" className="text-sm font-bold text-[#14191e] hover:text-[#0f6fec] transition-colors">

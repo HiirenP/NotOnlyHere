@@ -1,6 +1,7 @@
-import { PageHeader, TAvatar, TBtn, TCard, TEmpty, TSearch, TTabs } from '@/components/template';
-import { CircleMomentsRail, CreatePostCard, PostCard } from '@/components/social';
-import { currentUser, feedPosts, images } from '@/data/mock';
+import { Image, MapPin, Smile, Users } from 'lucide-react';
+import { ColorIcon, PageHeader, TAvatar, TBtn, TCard, TSearch, TTabs } from '@/components/template';
+import { CircleMomentsRail, CreatePostCard, GroupCard, PostCard } from '@/components/social';
+import { circles, currentUser, feedPosts, images } from '@/data/mock';
 import { MemberShell } from '@/layouts/Shells';
 import { useState } from 'react';
 
@@ -35,10 +36,18 @@ export function ComposerScreen() {
         <div className="mx-4 mb-4 rounded-xl overflow-hidden">
           <img src={images.postNature} alt="" className="w-full max-h-64 object-cover" />
         </div>
-        <div className="px-4 py-3 border-t border-[#e8eaed] flex items-center gap-2">
-          <span className="text-xs text-[#676a79] font-semibold mr-2">Add:</span>
-          {['📷 Photo', '😊 Mood', '👥 Circle', '📍 Event'].map((l) => (
-            <button key={l} type="button" className="text-xs font-semibold text-[#676a79] hover:bg-[#f5f6f8] px-3 py-1.5 rounded-lg transition-colors">{l}</button>
+        <div className="px-4 py-3 border-t border-[#e8eaed] flex items-center gap-2 flex-wrap">
+          <span className="text-xs text-[#676a79] font-semibold mr-1">Add:</span>
+          {[
+            { icon: Image, label: 'Photo', color: 'green' as const },
+            { icon: Smile, label: 'Mood', color: 'yellow' as const },
+            { icon: Users, label: 'Circle', color: 'teal' as const },
+            { icon: MapPin, label: 'Event', color: 'red' as const },
+          ].map((item) => (
+            <button key={item.label} type="button" className="flex items-center gap-1.5 text-xs font-semibold text-[#676a79] hover:bg-[#f5f6f8] px-2 py-1.5 rounded-lg transition-colors">
+              <ColorIcon icon={item.icon} color={item.color} size="sm" />
+              {item.label}
+            </button>
           ))}
         </div>
         <div className="px-4 py-4 bg-[#f5f6f8] border-t border-[#e8eaed] flex items-center justify-between gap-3">
@@ -60,9 +69,36 @@ export function SearchScreen() {
       <PageHeader title="Search" subtitle="Find posts, people, and circles" />
       <TSearch placeholder="Search posts, members, circles..." className="mb-4" />
       <TTabs tabs={[{ id: 'posts', label: 'Posts' }, { id: 'members', label: 'People' }, { id: 'circles', label: 'Circles' }]} active={tab} onChange={setTab} />
-      <TCard>
-        <TEmpty title="Start searching" description="Find posts, members, and circles you are eligible to see." />
-      </TCard>
+      {tab === 'posts' && (
+        <div className="space-y-4">
+          {feedPosts.slice(0, 2).map((post) => <PostCard key={post.id} post={post} />)}
+        </div>
+      )}
+      {tab === 'members' && (
+        <TCard>
+          <div className="space-y-3">
+            {[
+              { name: 'Jordan Lee', username: 'jordanl', avatar: images.avatar2, mutual: 3 },
+              { name: 'Sam Rivera', username: 'samr', avatar: images.avatar3, mutual: 5 },
+              { name: 'Morgan Kim', username: 'morgank', avatar: images.avatar1, mutual: 2 },
+            ].map((m) => (
+              <div key={m.username} className="flex items-center gap-3 p-2 rounded-xl hover:bg-[#f5f6f8]">
+                <TAvatar src={m.avatar} name={m.name} />
+                <div className="flex-1">
+                  <p className="text-sm font-semibold text-[#14191e]">{m.name}</p>
+                  <p className="text-xs text-[#676a79]">@{m.username} · {m.mutual} mutual</p>
+                </div>
+                <TBtn size="sm" variant="soft">Connect</TBtn>
+              </div>
+            ))}
+          </div>
+        </TCard>
+      )}
+      {tab === 'circles' && (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {circles.map((circle) => <GroupCard key={circle.id} circle={circle} />)}
+        </div>
+      )}
     </MemberShell>
   );
 }

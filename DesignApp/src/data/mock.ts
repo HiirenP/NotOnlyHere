@@ -1,18 +1,43 @@
+/** Reliable preview images — Unsplash & Picsum */
 export const images = {
-  coverAnxiety: 'https://readdy.ai/api/search-image?query=Calm%20abstract%20gradient%20waves%20soft%20blue%20teal%20purple%20peaceful%20mental%20health%20community%20banner%20wide&width=1200&height=400&seq=cover-anxiety&orientation=landscape',
-  coverParents: 'https://readdy.ai/api/search-image?query=Warm%20family%20silhouette%20sunset%20soft%20pastel%20community%20support%20banner%20wide%20gentle&width=1200&height=400&seq=cover-parents&orientation=landscape',
-  coverGrief: 'https://readdy.ai/api/search-image?query=Soft%20candlelight%20peaceful%20memorial%20warm%20tones%20support%20group%20banner%20wide&width=1200&height=400&seq=cover-grief&orientation=landscape',
-  profileCover: 'https://readdy.ai/api/search-image?query=Soft%20abstract%20gradient%20blue%20cyan%20calm%20profile%20cover%20wide%20minimal&width=1200&height=400&seq=profile-cover&orientation=landscape',
-  postNature: 'https://readdy.ai/api/search-image?query=Morning%20walk%20in%20nature%20peaceful%20path%20trees%20soft%20light%20wellness%20photography&width=800&height=600&seq=post-nature&orientation=landscape',
-  postCoffee: 'https://readdy.ai/api/search-image?query=Cozy%20coffee%20cup%20journal%20morning%20self%20care%20warm%20light%20minimal&width=800&height=800&seq=post-coffee&orientation=squarish',
-  postGroup: 'https://readdy.ai/api/search-image?query=Small%20support%20group%20circle%20discussion%20warm%20indoor%20light%20candid&width=800&height=500&seq=post-group&orientation=landscape',
-  avatar1: 'https://readdy.ai/api/search-image?query=Friendly%20young%20woman%20portrait%20warm%20smile%20natural%20light%20headshot%20soft%20background&width=200&height=200&seq=avatar-1&orientation=squarish',
-  avatar2: 'https://readdy.ai/api/search-image?query=Friendly%20young%20man%20portrait%20warm%20smile%20natural%20light%20headshot%20soft%20background&width=200&height=200&seq=avatar-2&orientation=squarish',
-  avatar3: 'https://readdy.ai/api/search-image?query=Friendly%20person%20portrait%20warm%20gentle%20expression%20natural%20light%20headshot&width=200&height=200&seq=avatar-3&orientation=squarish',
-  avatar4: 'https://readdy.ai/api/search-image?query=Diverse%20person%20portrait%20calm%20expression%20soft%20light%20headshot%20community&width=200&height=200&seq=avatar-4&orientation=squarish',
-  circleThumb1: 'https://readdy.ai/api/search-image?query=Calm%20meditation%20circle%20icon%20soft%20blue%20gradient%20minimal%20round&width=120&height=120&seq=circle-1&orientation=squarish',
-  circleThumb2: 'https://readdy.ai/api/search-image?query=Parents%20community%20icon%20warm%20soft%20gradient%20minimal%20round&width=120&height=120&seq=circle-2&orientation=squarish',
-  circleThumb3: 'https://readdy.ai/api/search-image?query=Support%20group%20icon%20purple%20teal%20gradient%20minimal%20round&width=120&height=120&seq=circle-3&orientation=squarish',
+  coverAnxiety: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=400&fit=crop',
+  coverParents: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=1200&h=400&fit=crop',
+  coverGrief: 'https://images.unsplash.com/photo-1517456793572-1d8aabeb110a?w=1200&h=400&fit=crop',
+  coverWork: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=1200&h=400&fit=crop',
+  profileCover: 'https://images.unsplash.com/photo-1557683316-973673baf926?w=1200&h=400&fit=crop',
+  postNature: 'https://images.unsplash.com/photo-1441974231530-c6687ac0fe9e?w=800&h=600&fit=crop',
+  postCoffee: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=800&fit=crop',
+  postGroup: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=500&fit=crop',
+  postSunset: 'https://images.unsplash.com/photo-1470252649378-9c29740c9e24?w=800&h=600&fit=crop',
+  postJournal: 'https://images.unsplash.com/photo-1455390582260-0446debbcc77?w=800&h=600&fit=crop',
+  avatar1: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=face',
+  avatar2: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face',
+  avatar3: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face',
+  avatar4: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face',
+  avatar5: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop&crop=face',
+  circleThumb1: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=120&h=120&fit=crop',
+  circleThumb2: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=120&h=120&fit=crop',
+  circleThumb3: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=120&h=120&fit=crop',
+  story1: 'https://images.unsplash.com/photo-1501785888041-af9ef94e21ba?w=200&h=320&fit=crop',
+  story2: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=200&h=320&fit=crop',
+  story3: 'https://images.unsplash.com/photo-1518241353330-bf5791f2f1eb?w=200&h=320&fit=crop',
+  story4: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=200&h=320&fit=crop',
+  story5: 'https://images.unsplash.com/photo-1418065460487-3e41a237cc7e?w=200&h=320&fit=crop',
+  event1: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&h=300&fit=crop',
+  event2: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=300&fit=crop',
+  resource1: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&h=240&fit=crop',
+  resource2: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&h=240&fit=crop',
+  resource3: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=240&fit=crop',
+  news1: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=120&h=80&fit=crop',
+  news2: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=120&h=80&fit=crop',
+  news3: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=120&h=80&fit=crop',
+  news4: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=120&h=80&fit=crop',
+  exploreSearch: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&h=240&fit=crop',
+  exploreCircles: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=240&fit=crop',
+  exploreEvents: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=400&h=240&fit=crop',
+  exploreResources: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=400&h=240&fit=crop',
+  exploreAva: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=240&fit=crop',
+  exploreMood: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&h=240&fit=crop',
 };
 
 export type PostImage = { src: string; alt: string };
@@ -41,6 +66,7 @@ export type CircleHighlight = {
   id: string;
   name: string;
   thumb: string;
+  storyImage?: string;
   hasNew: boolean;
   isYours?: boolean;
 };
@@ -61,11 +87,11 @@ export type CircleGroup = {
 
 export const circleHighlights: CircleHighlight[] = [
   { id: 'create', name: 'Share moment', thumb: '', hasNew: false, isYours: true },
-  { id: 'c1', name: 'Anxiety Support', thumb: images.circleThumb1, hasNew: true },
-  { id: 'c2', name: 'New Parents', thumb: images.circleThumb2, hasNew: true },
-  { id: 'c3', name: 'Grief & Loss', thumb: images.circleThumb3, hasNew: false },
-  { id: 'c4', name: 'Work Stress', thumb: images.circleThumb1, hasNew: false },
-  { id: 'c5', name: 'Student Life', thumb: images.circleThumb2, hasNew: true },
+  { id: 'c1', name: 'Anxiety Support', thumb: images.circleThumb1, storyImage: images.story1, hasNew: true },
+  { id: 'c2', name: 'New Parents', thumb: images.circleThumb2, storyImage: images.story2, hasNew: true },
+  { id: 'c3', name: 'Grief & Loss', thumb: images.circleThumb3, storyImage: images.story3, hasNew: false },
+  { id: 'c4', name: 'Work Stress', thumb: images.circleThumb1, storyImage: images.story4, hasNew: false },
+  { id: 'c5', name: 'Student Life', thumb: images.circleThumb2, storyImage: images.story5, hasNew: true },
 ];
 
 export const feedPosts: FeedPost[] = [
@@ -100,6 +126,7 @@ export const feedPosts: FeedPost[] = [
     circleId: 'global',
     time: '4h',
     content: 'Does anyone else feel guilty for taking a mental health day? Trying to unlearn that. Would love to hear how others reframe it.',
+    images: [{ src: images.postJournal, alt: 'Journal and self-reflection' }],
     reactions: 128,
     comments: 34,
     shares: 8,
@@ -138,6 +165,7 @@ export const feedPosts: FeedPost[] = [
     circleId: 'c4',
     time: 'Yesterday',
     content: 'Reminder: you don\'t have to earn rest. Sharing this because I needed to hear it too.',
+    images: [{ src: images.postSunset, alt: 'Peaceful sunset' }],
     reactions: 203,
     comments: 45,
     shares: 18,
@@ -189,7 +217,7 @@ export const circles: CircleGroup[] = [
   {
     id: 'c4',
     name: 'Work Stress',
-    cover: images.coverAnxiety,
+    cover: images.coverWork,
     thumb: images.circleThumb1,
     members: 6900,
     posts24h: 156,
@@ -234,10 +262,10 @@ export const currentUser = {
 };
 
 export const todaysNews = [
-  { id: 'n1', title: 'New peer support resources added this week', time: '2hr' },
-  { id: 'n2', title: 'Community check-in event this Saturday', time: '3hr' },
-  { id: 'n3', title: 'Tips for supporting a friend in crisis', time: '5hr' },
-  { id: 'n4', title: 'Anxiety Support circle reaches 2,000 members', time: '8hr' },
+  { id: 'n1', title: 'New peer support resources added this week', time: '2hr', image: images.news1 },
+  { id: 'n2', title: 'Community check-in event this Saturday', time: '3hr', image: images.news2 },
+  { id: 'n3', title: 'Tips for supporting a friend in crisis', time: '5hr', image: images.news3 },
+  { id: 'n4', title: 'Anxiety Support circle reaches 2,000 members', time: '8hr', image: images.news4 },
 ];
 
 export const conversations = [
@@ -319,12 +347,12 @@ export const adminContentItems = [
 ];
 
 export const resources = [
-  { id: 'r1', title: 'Grounding Techniques', type: 'Article', access: 'Members', progress: 60 },
-  { id: 'r2', title: 'Understanding Anxiety', type: 'Video', access: 'Paid', progress: 0 },
-  { id: 'r3', title: 'Peer Support Basics', type: 'Article', access: 'Members', progress: 100 },
+  { id: 'r1', title: 'Grounding Techniques', type: 'Article', access: 'Members', progress: 60, cover: images.resource1 },
+  { id: 'r2', title: 'Understanding Anxiety', type: 'Video', access: 'Paid', progress: 0, cover: images.resource2 },
+  { id: 'r3', title: 'Peer Support Basics', type: 'Article', access: 'Members', progress: 100, cover: images.resource3 },
 ];
 
 export const events = [
-  { id: 'e1', title: 'Community Check-in', date: 'Aug 2, 2026', time: '6:00 PM UTC', location: 'Online — link in details', rsvp: 42 },
-  { id: 'e2', title: 'Mindful Breathing Workshop', date: 'Aug 9, 2026', time: '4:00 PM UTC', location: 'Community Center, Room B', rsvp: 18 },
+  { id: 'e1', title: 'Community Check-in', date: 'Aug 2, 2026', time: '6:00 PM UTC', location: 'Online — link in details', rsvp: 42, cover: images.event1 },
+  { id: 'e2', title: 'Mindful Breathing Workshop', date: 'Aug 9, 2026', time: '4:00 PM UTC', location: 'Community Center, Room B', rsvp: 18, cover: images.event2 },
 ];

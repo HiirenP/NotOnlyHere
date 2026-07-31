@@ -22,19 +22,20 @@ import {
   Video,
 } from 'lucide-react';
 import type { ReactNode } from 'react';
+import { iconColors, type IconColor } from '@/components/template';
 import { FeedRightRail } from '@/components/social';
 import { currentUser } from '@/data/mock';
 
-const sidebarNav = [
-  { to: '/design/app/feed', label: 'Feed', icon: Home },
-  { to: '/design/app/profile', label: 'My profile', icon: User },
-  { to: '/design/app/circles', label: 'Circles', icon: Circle },
-  { to: '/design/app/messages', label: 'Messages', icon: MessageCircle, badge: 2 },
-  { to: '/design/app/notifications', label: 'Notifications', icon: Bell, badge: 3 },
-  { to: '/design/app/ava', label: 'Ava', icon: Sparkles },
-  { to: '/design/app/events', label: 'Events', icon: Calendar },
-  { to: '/design/app/resources', label: 'Resources', icon: Video },
-  { to: '/design/app/explore', label: 'Explore', icon: Compass },
+const sidebarNav: { to: string; label: string; icon: typeof Home; color: IconColor; badge?: number }[] = [
+  { to: '/design/app/feed', label: 'Feed', icon: Home, color: 'blue' },
+  { to: '/design/app/profile', label: 'My profile', icon: User, color: 'purple' },
+  { to: '/design/app/circles', label: 'Circles', icon: Circle, color: 'teal' },
+  { to: '/design/app/messages', label: 'Messages', icon: MessageCircle, color: 'green', badge: 2 },
+  { to: '/design/app/notifications', label: 'Notifications', icon: Bell, color: 'orange', badge: 3 },
+  { to: '/design/app/ava', label: 'Ava', icon: Sparkles, color: 'pink' },
+  { to: '/design/app/events', label: 'Events', icon: Calendar, color: 'red' },
+  { to: '/design/app/resources', label: 'Resources', icon: Video, color: 'yellow' },
+  { to: '/design/app/explore', label: 'Explore', icon: Compass, color: 'blue' },
 ];
 
 const headerNav = [
@@ -167,17 +168,19 @@ function MemberLeftSidebar() {
       <div className="bg-white border border-[#e8eaed] rounded-lg shadow-[0_1px_3px_rgba(0,0,0,0.06)] overflow-hidden">
         <nav className="p-2">
           {sidebarNav.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-semibold transition-colors ${
-                  isActive ? 'bg-[#0f6fec]/10 text-[#0f6fec]' : 'text-[#676a79] hover:bg-[#f5f6f8] hover:text-[#14191e]'
-                }`
-              }
-            >
-              <item.icon size={18} />
-              <span className="flex-1">{item.label}</span>
+              <NavLink
+                key={item.to}
+                to={item.to}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-semibold transition-colors ${
+                    isActive ? 'bg-[#0f6fec]/10 text-[#0f6fec]' : 'text-[#676a79] hover:bg-[#f5f6f8] hover:text-[#14191e]'
+                  }`
+                }
+              >
+                <span className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${iconColors[item.color]}`}>
+                  <item.icon size={16} />
+                </span>
+                <span className="flex-1">{item.label}</span>
               {item.badge && (
                 <span className="min-w-[18px] h-[18px] px-1 bg-[#d6293e] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                   {item.badge}
