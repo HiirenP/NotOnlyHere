@@ -1,17 +1,38 @@
 import { Bookmark, Heart, MessageCircle, MoreHorizontal, Send } from 'lucide-react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { FeedPost } from '@/data/mock';
 import { currentUser } from '@/data/mock';
 
+function PostImage({ src, alt, className }: { src: string; alt: string; className?: string }) {
+  const [failed, setFailed] = useState(false);
+  if (failed) {
+    return (
+      <div className={`bg-gradient-to-br from-[#0f6fec]/10 to-[#6610f2]/10 flex items-center justify-center text-xs text-[#676a79] font-medium ${className ?? ''}`}>
+        Image unavailable
+      </div>
+    );
+  }
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={className}
+      loading="lazy"
+      onError={() => setFailed(true)}
+    />
+  );
+}
+
 function ImageGrid({ images }: { images: NonNullable<FeedPost['images']> }) {
   if (images.length === 1) {
-    return <img src={images[0].src} alt={images[0].alt} className="w-full max-h-[420px] object-cover rounded-lg" loading="lazy" />;
+    return <PostImage src={images[0].src} alt="" className="w-full max-h-[420px] object-cover rounded-lg" />;
   }
   return (
     <div className="grid grid-cols-2 gap-1 rounded-lg overflow-hidden">
       {images.slice(0, 4).map((img, i) => (
         <div key={i} className={`relative ${images.length === 3 && i === 0 ? 'row-span-2' : 'aspect-square'}`}>
-          <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
+          <PostImage src={img.src} alt="" className="w-full h-full object-cover" />
         </div>
       ))}
     </div>

@@ -132,12 +132,12 @@ function MemberLeftSidebar() {
       {/* Profile card */}
       <div className="bg-white border border-[#e8eaed] rounded-lg overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
         <div className="h-24 bg-cover bg-center" style={{ backgroundImage: `url(${currentUser.cover})` }} />
-        <div className="px-4 pb-4 -mt-8">
+        <div className="px-4 pb-4 -mt-8 relative z-10">
           <NavLink to="/design/app/profile">
             <img
               src={currentUser.avatar}
               alt=""
-              className="w-16 h-16 rounded-lg border-[3px] border-white object-cover shadow-sm"
+              className="w-16 h-16 rounded-lg border-[3px] border-white object-cover object-[center_20%] shadow-sm bg-white"
             />
           </NavLink>
           <NavLink to="/design/app/profile" className="block mt-2">

@@ -68,7 +68,7 @@ export function SearchScreen() {
     <MemberShell fullWidth>
       <PageHeader title="Search" subtitle="Find posts, people, and circles" />
       <TSearch placeholder="Search posts, members, circles..." className="mb-4" />
-      <TTabs tabs={[{ id: 'posts', label: 'Posts' }, { id: 'members', label: 'People' }, { id: 'circles', label: 'Circles' }]} active={tab} onChange={setTab} />
+      <TTabs tabs={[{ id: 'posts', label: 'Posts' }, { id: 'members', label: 'People' }, { id: 'circles', label: 'Circles' }]} active={tab} onChange={setTab} className="mb-4" />
       {tab === 'posts' && (
         <div className="space-y-4">
           {feedPosts.slice(0, 2).map((post) => <PostCard key={post.id} post={post} />)}

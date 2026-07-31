@@ -15,7 +15,7 @@ export function CirclesScreen() {
     <MemberShell fullWidth>
       <PageHeader title="Circles" subtitle="Discover and join peer-support communities" action={<TBtn>Create circle</TBtn>} />
       <TSearch placeholder="Search circles..." className="mb-4" />
-      <TTabs tabs={[{ id: 'joined', label: `Your circles (${joined.length})` }, { id: 'discover', label: 'Discover' }]} active={tab} onChange={setTab} />
+      <TTabs className="mb-4" tabs={[{ id: 'joined', label: `Your circles (${joined.length})` }, { id: 'discover', label: 'Discover' }]} active={tab} onChange={setTab} />
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {(tab === 'joined' ? joined : discover).map((circle) => (
           <GroupCard key={circle.id} circle={circle} />
@@ -93,32 +93,38 @@ export function ProfileScreen() {
   const [tab, setTab] = useState('posts');
   return (
     <MemberShell fullWidth>
-      <TCard className="p-0 overflow-hidden mb-4">
-        <div className="relative h-48">
+      <TCard className="p-0 mb-4" padding={false}>
+        <div className="relative h-48 md:h-56">
           <img src={currentUser.cover} alt="" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
+          <img
+            src={currentUser.avatar}
+            alt=""
+            className="absolute left-6 -bottom-14 w-28 h-28 rounded-full border-4 border-white shadow-lg object-cover object-[center_20%] z-10 bg-white"
+          />
         </div>
-        <div className="px-6 pb-6">
-          <div className="flex flex-col sm:flex-row sm:items-end gap-4 -mt-16">
-            <img src={currentUser.avatar} alt="" className="w-28 h-28 rounded-full border-4 border-white shadow-lg object-cover" />
-            <div className="flex-1">
+        <div className="px-6 pb-8 pt-20">
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+            <div className="min-w-0">
               <h1 className="text-xl font-bold text-[#14191e]">{currentUser.displayName}</h1>
-              <p className="text-sm text-[#676a79]">@{currentUser.username} · Joined {currentUser.joinedAt}</p>
+              <p className="text-sm text-[#676a79] mt-1">@{currentUser.username} · Joined {currentUser.joinedAt}</p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-2 shrink-0">
               <TBtn variant="outline" size="sm">Edit profile</TBtn>
               <Link to="/design/app/settings"><TBtn variant="outline" size="sm"><Settings size={14} /></TBtn></Link>
             </div>
           </div>
-          <p className="text-sm text-[#676a79] mt-4">{currentUser.bio}</p>
-          <div className="flex gap-6 mt-3 text-sm">
+          <p className="text-sm text-[#676a79] mt-4 leading-relaxed">{currentUser.bio}</p>
+          <div className="flex flex-wrap gap-x-6 gap-y-2 mt-4 text-sm">
+            <span><strong className="text-[#14191e]">{currentUser.posts}</strong> <span className="text-[#676a79]">posts</span></span>
             <span><strong className="text-[#14191e]">{currentUser.connections}</strong> <span className="text-[#676a79]">connections</span></span>
             <span><strong className="text-[#14191e]">{currentUser.circles}</strong> <span className="text-[#676a79]">circles</span></span>
           </div>
         </div>
       </TCard>
       <TCard className="p-0 overflow-hidden">
-        <TTabs tabs={[{ id: 'posts', label: 'Posts' }, { id: 'about', label: 'About' }, { id: 'connections', label: 'Connections' }]} active={tab} onChange={setTab} />
-        <div className="p-4">
+        <TTabs className="px-2" tabs={[{ id: 'posts', label: 'Posts' }, { id: 'about', label: 'About' }, { id: 'connections', label: 'Connections' }]} active={tab} onChange={setTab} />
+        <div className="p-4 pt-0">
           {tab === 'posts' && feedPosts.slice(0, 2).map((p) => <PostCard key={p.id} post={p} />)}
           {tab === 'about' && <p className="text-sm text-[#676a79] p-2">{currentUser.bio}</p>}
           {tab === 'connections' && (

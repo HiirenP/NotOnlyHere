@@ -82,20 +82,27 @@ export function TSearch({ placeholder, className }: { placeholder?: string; clas
   );
 }
 
-export function TTabs({ tabs, active, onChange }: { tabs: { id: string; label: string }[]; active: string; onChange?: (id: string) => void }) {
+export function TTabs({ tabs, active, onChange, className }: { tabs: { id: string; label: string }[]; active: string; onChange?: (id: string) => void; className?: string }) {
   return (
-    <div className="flex gap-1 border-b border-[#e8eaed] mb-4 overflow-x-auto">
+    <div className={cn('flex gap-1 border-b border-[#e8eaed] overflow-x-auto', className)}>
       {tabs.map((tab) => (
         <button
           key={tab.id}
           type="button"
           onClick={() => onChange?.(tab.id)}
           className={cn(
-            'px-4 py-2.5 text-sm font-semibold whitespace-nowrap border-b-2 -mb-px transition-colors',
-            active === tab.id ? 'border-[#0f6fec] text-[#0f6fec]' : 'border-transparent text-[#676a79] hover:text-[#14191e]',
+            'px-4 py-3 text-sm font-semibold whitespace-nowrap transition-colors',
+            active === tab.id ? 'text-[#0f6fec]' : 'text-[#676a79] hover:text-[#14191e]',
           )}
         >
-          {tab.label}
+          <span
+            className={cn(
+              'inline-block border-b-2 pb-3 -mb-3',
+              active === tab.id ? 'border-[#0f6fec]' : 'border-transparent',
+            )}
+          >
+            {tab.label}
+          </span>
         </button>
       ))}
     </div>
