@@ -1,235 +1,354 @@
 import {
+  Activity,
   AlertTriangle,
+  ArrowDownRight,
   ArrowUpRight,
-  CheckCircle2,
   Clock,
   Download,
+  Edit,
+  Eye,
   FileText,
-  MoreHorizontal,
-  Shield,
+  Filter,
+  Plus,
+  Trash2,
   TrendingUp,
+  UserPlus,
   Users,
 } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { PageHeader, TAvatar, TBadge, TBtn, TCard, TListItem, TSearch, TTabs } from '@/components/template';
-import { adminUsers, donations, images, safetyAlerts } from '@/data/mock';
+import {
+  AdminStatCard,
+  AdminTabs,
+  DataTable,
+  DonutChart,
+  HorizontalBar,
+  LineChart,
+  ProgressRing,
+  type Column,
+} from '@/components/admin';
+import { TAvatar, TBadge, TBtn, TCard } from '@/components/template';
+import {
+  adminCircles,
+  adminContentItems,
+  adminUsers,
+  auditLog,
+  donations,
+  safetyAlerts,
+} from '@/data/mock';
 import { AdminShell } from '@/layouts/Shells';
 
-function KpiCard({ label, value, change, icon: Icon, color }: { label: string; value: string; change?: string; icon: typeof Users; color: string }) {
-  return (
-    <TCard className="relative overflow-hidden">
-      <div className="flex items-start justify-between">
-        <div>
-          <p className="text-xs font-semibold text-[#676a79] uppercase tracking-wide">{label}</p>
-          <p className="text-3xl font-bold text-[#14191e] mt-2">{value}</p>
-          {change && (
-            <p className="text-xs font-semibold text-[#0cbc87] mt-2 flex items-center gap-1">
-              <TrendingUp size={12} />
-              {change}
-            </p>
-          )}
-        </div>
-        <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${color}`}>
-          <Icon size={20} />
-        </div>
-      </div>
-    </TCard>
-  );
-}
+const chartData = [
+  { label: 'Jan', values: [120, 80, 40] },
+  { label: 'Feb', values: [180, 100, 55] },
+  { label: 'Mar', values: [220, 130, 70] },
+  { label: 'Apr', values: [280, 160, 90] },
+  { label: 'May', values: [340, 200, 110] },
+  { label: 'Jun', values: [400, 240, 130] },
+  { label: 'Jul', values: [480, 290, 150] },
+];
 
 export function AdminDashboardScreen() {
-  const kpis = [
-    { label: 'Active members (7d)', value: '1,284', change: '+12% vs last week', icon: Users, color: 'bg-[#0f6fec]/10 text-[#0f6fec]' },
-    { label: 'New signups (7d)', value: '96', change: '+8% vs last week', icon: ArrowUpRight, color: 'bg-[#0cbc87]/10 text-[#0cbc87]' },
-    { label: 'Open safety alerts', value: '3', icon: Shield, color: 'bg-[#f7c32e]/15 text-[#c9a000]' },
-    { label: 'Pending circles', value: '5', icon: Clock, color: 'bg-[#6610f2]/10 text-[#6610f2]' },
-  ];
+  const [tab, setTab] = useState('overview');
 
   return (
-    <AdminShell title="Dashboard">
-      <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
-        {kpis.map((kpi) => (
-          <KpiCard key={kpi.label} {...kpi} />
-        ))}
-      </div>
-
-      <div className="grid lg:grid-cols-3 gap-4">
-        <TCard className="lg:col-span-2">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h2 className="text-base font-bold text-[#14191e]">Recent admin activity</h2>
-              <p className="text-xs text-[#676a79] mt-0.5">Last 24 hours</p>
-            </div>
-            <Link to="/design/admin/audit">
-              <TBtn variant="soft" size="sm">View all</TBtn>
-            </Link>
-          </div>
-          <div className="space-y-1">
-            {[
-              { actor: 'staff@notonlyhere.com', action: 'suspended user @jordanl', reason: 'Policy violation', time: '2h ago' },
-              { actor: 'admin@notonlyhere.com', action: 'approved circle "Grief & Loss"', time: '5h ago' },
-              { actor: 'content@notonlyhere.com', action: 'published blog draft', time: '8h ago' },
-            ].map((item) => (
-              <TListItem
-                key={item.action}
-                avatar={<TAvatar name={item.actor} size="sm" />}
-                title={item.action}
-                subtitle={item.actor}
-                meta={item.time}
-              />
-            ))}
-          </div>
-        </TCard>
-
-        <TCard>
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h2 className="text-base font-bold text-[#14191e]">Safety alerts</h2>
-              <p className="text-xs text-[#676a79] mt-0.5">Requires review</p>
-            </div>
-            <Link to="/design/admin/safety">
-              <TBtn variant="soft" size="sm">Open</TBtn>
-            </Link>
-          </div>
-          <div className="space-y-3">
-            {safetyAlerts.map((alert) => (
-              <div key={alert.id} className="p-3 rounded-xl bg-[#f5f6f8] border border-[#e8eaed]">
-                <div className="flex items-center justify-between gap-2 mb-1">
-                  <p className="text-sm font-semibold text-[#14191e]">{alert.type}</p>
-                  <TBadge color={alert.status === 'New' ? 'warning' : 'primary'}>{alert.status}</TBadge>
-                </div>
-                <p className="text-xs text-[#676a79] line-clamp-2">{alert.excerpt}</p>
-              </div>
-            ))}
-          </div>
-        </TCard>
-      </div>
-
-      <TCard className="mt-4">
-        <h2 className="text-base font-bold text-[#14191e] mb-4">Weekly engagement</h2>
-        <div className="h-40 flex items-end gap-3">
-          {[65, 78, 72, 85, 90, 82, 95].map((v, i) => (
-            <div key={i} className="flex-1 flex flex-col items-center gap-2">
-              <div className="w-full bg-[#0f6fec]/15 rounded-t-lg relative" style={{ height: `${v}%` }}>
-                <div className="absolute inset-x-0 bottom-0 bg-[#0f6fec] rounded-t-lg" style={{ height: `${v * 0.7}%` }} />
-              </div>
-              <span className="text-[10px] font-semibold text-[#a1a5b3]">{['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][i]}</span>
-            </div>
-          ))}
+    <AdminShell
+      title="Community Dashboard"
+      subtitle="Monitor growth, engagement, and platform health"
+      action={
+        <div className="flex gap-2">
+          <select className="text-sm bg-white border border-[#e8eaed] rounded-xl px-3 py-2 text-[#676a79]">
+            <option>Last 30 days</option>
+            <option>Last 7 days</option>
+            <option>Last 90 days</option>
+          </select>
+          <TBtn variant="outline" size="sm"><Filter size={14} className="inline mr-1" />Filter</TBtn>
         </div>
-      </TCard>
+      }
+    >
+      <AdminTabs
+        tabs={[
+          { id: 'overview', label: 'Overview' },
+          { id: 'engagement', label: 'Engagement' },
+          { id: 'audiences', label: 'Audiences' },
+          { id: 'safety', label: 'Safety' },
+          { id: 'network', label: 'Network' },
+        ]}
+        active={tab}
+        onChange={setTab}
+      />
+
+      <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4 mt-6">
+        <AdminStatCard label="Engagement" value="384,425" change="12.5%" changeType="up" compareText="vs last month" icon={Activity} iconBg="bg-[#0f6fec]/10 text-[#0f6fec]" />
+        <AdminStatCard label="Profile views" value="82,640" change="8.2%" changeType="up" compareText="vs last month" icon={Users} iconBg="bg-[#0cbc87]/10 text-[#0cbc87]" />
+        <AdminStatCard label="Impressions" value="1.2M" change="3.1%" changeType="down" compareText="vs last month" icon={Eye} iconBg="bg-[#6610f2]/10 text-[#6610f2]" />
+        <AdminStatCard label="Account reach" value="542,180" change="15.8%" changeType="up" compareText="vs last month" icon={TrendingUp} iconBg="bg-[#e91e8c]/10 text-[#e91e8c]" />
+      </div>
+
+      <div className="grid lg:grid-cols-3 gap-4 mt-4">
+        {/* Left column */}
+        <div className="lg:col-span-2 space-y-4">
+          <div className="grid sm:grid-cols-2 gap-4">
+            <TCard className="!rounded-2xl">
+              <h3 className="text-sm font-bold text-[#14191e] mb-1">Visit by device</h3>
+              <p className="text-xs text-[#676a79] mb-4">Total page visits</p>
+              <div className="space-y-3">
+                <HorizontalBar label="Mobile" value={48} max={100} color="#0f6fec" />
+                <HorizontalBar label="Web" value={32} max={100} color="#6610f2" />
+                <HorizontalBar label="Tablet" value={20} max={100} color="#0cbc87" />
+              </div>
+            </TCard>
+            <TCard className="!rounded-2xl">
+              <h3 className="text-sm font-bold text-[#14191e] mb-4">Audience age</h3>
+              <div className="flex justify-between">
+                <ProgressRing value={12} label="13–17" color="#0f6fec" />
+                <ProgressRing value={38} label="18–24" color="#6610f2" />
+                <ProgressRing value={28} label="25–34" color="#e91e8c" />
+                <ProgressRing value={15} label="35–44" color="#0cbc87" />
+                <ProgressRing value={7} label="45+" color="#f7c32e" />
+              </div>
+            </TCard>
+          </div>
+
+          <TCard className="!rounded-2xl">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h3 className="text-sm font-bold text-[#14191e]">Audience growth</h3>
+                <p className="text-xs text-[#676a79] mt-0.5">Organic vs paid signups</p>
+              </div>
+              <TBtn variant="soft" size="sm">Export</TBtn>
+            </div>
+            <LineChart
+              data={chartData}
+              lines={[
+                { key: 0, color: '#6610f2', label: 'Organic signups' },
+                { key: 1, color: '#e91e8c', label: 'Paid campaigns' },
+                { key: 2, color: '#0f6fec', label: 'Circle joins' },
+              ]}
+            />
+            <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-[#e8eaed]">
+              {[
+                { label: 'Organic signups', value: '+8,523', up: true },
+                { label: 'Paid signups', value: '+1,240', up: true },
+                { label: 'Churned', value: '-342', up: false },
+              ].map((s) => (
+                <div key={s.label}>
+                  <p className="text-xs text-[#676a79]">{s.label}</p>
+                  <p className={`text-sm font-bold mt-1 flex items-center gap-1 ${s.up ? 'text-[#0cbc87]' : 'text-[#d6293e]'}`}>
+                    {s.up ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
+                    {s.value}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </TCard>
+        </div>
+
+        {/* Right column */}
+        <div className="space-y-4">
+          <TCard className="!rounded-2xl">
+            <h3 className="text-sm font-bold text-[#14191e] mb-4">Top locations</h3>
+            <div className="space-y-3 mb-4">
+              {[
+                { country: 'United States', pct: 42 },
+                { country: 'United Kingdom', pct: 18 },
+                { country: 'Canada', pct: 12 },
+                { country: 'Australia', pct: 8 },
+              ].map((loc) => (
+                <HorizontalBar key={loc.country} label={loc.country} value={loc.pct} max={50} color="#0f6fec" />
+              ))}
+            </div>
+          </TCard>
+
+          <TCard className="!rounded-2xl">
+            <h3 className="text-sm font-bold text-[#14191e] mb-1">Followers</h3>
+            <p className="text-2xl font-bold text-[#14191e] mt-2">+8,523</p>
+            <p className="text-xs text-[#0cbc87] font-semibold flex items-center gap-1 mt-1">
+              <ArrowUpRight size={12} /> 12.5% this month
+            </p>
+            <div className="flex items-end gap-1 h-16 mt-4">
+              {[40, 55, 45, 70, 60, 85, 95].map((h, i) => (
+                <div key={i} className="flex-1 bg-[#0f6fec]/20 rounded-t" style={{ height: `${h}%` }}>
+                  <div className="w-full bg-[#0f6fec] rounded-t" style={{ height: '60%' }} />
+                </div>
+              ))}
+            </div>
+          </TCard>
+
+          <TCard className="!rounded-2xl">
+            <h3 className="text-sm font-bold text-[#14191e] mb-4">Visitor profile</h3>
+            <DonutChart
+              segments={[
+                { label: 'Female', value: 52, color: '#e91e8c' },
+                { label: 'Male', value: 44, color: '#0f6fec' },
+                { label: 'Other', value: 4, color: '#a1a5b3' },
+              ]}
+              centerValue="48%"
+              centerLabel="Female"
+            />
+          </TCard>
+
+          <TCard className="!rounded-2xl">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-sm font-bold text-[#14191e]">Safety queue</h3>
+              <Link to="/design/admin/safety" className="text-xs font-semibold text-[#0f6fec]">View all</Link>
+            </div>
+            {safetyAlerts.filter((a) => a.status === 'New').slice(0, 2).map((alert) => (
+              <div key={alert.id} className="p-3 rounded-xl bg-[#f5f6f8] mb-2 last:mb-0">
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-xs font-semibold text-[#14191e]">{alert.type}</p>
+                  <TBadge color={alert.priority === 'Critical' ? 'danger' : 'warning'}>{alert.priority}</TBadge>
+                </div>
+                <p className="text-[10px] text-[#676a79] mt-1 line-clamp-1">{alert.excerpt}</p>
+              </div>
+            ))}
+          </TCard>
+        </div>
+      </div>
     </AdminShell>
   );
 }
 
 export function AdminUsersScreen() {
-  const [tab, setTab] = useState('all');
+  const columns: Column<(typeof adminUsers)[0]>[] = [
+    {
+      key: 'name',
+      label: 'Member',
+      sortable: true,
+      sortValue: (r) => r.name,
+      render: (r) => (
+        <div className="flex items-center gap-3">
+          <TAvatar src={r.avatar} name={r.name} size="sm" />
+          <div>
+            <p className="font-semibold text-[#14191e]">{r.name}</p>
+            <p className="text-xs text-[#a1a5b3]">@{r.username}</p>
+          </div>
+        </div>
+      ),
+    },
+    { key: 'email', label: 'Email', sortable: true, sortValue: (r) => r.email, render: (r) => <span className="text-[#676a79]">{r.email}</span> },
+    {
+      key: 'status',
+      label: 'Status',
+      sortable: true,
+      sortValue: (r) => r.status,
+      render: (r) => (
+        <TBadge color={r.status === 'Active' ? 'success' : r.status === 'Suspended' ? 'danger' : 'warning'}>{r.status}</TBadge>
+      ),
+    },
+    { key: 'role', label: 'Role', sortable: true, sortValue: (r) => r.role, render: (r) => <span className="text-[#676a79]">{r.role}</span> },
+    { key: 'posts', label: 'Posts', sortable: true, sortValue: (r) => r.posts, render: (r) => <span className="font-semibold text-[#14191e]">{r.posts}</span> },
+    { key: 'lastActive', label: 'Last active', sortable: true, sortValue: (r) => r.lastActive, render: (r) => <span className="text-xs text-[#a1a5b3]">{r.lastActive}</span> },
+    {
+      key: 'actions',
+      label: 'Actions',
+      render: () => (
+        <div className="flex gap-1">
+          <Link to="/design/admin/users/detail"><TBtn variant="soft" size="sm"><Eye size={12} /></TBtn></Link>
+          <TBtn variant="outline" size="sm"><Edit size={12} /></TBtn>
+        </div>
+      ),
+    },
+  ];
 
   return (
-    <AdminShell title="Users">
-      <PageHeader title="Member directory" subtitle="Search, filter, and manage member accounts" action={<TBtn>Export CSV</TBtn>} />
-      <TCard>
-        <div className="flex flex-col sm:flex-row gap-3 mb-4">
-          <TSearch placeholder="Search by name, email, username..." className="flex-1" />
-          <TBtn variant="outline">Filter</TBtn>
+    <AdminShell
+      title="Users"
+      subtitle="Search, filter, sort, and manage member accounts"
+      action={
+        <div className="flex gap-2">
+          <TBtn variant="outline" size="sm"><Download size={14} className="inline mr-1" />Export</TBtn>
+          <TBtn size="sm"><UserPlus size={14} className="inline mr-1" />Add user</TBtn>
         </div>
-        <TTabs
-          tabs={[
-            { id: 'all', label: 'All users' },
-            { id: 'active', label: 'Active' },
-            { id: 'suspended', label: 'Suspended' },
-            { id: 'staff', label: 'Staff' },
-          ]}
-          active={tab}
-          onChange={setTab}
-        />
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="text-left text-[#676a79] border-b border-[#e8eaed]">
-                <th className="py-3 pr-4 font-semibold">Member</th>
-                <th className="py-3 pr-4 font-semibold">Email</th>
-                <th className="py-3 pr-4 font-semibold">Status</th>
-                <th className="py-3 pr-4 font-semibold">Role</th>
-                <th className="py-3 font-semibold" />
-              </tr>
-            </thead>
-            <tbody>
-              {adminUsers.map((user, i) => (
-                <tr key={user.id} className="border-b border-[#e8eaed] last:border-0 hover:bg-[#f5f6f8]/50 transition-colors">
-                  <td className="py-3 pr-4">
-                    <div className="flex items-center gap-3">
-                      <TAvatar src={[images.avatar1, images.avatar2, images.avatar3][i]} name={user.name} size="sm" />
-                      <div>
-                        <p className="font-semibold text-[#14191e]">{user.name}</p>
-                        <p className="text-xs text-[#a1a5b3]">@{user.name.toLowerCase().replace(' ', '')}</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="py-3 pr-4 text-[#676a79]">{user.email}</td>
-                  <td className="py-3 pr-4">
-                    <TBadge color={user.status === 'Active' ? 'success' : 'danger'}>{user.status}</TBadge>
-                  </td>
-                  <td className="py-3 pr-4 text-[#676a79]">{user.role}</td>
-                  <td className="py-3 text-right">
-                    <Link to="/design/admin/users/detail">
-                      <TBtn variant="soft" size="sm">View</TBtn>
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </TCard>
+      }
+    >
+      <DataTable
+        columns={columns}
+        data={adminUsers}
+        rowKey={(r) => r.id}
+        searchKeys={['name', 'email', 'username', 'role']}
+        searchPlaceholder="Search by name, email, username, role..."
+        filters={[
+          {
+            id: 'status',
+            label: 'Status',
+            options: [
+              { value: 'Active', label: 'Active' },
+              { value: 'Suspended', label: 'Suspended' },
+              { value: 'Pending', label: 'Pending' },
+            ],
+            filterFn: (r, v) => r.status === v,
+          },
+          {
+            id: 'role',
+            label: 'Role',
+            options: [
+              { value: 'Member', label: 'Member' },
+              { value: 'Staff', label: 'Staff' },
+              { value: 'Circle Admin', label: 'Circle Admin' },
+              { value: 'Super Admin', label: 'Super Admin' },
+            ],
+            filterFn: (r, v) => r.role === v,
+          },
+        ]}
+        pageSize={6}
+        bulkActions={[
+          { id: 'suspend', label: 'Suspend selected', variant: 'danger' },
+          { id: 'export', label: 'Export selected' },
+        ]}
+        onRowAction={() => {}}
+      />
     </AdminShell>
   );
 }
 
 export function AdminUserDetailScreen() {
+  const user = adminUsers[1];
   return (
-    <AdminShell title="User detail">
+    <AdminShell
+      title="User detail"
+      subtitle={`@${user.username} · ${user.email}`}
+      action={
+        <div className="flex gap-2">
+          <TBtn variant="outline" size="sm"><Edit size={14} className="inline mr-1" />Edit</TBtn>
+          <TBtn variant="danger" size="sm"><Trash2 size={14} className="inline mr-1" />Delete</TBtn>
+        </div>
+      }
+    >
       <div className="grid lg:grid-cols-[2fr_1fr] gap-4">
-        <TCard>
+        <TCard className="!rounded-2xl">
           <div className="flex flex-col sm:flex-row sm:items-start gap-4 mb-6">
-            <TAvatar src={images.avatar2} name="Jordan Lee" size="lg" />
+            <TAvatar src={user.avatar} name={user.name} size="lg" />
             <div className="flex-1">
-              <h2 className="text-xl font-bold text-[#14191e]">Jordan Lee</h2>
-              <p className="text-sm text-[#676a79]">@jordanl · jordan@example.com</p>
+              <h2 className="text-xl font-bold text-[#14191e]">{user.name}</h2>
+              <p className="text-sm text-[#676a79]">@{user.username} · {user.email}</p>
               <div className="flex flex-wrap gap-2 mt-3">
-                <TBadge color="danger">Suspended</TBadge>
-                <TBadge color="muted">Member</TBadge>
+                <TBadge color="danger">{user.status}</TBadge>
+                <TBadge color="muted">{user.role}</TBadge>
               </div>
             </div>
-            <button type="button" className="p-2 rounded-lg hover:bg-[#f5f6f8] text-[#676a79]">
-              <MoreHorizontal size={18} />
-            </button>
           </div>
-
-          <div className="grid sm:grid-cols-2 gap-4 mb-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
             {[
-              { label: 'Global role', value: 'Member' },
-              { label: 'Circle admin', value: 'Anxiety Support' },
-              { label: 'Joined', value: 'January 2025' },
-              { label: 'Last active', value: 'Jul 28, 2026' },
+              { label: 'Posts', value: user.posts },
+              { label: 'Joined', value: user.joined },
+              { label: 'Last active', value: user.lastActive },
+              { label: 'Circles', value: '2' },
             ].map((item) => (
-              <div key={item.label} className="p-3 rounded-xl bg-[#f5f6f8]">
-                <p className="text-xs font-semibold text-[#a1a5b3] uppercase">{item.label}</p>
-                <p className="text-sm font-semibold text-[#14191e] mt-1">{item.value}</p>
+              <div key={item.label} className="p-3 rounded-xl bg-[#f5f6f8] text-center">
+                <p className="text-lg font-bold text-[#14191e]">{item.value}</p>
+                <p className="text-[10px] text-[#676a79] font-semibold uppercase mt-1">{item.label}</p>
               </div>
             ))}
           </div>
-
           <div className="flex flex-wrap gap-3">
             <TBtn variant="soft">Restore access</TBtn>
             <TBtn variant="outline">Send warning</TBtn>
             <TBtn variant="danger">Ban member</TBtn>
           </div>
         </TCard>
-
         <div className="space-y-4">
-          <TCard>
+          <TCard className="!rounded-2xl">
             <h3 className="text-sm font-bold text-[#14191e] mb-3">Enforcement history</h3>
             <div className="flex gap-3">
               <div className="w-8 h-8 rounded-full bg-[#d6293e]/10 flex items-center justify-center shrink-0">
@@ -238,17 +357,15 @@ export function AdminUserDetailScreen() {
               <div>
                 <p className="text-sm font-semibold text-[#14191e]">Suspended</p>
                 <p className="text-xs text-[#676a79] mt-1">Jul 28, 2026 — Policy violation</p>
-                <p className="text-xs text-[#a1a5b3] mt-1">By staff@notonlyhere.com</p>
               </div>
             </div>
           </TCard>
-
-          <TCard>
-            <h3 className="text-sm font-bold text-[#14191e] mb-3">Recent activity</h3>
-            <div className="space-y-2 text-xs text-[#676a79]">
-              <p>Posted in Anxiety Support — Jul 27</p>
-              <p>3 comments flagged — Jul 26</p>
-              <p>Joined Grief & Loss — Jul 15</p>
+          <TCard className="!rounded-2xl">
+            <h3 className="text-sm font-bold text-[#14191e] mb-3">Quick actions</h3>
+            <div className="space-y-2">
+              {['Reset password', 'Change role', 'View posts', 'View messages'].map((a) => (
+                <button key={a} type="button" className="w-full text-left text-sm font-semibold text-[#676a79] hover:text-[#0f6fec] px-3 py-2 rounded-lg hover:bg-[#f5f6f8] transition-colors">{a}</button>
+              ))}
             </div>
           </TCard>
         </div>
@@ -258,199 +375,304 @@ export function AdminUserDetailScreen() {
 }
 
 export function AdminCirclesScreen() {
-  const [tab, setTab] = useState('pending');
+  const columns: Column<(typeof adminCircles)[0]>[] = [
+    {
+      key: 'name',
+      label: 'Circle',
+      sortable: true,
+      sortValue: (r) => r.name,
+      render: (r) => (
+        <div className="flex items-center gap-3">
+          <img src={r.thumb} alt="" className="w-10 h-10 rounded-lg object-cover" />
+          <p className="font-semibold text-[#14191e]">{r.name}</p>
+        </div>
+      ),
+    },
+    { key: 'members', label: 'Members', sortable: true, sortValue: (r) => r.members, render: (r) => <span>{r.members.toLocaleString()}</span> },
+    { key: 'access', label: 'Access', sortable: true, sortValue: (r) => r.access, render: (r) => <TBadge color="muted">{r.access}</TBadge> },
+    {
+      key: 'status',
+      label: 'Status',
+      sortable: true,
+      sortValue: (r) => r.status,
+      render: (r) => (
+        <TBadge color={r.status === 'Active' ? 'success' : r.status === 'Pending' ? 'warning' : 'muted'}>{r.status}</TBadge>
+      ),
+    },
+    { key: 'submitted', label: 'Submitted', sortable: true, sortValue: (r) => r.submitted, render: (r) => <span className="text-xs text-[#a1a5b3]">{r.submitted}</span> },
+    {
+      key: 'actions',
+      label: 'Actions',
+      render: (r) => (
+        <div className="flex gap-1">
+          {r.status === 'Pending' ? (
+            <>
+              <TBtn size="sm">Approve</TBtn>
+              <TBtn variant="outline" size="sm">Reject</TBtn>
+            </>
+          ) : (
+            <>
+              <TBtn variant="soft" size="sm"><Eye size={12} /></TBtn>
+              <TBtn variant="outline" size="sm"><Edit size={12} /></TBtn>
+            </>
+          )}
+        </div>
+      ),
+    },
+  ];
 
   return (
-    <AdminShell title="Circles">
-      <PageHeader title="Circle management" subtitle="Review submissions and manage communities" />
-      <TCard>
-        <TTabs
-          tabs={[
-            { id: 'pending', label: 'Pending (5)' },
-            { id: 'active', label: 'Active' },
-            { id: 'archived', label: 'Archived' },
-          ]}
-          active={tab}
-          onChange={setTab}
-        />
-        <div className="space-y-3">
-          {['Grief & Loss', 'Work Stress', 'Student Support'].map((name, i) => (
-            <div key={name} className="flex items-center gap-4 p-4 rounded-xl border border-[#e8eaed] hover:bg-[#f5f6f8]/50 transition-colors">
-              <img src={[images.circleThumb1, images.circleThumb2, images.circleThumb3][i]} alt="" className="w-12 h-12 rounded-xl object-cover" />
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-[#14191e]">{name}</p>
-                <p className="text-xs text-[#676a79] mt-0.5">Submitted 2 days ago · Open · 0 members</p>
-              </div>
-              <div className="flex gap-2 shrink-0">
-                <TBtn variant="outline" size="sm">Review</TBtn>
-                <TBtn size="sm">Approve</TBtn>
-              </div>
-            </div>
-          ))}
-        </div>
-      </TCard>
+    <AdminShell
+      title="Circles"
+      subtitle="Review, approve, and manage peer-support communities"
+      action={<TBtn size="sm"><Plus size={14} className="inline mr-1" />Create circle</TBtn>}
+    >
+      <DataTable
+        columns={columns}
+        data={adminCircles}
+        rowKey={(r) => r.id}
+        searchKeys={['name', 'status', 'access']}
+        searchPlaceholder="Search circles..."
+        filters={[
+          {
+            id: 'status',
+            label: 'Status',
+            options: [
+              { value: 'Active', label: 'Active' },
+              { value: 'Pending', label: 'Pending' },
+              { value: 'Archived', label: 'Archived' },
+            ],
+            filterFn: (r, v) => r.status === v,
+          },
+        ]}
+        pageSize={5}
+        bulkActions={[{ id: 'approve', label: 'Approve selected' }, { id: 'archive', label: 'Archive selected', variant: 'danger' }]}
+        onRowAction={() => {}}
+      />
     </AdminShell>
   );
 }
 
 export function AdminSafetyScreen() {
+  const columns: Column<(typeof safetyAlerts)[0]>[] = [
+    { key: 'type', label: 'Type', sortable: true, sortValue: (r) => r.type, render: (r) => <span className="font-semibold text-[#14191e]">{r.type}</span> },
+    { key: 'excerpt', label: 'Summary', render: (r) => <span className="text-xs text-[#676a79] line-clamp-1 max-w-xs">{r.excerpt}</span> },
+    {
+      key: 'priority',
+      label: 'Priority',
+      sortable: true,
+      sortValue: (r) => r.priority,
+      render: (r) => <TBadge color={r.priority === 'Critical' ? 'danger' : r.priority === 'High' ? 'warning' : 'muted'}>{r.priority}</TBadge>,
+    },
+    {
+      key: 'status',
+      label: 'Status',
+      sortable: true,
+      sortValue: (r) => r.status,
+      render: (r) => <TBadge color={r.status === 'New' ? 'warning' : r.status === 'In review' ? 'primary' : 'muted'}>{r.status}</TBadge>,
+    },
+    { key: 'confidence', label: 'Confidence', sortable: true, sortValue: (r) => r.confidence, render: (r) => <span className="text-[#676a79]">{r.confidence}</span> },
+    { key: 'reported', label: 'Reported', sortable: true, sortValue: (r) => r.reported, render: (r) => <span className="text-xs text-[#a1a5b3]">{r.reported}</span> },
+    {
+      key: 'actions',
+      label: 'Actions',
+      render: () => (
+        <div className="flex gap-1">
+          <TBtn size="sm">Review</TBtn>
+          <TBtn variant="outline" size="sm">Dismiss</TBtn>
+        </div>
+      ),
+    },
+  ];
+
   return (
-    <AdminShell title="Safety alerts">
-      <PageHeader
-        title="Safety queue"
-        subtitle="AI-assisted moderation — all actions require human review"
-        action={<TBtn variant="outline" size="sm"><Download size={14} className="inline mr-1" />Export</TBtn>}
-      />
-      <div className="space-y-4">
-        {safetyAlerts.map((alert) => (
-          <TCard key={alert.id}>
-            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-3">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#f7c32e]/15 flex items-center justify-center shrink-0">
-                  <Shield size={18} className="text-[#c9a000]" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <p className="text-sm font-bold text-[#14191e]">{alert.type}</p>
-                    <TBadge color="warning">{alert.status}</TBadge>
-                  </div>
-                  <p className="text-xs text-[#676a79] mt-1">{alert.excerpt}</p>
-                </div>
-              </div>
-              <TBadge color="muted">Confidence: {alert.confidence}</TBadge>
-            </div>
-            <div className="p-3 rounded-xl bg-[#f5f6f8] text-xs text-[#676a79] mb-4">
-              <span className="font-semibold text-[#14191e]">AI rationale:</span> Content may violate community guidelines regarding harmful language. Recommend human review before action.
-            </div>
-            <div className="flex gap-2">
-              <TBtn variant="outline" size="sm">Dismiss</TBtn>
-              <TBtn variant="soft" size="sm">Escalate</TBtn>
-              <TBtn size="sm">Open review</TBtn>
-            </div>
+    <AdminShell
+      title="Safety alerts"
+      subtitle="AI-assisted moderation queue — all actions require human review"
+      action={<TBtn variant="outline" size="sm"><Download size={14} className="inline mr-1" />Export</TBtn>}
+    >
+      <div className="grid sm:grid-cols-4 gap-4 mb-4">
+        {[
+          { label: 'New', value: safetyAlerts.filter((a) => a.status === 'New').length, color: 'text-[#f7c32e]' },
+          { label: 'In review', value: safetyAlerts.filter((a) => a.status === 'In review').length, color: 'text-[#0f6fec]' },
+          { label: 'Critical', value: safetyAlerts.filter((a) => a.priority === 'Critical').length, color: 'text-[#d6293e]' },
+          { label: 'Dismissed', value: safetyAlerts.filter((a) => a.status === 'Dismissed').length, color: 'text-[#676a79]' },
+        ].map((kpi) => (
+          <TCard key={kpi.label} className="!rounded-2xl text-center">
+            <p className={`text-2xl font-bold ${kpi.color}`}>{kpi.value}</p>
+            <p className="text-xs text-[#676a79] mt-1">{kpi.label}</p>
           </TCard>
         ))}
       </div>
+      <DataTable
+        columns={columns}
+        data={safetyAlerts}
+        rowKey={(r) => r.id}
+        searchKeys={['type', 'excerpt', 'reporter']}
+        searchPlaceholder="Search alerts..."
+        filters={[
+          { id: 'status', label: 'Status', options: [{ value: 'New', label: 'New' }, { value: 'In review', label: 'In review' }, { value: 'Dismissed', label: 'Dismissed' }], filterFn: (r, v) => r.status === v },
+          { id: 'priority', label: 'Priority', options: [{ value: 'Critical', label: 'Critical' }, { value: 'High', label: 'High' }, { value: 'Medium', label: 'Medium' }, { value: 'Low', label: 'Low' }], filterFn: (r, v) => r.priority === v },
+        ]}
+        pageSize={5}
+        bulkActions={[{ id: 'dismiss', label: 'Dismiss selected' }, { id: 'escalate', label: 'Escalate selected' }]}
+        onRowAction={() => {}}
+      />
     </AdminShell>
   );
 }
 
 export function AdminContentScreen() {
-  const sections = [
-    { title: 'Blog', subtitle: '12 drafts · 48 published', icon: FileText, color: 'bg-[#0f6fec]/10 text-[#0f6fec]' },
-    { title: 'Resources', subtitle: '6 courses · 24 articles', icon: FileText, color: 'bg-[#0cbc87]/10 text-[#0cbc87]' },
-    { title: 'Events', subtitle: '3 upcoming · 12 past', icon: Clock, color: 'bg-[#6610f2]/10 text-[#6610f2]' },
+  const columns: Column<(typeof adminContentItems)[0]>[] = [
+    { key: 'title', label: 'Title', sortable: true, sortValue: (r) => r.title, render: (r) => <span className="font-semibold text-[#14191e]">{r.title}</span> },
+    { key: 'type', label: 'Type', sortable: true, sortValue: (r) => r.type, render: (r) => <TBadge color="muted">{r.type}</TBadge> },
+    {
+      key: 'status',
+      label: 'Status',
+      sortable: true,
+      sortValue: (r) => r.status,
+      render: (r) => <TBadge color={r.status === 'Published' ? 'success' : r.status === 'Draft' ? 'warning' : 'primary'}>{r.status}</TBadge>,
+    },
+    { key: 'author', label: 'Author', render: (r) => <span className="text-xs text-[#676a79]">{r.author}</span> },
+    { key: 'views', label: 'Views', sortable: true, sortValue: (r) => r.views, render: (r) => <span className="font-semibold">{r.views.toLocaleString()}</span> },
+    { key: 'updated', label: 'Updated', sortable: true, sortValue: (r) => r.updated, render: (r) => <span className="text-xs text-[#a1a5b3]">{r.updated}</span> },
+    {
+      key: 'actions',
+      label: 'Actions',
+      render: () => (
+        <div className="flex gap-1">
+          <TBtn variant="soft" size="sm"><Eye size={12} /></TBtn>
+          <TBtn variant="outline" size="sm"><Edit size={12} /></TBtn>
+          <TBtn variant="danger" size="sm"><Trash2 size={12} /></TBtn>
+        </div>
+      ),
+    },
   ];
 
   return (
-    <AdminShell title="Content">
-      <PageHeader title="Content management" subtitle="Create, edit, and publish platform content" action={<TBtn>Create new</TBtn>} />
-      <div className="grid md:grid-cols-3 gap-4">
-        {sections.map((section) => (
-          <TCard key={section.title} className="hover:shadow-md transition-shadow cursor-pointer">
-            <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 ${section.color}`}>
-              <section.icon size={20} />
-            </div>
-            <h3 className="text-base font-bold text-[#14191e]">{section.title}</h3>
-            <p className="text-xs text-[#676a79] mt-1 mb-4">{section.subtitle}</p>
-            <TBtn size="sm" variant="soft">Manage {section.title.toLowerCase()}</TBtn>
-          </TCard>
-        ))}
-      </div>
+    <AdminShell
+      title="Content management"
+      subtitle="Create, edit, publish, and delete platform content"
+      action={<TBtn size="sm"><Plus size={14} className="inline mr-1" />Create new</TBtn>}
+    >
+      <DataTable
+        columns={columns}
+        data={adminContentItems}
+        rowKey={(r) => r.id}
+        searchKeys={['title', 'type', 'author', 'status']}
+        searchPlaceholder="Search content..."
+        filters={[
+          { id: 'type', label: 'Type', options: [{ value: 'Blog', label: 'Blog' }, { value: 'Article', label: 'Article' }, { value: 'Event', label: 'Event' }, { value: 'Resource', label: 'Resource' }], filterFn: (r, v) => r.type === v },
+          { id: 'status', label: 'Status', options: [{ value: 'Published', label: 'Published' }, { value: 'Draft', label: 'Draft' }, { value: 'Scheduled', label: 'Scheduled' }], filterFn: (r, v) => r.status === v },
+        ]}
+        pageSize={5}
+        bulkActions={[{ id: 'publish', label: 'Publish selected' }, { id: 'delete', label: 'Delete selected', variant: 'danger' }]}
+        onRowAction={() => {}}
+      />
     </AdminShell>
   );
 }
 
 export function AdminDonationsScreen() {
-  return (
-    <AdminShell title="Donations">
-      <PageHeader title="Donations" subtitle="Stripe payment records and recurring subscriptions" action={<TBtn variant="outline" size="sm"><Download size={14} className="inline mr-1" />Export</TBtn>} />
-      <div className="grid sm:grid-cols-3 gap-4 mb-4">
-        {[
-          { label: 'Total this month', value: '$2,840' },
-          { label: 'Recurring donors', value: '142' },
-          { label: 'Pending', value: '3' },
-        ].map((kpi) => (
-          <TCard key={kpi.label}>
-            <p className="text-xs font-semibold text-[#676a79] uppercase">{kpi.label}</p>
-            <p className="text-2xl font-bold text-[#14191e] mt-1">{kpi.value}</p>
-          </TCard>
-        ))}
-      </div>
-      <TCard>
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="text-left text-[#676a79] border-b border-[#e8eaed]">
-                <th className="py-3 font-semibold">Donor ref</th>
-                <th className="py-3 font-semibold">Amount</th>
-                <th className="py-3 font-semibold">Cadence</th>
-                <th className="py-3 font-semibold">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {donations.map((d) => (
-                <tr key={d.id} className="border-b border-[#e8eaed] last:border-0 hover:bg-[#f5f6f8]/50">
-                  <td className="py-3 font-semibold text-[#14191e]">{d.donor}</td>
-                  <td className="py-3 text-[#14191e]">{d.amount}</td>
-                  <td className="py-3 text-[#676a79]">{d.cadence}</td>
-                  <td className="py-3">
-                    <TBadge color={d.status === 'Succeeded' ? 'success' : 'warning'}>{d.status}</TBadge>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+  const columns: Column<(typeof donations)[0]>[] = [
+    { key: 'donor', label: 'Donor', sortable: true, sortValue: (r) => r.donor, render: (r) => <span className="font-semibold text-[#14191e]">{r.donor}</span> },
+    { key: 'email', label: 'Email', render: (r) => <span className="text-xs text-[#676a79]">{r.email}</span> },
+    { key: 'amount', label: 'Amount', sortable: true, sortValue: (r) => r.amount, render: (r) => <span className="font-bold text-[#14191e]">${r.amount.toFixed(2)}</span> },
+    { key: 'cadence', label: 'Cadence', sortable: true, sortValue: (r) => r.cadence, render: (r) => <span className="text-[#676a79]">{r.cadence}</span> },
+    {
+      key: 'status',
+      label: 'Status',
+      sortable: true,
+      sortValue: (r) => r.status,
+      render: (r) => <TBadge color={r.status === 'Succeeded' ? 'success' : r.status === 'Pending' ? 'warning' : 'danger'}>{r.status}</TBadge>,
+    },
+    { key: 'date', label: 'Date', sortable: true, sortValue: (r) => r.date, render: (r) => <span className="text-xs text-[#a1a5b3]">{r.date}</span> },
+    {
+      key: 'actions',
+      label: 'Actions',
+      render: () => (
+        <div className="flex gap-1">
+          <TBtn variant="soft" size="sm"><Eye size={12} /></TBtn>
+          <TBtn variant="outline" size="sm">Refund</TBtn>
         </div>
-      </TCard>
+      ),
+    },
+  ];
+
+  return (
+    <AdminShell
+      title="Donations"
+      subtitle="Stripe payment records and recurring subscriptions"
+      action={<TBtn variant="outline" size="sm"><Download size={14} className="inline mr-1" />Export CSV</TBtn>}
+    >
+      <div className="grid sm:grid-cols-3 gap-4 mb-4">
+        <AdminStatCard label="Total this month" value="$2,840" change="18%" changeType="up" icon={TrendingUp} iconBg="bg-[#0cbc87]/10 text-[#0cbc87]" />
+        <AdminStatCard label="Recurring donors" value="142" change="5%" changeType="up" icon={Users} iconBg="bg-[#0f6fec]/10 text-[#0f6fec]" />
+        <AdminStatCard label="Failed payments" value="3" change="2" changeType="down" icon={Clock} iconBg="bg-[#d6293e]/10 text-[#d6293e]" />
+      </div>
+      <DataTable
+        columns={columns}
+        data={donations}
+        rowKey={(r) => r.id}
+        searchKeys={['donor', 'email', 'status']}
+        searchPlaceholder="Search donations..."
+        filters={[
+          { id: 'status', label: 'Status', options: [{ value: 'Succeeded', label: 'Succeeded' }, { value: 'Pending', label: 'Pending' }, { value: 'Failed', label: 'Failed' }], filterFn: (r, v) => r.status === v },
+          { id: 'cadence', label: 'Cadence', options: [{ value: 'Monthly', label: 'Monthly' }, { value: 'One-time', label: 'One-time' }, { value: 'Annual', label: 'Annual' }], filterFn: (r, v) => r.cadence === v },
+        ]}
+        pageSize={5}
+        onRowAction={() => {}}
+      />
     </AdminShell>
   );
 }
 
 export function AdminAnalyticsScreen() {
-  const funnel = [
-    { label: 'Visit', value: 100 },
-    { label: 'Register', value: 62 },
-    { label: 'First post', value: 38 },
-    { label: 'Join circle', value: 24 },
-  ];
-
+  const [tab, setTab] = useState('growth');
   return (
-    <AdminShell title="Analytics">
-      <PageHeader title="Growth analytics" subtitle="Funnel, retention, and engagement metrics" action={<TBtn variant="outline" size="sm"><Download size={14} className="inline mr-1" />Export CSV</TBtn>} />
-      <TCard className="mb-4">
-        <h2 className="text-base font-bold text-[#14191e] mb-1">Growth funnel</h2>
-        <p className="text-xs text-[#676a79] mb-6">Visit → Register → First post → Join circle</p>
-        <div className="h-48 flex items-end gap-4 px-2">
-          {funnel.map((step) => (
-            <div key={step.label} className="flex-1 flex flex-col items-center gap-2">
-              <span className="text-xs font-bold text-[#0f6fec]">{step.value}%</span>
-              <div className="w-full bg-[#0f6fec]/15 rounded-t-xl relative" style={{ height: `${step.value}%` }}>
-                <div className="absolute inset-x-0 bottom-0 bg-[#0f6fec] rounded-t-xl" style={{ height: '100%' }} />
+    <AdminShell title="Analytics" subtitle="Growth funnel, retention, and engagement metrics">
+      <AdminTabs
+        tabs={[
+          { id: 'growth', label: 'Growth' },
+          { id: 'retention', label: 'Retention' },
+          { id: 'engagement', label: 'Engagement' },
+          { id: 'circles', label: 'Circles' },
+        ]}
+        active={tab}
+        onChange={setTab}
+        rightAction={<TBtn variant="outline" size="sm"><Download size={14} className="inline mr-1" />Export CSV</TBtn>}
+      />
+      <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4 mt-6">
+        <AdminStatCard label="Total signups" value="12,840" change="22%" changeType="up" compareText="vs last quarter" icon={UserPlus} iconBg="bg-[#0f6fec]/10 text-[#0f6fec]" />
+        <AdminStatCard label="Active members" value="8,420" change="15%" changeType="up" compareText="30-day active" icon={Users} iconBg="bg-[#0cbc87]/10 text-[#0cbc87]" />
+        <AdminStatCard label="Posts created" value="48,290" change="9%" changeType="up" compareText="vs last quarter" icon={FileText} iconBg="bg-[#6610f2]/10 text-[#6610f2]" />
+        <AdminStatCard label="Retention (30d)" value="68%" change="4%" changeType="up" compareText="vs last quarter" icon={Activity} iconBg="bg-[#e91e8c]/10 text-[#e91e8c]" />
+      </div>
+      <div className="grid lg:grid-cols-2 gap-4 mt-4">
+        <TCard className="!rounded-2xl">
+          <h3 className="text-sm font-bold text-[#14191e] mb-4">Growth funnel</h3>
+          <div className="h-48 flex items-end gap-4">
+            {[
+              { label: 'Visit', value: 100 },
+              { label: 'Register', value: 62 },
+              { label: 'First post', value: 38 },
+              { label: 'Join circle', value: 24 },
+            ].map((step) => (
+              <div key={step.label} className="flex-1 flex flex-col items-center gap-2">
+                <span className="text-xs font-bold text-[#0f6fec]">{step.value}%</span>
+                <div className="w-full bg-[#0f6fec]/15 rounded-t-xl" style={{ height: `${step.value}%` }}>
+                  <div className="w-full h-full bg-[#0f6fec] rounded-t-xl opacity-80" />
+                </div>
+                <span className="text-[10px] font-semibold text-[#676a79]">{step.label}</span>
               </div>
-              <span className="text-[10px] font-semibold text-[#676a79] text-center">{step.label}</span>
-            </div>
-          ))}
-        </div>
-      </TCard>
-
-      <div className="grid md:grid-cols-2 gap-4">
-        <TCard>
-          <h2 className="text-base font-bold text-[#14191e] mb-4">Top circles by growth</h2>
-          {['Anxiety Support', 'New Parents', 'Grief & Loss'].map((name, i) => (
-            <div key={name} className="flex items-center justify-between py-2 border-b border-[#e8eaed] last:border-0">
-              <span className="text-sm text-[#14191e]">{name}</span>
-              <TBadge color="success">+{[18, 12, 8][i]}%</TBadge>
-            </div>
-          ))}
-        </TCard>
-        <TCard>
-          <h2 className="text-base font-bold text-[#14191e] mb-4">Retention (30d)</h2>
-          <div className="flex items-center gap-4">
-            <div className="w-24 h-24 rounded-full border-8 border-[#0f6fec] flex items-center justify-center">
-              <span className="text-xl font-bold text-[#14191e]">68%</span>
-            </div>
-            <p className="text-sm text-[#676a79]">Members who returned within 30 days of signup</p>
+            ))}
           </div>
+        </TCard>
+        <TCard className="!rounded-2xl">
+          <h3 className="text-sm font-bold text-[#14191e] mb-4">Top circles by growth</h3>
+          {['Anxiety Support', 'New Parents', 'Grief & Loss', 'Work Stress'].map((name, i) => (
+            <HorizontalBar key={name} label={name} value={[42, 28, 18, 12][i]} max={50} color={['#0f6fec', '#6610f2', '#e91e8c', '#0cbc87'][i]} />
+          ))}
         </TCard>
       </div>
     </AdminShell>
@@ -458,33 +680,40 @@ export function AdminAnalyticsScreen() {
 }
 
 export function AdminAuditScreen() {
-  const entries = [
-    { actor: 'staff@notonlyhere.com', action: 'suspended user @jordanl', target: 'Policy violation', time: 'Jul 28, 2026 14:22 UTC', icon: AlertTriangle, color: 'text-[#d6293e]' },
-    { actor: 'admin@notonlyhere.com', action: 'approved circle "Grief & Loss"', target: 'Circle moderation', time: 'Jul 27, 2026 09:10 UTC', icon: CheckCircle2, color: 'text-[#0cbc87]' },
-    { actor: 'content@notonlyhere.com', action: 'published blog post', target: 'Content', time: 'Jul 26, 2026 16:45 UTC', icon: FileText, color: 'text-[#0f6fec]' },
+  const columns: Column<(typeof auditLog)[0]>[] = [
+    { key: 'actor', label: 'Actor', sortable: true, sortValue: (r) => r.actor, render: (r) => <span className="font-semibold text-[#14191e]">{r.actor}</span> },
+    { key: 'action', label: 'Action', sortable: true, sortValue: (r) => r.action, render: (r) => <span className="text-[#676a79]">{r.action}</span> },
+    { key: 'target', label: 'Target', render: (r) => <span className="text-sm text-[#14191e]">{r.target}</span> },
+    { key: 'category', label: 'Category', sortable: true, sortValue: (r) => r.category, render: (r) => <TBadge color="muted">{r.category}</TBadge> },
+    { key: 'time', label: 'Timestamp', sortable: true, sortValue: (r) => r.time, render: (r) => <span className="text-xs text-[#a1a5b3]">{r.time}</span> },
   ];
 
   return (
-    <AdminShell title="Audit log">
-      <PageHeader title="Audit log" subtitle="Immutable record of all admin actions" />
-      <TCard>
-        <TSearch placeholder="Filter by actor, action, target..." className="mb-4" />
-        <div className="space-y-1">
-          {entries.map((entry) => (
-            <div key={entry.time} className="flex items-start gap-3 p-3 rounded-xl hover:bg-[#f5f6f8] transition-colors">
-              <div className={`w-9 h-9 rounded-lg bg-[#f5f6f8] flex items-center justify-center shrink-0 ${entry.color}`}>
-                <entry.icon size={16} />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm text-[#14191e]">
-                  <span className="font-semibold">{entry.actor}</span> {entry.action}
-                </p>
-                <p className="text-xs text-[#676a79] mt-0.5">{entry.target} · {entry.time}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </TCard>
+    <AdminShell title="Audit log" subtitle="Immutable record of all admin actions">
+      <DataTable
+        columns={columns}
+        data={auditLog}
+        rowKey={(r) => r.id}
+        searchKeys={['actor', 'action', 'target', 'category']}
+        searchPlaceholder="Filter by actor, action, target..."
+        filters={[
+          {
+            id: 'category',
+            label: 'Category',
+            options: [
+              { value: 'Enforcement', label: 'Enforcement' },
+              { value: 'Moderation', label: 'Moderation' },
+              { value: 'Content', label: 'Content' },
+              { value: 'Safety', label: 'Safety' },
+              { value: 'Users', label: 'Users' },
+              { value: 'Analytics', label: 'Analytics' },
+            ],
+            filterFn: (r, v) => r.category === v,
+          },
+        ]}
+        pageSize={6}
+        selectable={false}
+      />
     </AdminShell>
   );
 }

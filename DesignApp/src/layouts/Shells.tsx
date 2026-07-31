@@ -5,15 +5,19 @@ import {
   ChevronDown,
   Circle,
   Compass,
+  Globe,
+  HelpCircle,
   Home,
   LayoutDashboard,
   LogOut,
   MessageCircle,
+  Moon,
   Newspaper,
   Search,
   Settings,
   Shield,
   Sparkles,
+  Sun,
   User,
   Users,
   Video,
@@ -40,13 +44,13 @@ const headerNav = [
 ];
 
 const adminNav = [
-  { to: '/design/admin', label: 'Dashboard', icon: LayoutDashboard },
+  { to: '/design/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
+  { to: '/design/admin/analytics', label: 'Analytics', icon: Compass },
   { to: '/design/admin/users', label: 'Users', icon: Users },
   { to: '/design/admin/circles', label: 'Circles', icon: Circle },
-  { to: '/design/admin/safety', label: 'Safety alerts', icon: Shield },
+  { to: '/design/admin/safety', label: 'Safety alerts', icon: Shield, badge: 3 },
   { to: '/design/admin/content', label: 'Content', icon: Video },
   { to: '/design/admin/donations', label: 'Donations', icon: Settings },
-  { to: '/design/admin/analytics', label: 'Analytics', icon: Compass },
   { to: '/design/admin/audit', label: 'Audit log', icon: Search },
 ];
 
@@ -279,42 +283,105 @@ export function MemberShell({ children, showRightRail = false, fullWidth = false
   );
 }
 
-export function AdminShell({ children, title }: { children: ReactNode; title: string }) {
+export function AdminShell({ children, title, subtitle, action }: { children: ReactNode; title?: string; subtitle?: string; action?: ReactNode }) {
   return (
-    <div className="min-h-screen bg-[#eff2f6] flex font-ui">
-      <aside className="hidden md:flex w-[260px] flex-col bg-[#14191e] text-white shrink-0">
-        <div className="p-5 border-b border-white/10">
-          <p className="text-[10px] uppercase tracking-widest text-white/50 font-semibold">Admin panel</p>
-          <h2 className="text-lg font-bold mt-1">NotOnlyHere</h2>
+    <div className="min-h-screen bg-[#f0f2f5] font-ui flex">
+      {/* Light sidebar — modern admin */}
+      <aside className="hidden lg:flex w-[260px] flex-col bg-white border-r border-[#e8eaed] shrink-0 sticky top-0 h-screen">
+        <div className="p-5 flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0f6fec] to-[#6610f2] flex items-center justify-center">
+            <span className="text-white font-bold text-sm">NH</span>
+          </div>
+          <div>
+            <h2 className="text-base font-bold text-[#14191e]">NotOnlyHere</h2>
+            <p className="text-[10px] text-[#a1a5b3] font-semibold uppercase tracking-wide">Admin panel</p>
+          </div>
         </div>
-        <nav className="flex-1 p-3 space-y-0.5">
+
+        <nav className="flex-1 px-3 space-y-0.5 overflow-y-auto">
           {adminNav.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
+              end={item.end}
               className={({ isActive }) =>
                 `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors ${
-                  isActive ? 'bg-[#0f6fec] text-white' : 'text-white/70 hover:bg-white/10 hover:text-white'
+                  isActive ? 'bg-[#0f6fec]/10 text-[#0f6fec]' : 'text-[#676a79] hover:bg-[#f5f6f8] hover:text-[#14191e]'
                 }`
               }
             >
               <item.icon size={18} />
-              {item.label}
+              <span className="flex-1">{item.label}</span>
+              {item.badge && (
+                <span className="min-w-[18px] h-[18px] px-1 bg-[#d6293e] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                  {item.badge}
+                </span>
+              )}
             </NavLink>
           ))}
         </nav>
-        <div className="p-4 border-t border-white/10">
-          <button type="button" className="flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors">
-            <LogOut size={16} />
-            Sign out
+
+        {/* Promo card */}
+        <div className="mx-3 mb-3 p-4 rounded-2xl bg-gradient-to-br from-[#14191e] to-[#2d3436] text-white">
+          <p className="text-xs font-semibold leading-relaxed">Need advanced moderation tools?</p>
+          <button type="button" className="mt-3 w-full py-2 bg-[#e91e8c] hover:bg-[#d4187d] text-white text-xs font-bold rounded-xl transition-colors">
+            Upgrade plan
+          </button>
+        </div>
+
+        <div className="p-4 border-t border-[#e8eaed] space-y-2">
+          <button type="button" className="flex items-center gap-2 text-xs font-semibold text-[#676a79] hover:text-[#14191e] w-full px-2 py-1.5">
+            <HelpCircle size={14} /> Get help
+          </button>
+          <button type="button" className="flex items-center gap-2 text-xs font-semibold text-[#676a79] hover:text-[#14191e] w-full px-2 py-1.5">
+            <Globe size={14} /> English <ChevronDown size={12} className="ml-auto" />
+          </button>
+          <button type="button" className="flex items-center gap-2 text-xs font-semibold text-[#d6293e] hover:text-[#b82235] w-full px-2 py-1.5">
+            <LogOut size={14} /> Logout
           </button>
         </div>
       </aside>
-      <div className="flex-1 min-w-0 p-5">
-        <div className="mb-5">
-          <h1 className="text-xl font-bold text-[#14191e]">{title}</h1>
-        </div>
-        <main className="page-enter">{children}</main>
+
+      <div className="flex-1 min-w-0 flex flex-col">
+        {/* Top bar */}
+        <header className="sticky top-0 z-40 bg-white border-b border-[#e8eaed] px-4 lg:px-6 h-[64px] flex items-center gap-4">
+          <div className="flex-1 max-w-md relative hidden sm:block">
+            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#a1a5b3]" />
+            <input
+              placeholder="Search admin..."
+              className="w-full text-sm bg-[#f5f6f8] border border-transparent rounded-xl pl-11 pr-4 py-2.5 focus:outline-none focus:bg-white focus:border-[#0f6fec]/30"
+            />
+          </div>
+          <div className="flex items-center gap-2 ml-auto">
+            <button type="button" className="w-9 h-9 rounded-xl bg-[#f5f6f8] flex items-center justify-center text-[#676a79] hover:bg-[#eef0f4]">
+              <Sun size={16} />
+            </button>
+            <button type="button" className="w-9 h-9 rounded-xl bg-[#f5f6f8] flex items-center justify-center text-[#676a79] hover:bg-[#eef0f4]">
+              <Moon size={16} />
+            </button>
+            <NavLink to="/design/admin/safety" className="relative w-9 h-9 rounded-xl bg-[#f5f6f8] flex items-center justify-center text-[#676a79] hover:bg-[#eef0f4]">
+              <Bell size={16} />
+              <span className="absolute top-1 right-1 w-2 h-2 bg-[#d6293e] rounded-full border border-white" />
+            </NavLink>
+            <button type="button" className="w-9 h-9 rounded-xl bg-[#f5f6f8] flex items-center justify-center text-[#676a79] hover:bg-[#eef0f4]">
+              <Settings size={16} />
+            </button>
+            <img src={currentUser.avatar} alt="" className="w-9 h-9 rounded-full object-cover ring-2 ring-[#0f6fec]/20 ml-1" />
+          </div>
+        </header>
+
+        <main className="flex-1 p-4 lg:p-6 page-enter">
+          {(title || action) && (
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+              <div>
+                {title && <h1 className="text-xl lg:text-2xl font-bold text-[#14191e]">{title}</h1>}
+                {subtitle && <p className="text-sm text-[#676a79] mt-1">{subtitle}</p>}
+              </div>
+              {action}
+            </div>
+          )}
+          {children}
+        </main>
       </div>
     </div>
   );

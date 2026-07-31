@@ -253,19 +253,69 @@ export const notifications = [
 ];
 
 export const adminUsers = [
-  { id: 'u1', name: 'Alex Morgan', email: 'alex@example.com', status: 'Active', role: 'Member' },
-  { id: 'u2', name: 'Jordan Lee', email: 'jordan@example.com', status: 'Suspended', role: 'Member' },
-  { id: 'u3', name: 'Staff User', email: 'staff@notonlyhere.com', status: 'Active', role: 'Staff' },
+  { id: 'u1', name: 'Alex Morgan', email: 'alex@example.com', username: 'alexm', status: 'Active', role: 'Member', joined: '2025-03-12', lastActive: '2026-07-30', posts: 42, avatar: images.avatar1 },
+  { id: 'u2', name: 'Jordan Lee', email: 'jordan@example.com', username: 'jordanl', status: 'Suspended', role: 'Member', joined: '2025-01-08', lastActive: '2026-07-28', posts: 18, avatar: images.avatar2 },
+  { id: 'u3', name: 'Staff User', email: 'staff@notonlyhere.com', username: 'staff', status: 'Active', role: 'Staff', joined: '2024-11-01', lastActive: '2026-07-31', posts: 0, avatar: images.avatar3 },
+  { id: 'u4', name: 'Sam Rivera', email: 'sam@example.com', username: 'samr', status: 'Active', role: 'Member', joined: '2025-05-20', lastActive: '2026-07-31', posts: 67, avatar: images.avatar3 },
+  { id: 'u5', name: 'Morgan Kim', email: 'morgan@example.com', username: 'morgank', status: 'Active', role: 'Circle Admin', joined: '2025-02-14', lastActive: '2026-07-29', posts: 124, avatar: images.avatar1 },
+  { id: 'u6', name: 'Priya Shah', email: 'priya@example.com', username: 'priyas', status: 'Active', role: 'Member', joined: '2025-06-03', lastActive: '2026-07-27', posts: 9, avatar: images.avatar4 },
+  { id: 'u7', name: 'Chris Park', email: 'chris@example.com', username: 'chrisp', status: 'Pending', role: 'Member', joined: '2026-07-25', lastActive: '2026-07-25', posts: 0, avatar: images.avatar2 },
+  { id: 'u8', name: 'Taylor Brooks', email: 'taylor@example.com', username: 'taylorb', status: 'Active', role: 'Member', joined: '2025-08-11', lastActive: '2026-07-30', posts: 31, avatar: images.avatar4 },
+  { id: 'u9', name: 'Emerson Calzoni', email: 'emerson@example.com', username: 'emersonc', status: 'Active', role: 'Member', joined: '2025-04-22', lastActive: '2026-07-28', posts: 55, avatar: images.avatar3 },
+  { id: 'u10', name: 'James Levin', email: 'james@example.com', username: 'jamesl', status: 'Suspended', role: 'Member', joined: '2025-01-30', lastActive: '2026-07-15', posts: 3, avatar: images.avatar2 },
+  { id: 'u11', name: 'Content Admin', email: 'content@notonlyhere.com', username: 'content', status: 'Active', role: 'Staff', joined: '2024-09-01', lastActive: '2026-07-31', posts: 0, avatar: images.avatar1 },
+  { id: 'u12', name: 'Super Admin', email: 'admin@notonlyhere.com', username: 'admin', status: 'Active', role: 'Super Admin', joined: '2024-01-01', lastActive: '2026-07-31', posts: 0, avatar: images.avatar2 },
+];
+
+export const adminCircles = [
+  { id: 'c1', name: 'Anxiety Support', members: 1842, status: 'Active', access: 'Open', submitted: '2024-06-01', posts24h: 24, thumb: images.circleThumb1 },
+  { id: 'c2', name: 'New Parents', members: 956, status: 'Active', access: 'Request', submitted: '2024-08-15', posts24h: 18, thumb: images.circleThumb2 },
+  { id: 'c3', name: 'Grief & Loss', members: 0, status: 'Pending', access: 'Open', submitted: '2026-07-28', posts24h: 0, thumb: images.circleThumb3 },
+  { id: 'c4', name: 'Work Stress', members: 0, status: 'Pending', access: 'Open', submitted: '2026-07-27', posts24h: 0, thumb: images.circleThumb1 },
+  { id: 'c5', name: 'Student Support', members: 0, status: 'Pending', access: 'Invite', submitted: '2026-07-26', posts24h: 0, thumb: images.circleThumb2 },
+  { id: 'c6', name: 'Grief & Loss (archived)', members: 412, status: 'Archived', access: 'Open', submitted: '2023-11-10', posts24h: 0, thumb: images.circleThumb3 },
 ];
 
 export const safetyAlerts = [
-  { id: 'a1', type: 'Policy concern', confidence: 'Medium', status: 'New', excerpt: 'Post in Anxiety Support may violate guidelines…' },
-  { id: 'a2', type: 'Harassment signal', confidence: 'Low', status: 'In review', excerpt: 'Comment thread flagged for review…' },
+  { id: 'a1', type: 'Policy concern', confidence: 'Medium', status: 'New', excerpt: 'Post in Anxiety Support may violate guidelines…', reported: '2026-07-31 08:12', reporter: 'AI System', priority: 'High' },
+  { id: 'a2', type: 'Harassment signal', confidence: 'Low', status: 'In review', excerpt: 'Comment thread flagged for review…', reported: '2026-07-30 22:45', reporter: 'Member #1042', priority: 'Medium' },
+  { id: 'a3', type: 'Self-harm indicator', confidence: 'High', status: 'New', excerpt: 'Post contains language requiring immediate review…', reported: '2026-07-31 06:30', reporter: 'AI System', priority: 'Critical' },
+  { id: 'a4', type: 'Spam detection', confidence: 'High', status: 'Dismissed', excerpt: 'Repeated promotional links in comments…', reported: '2026-07-29 14:20', reporter: 'AI System', priority: 'Low' },
+  { id: 'a5', type: 'Policy concern', confidence: 'Medium', status: 'In review', excerpt: 'Circle description may need moderation…', reported: '2026-07-28 11:05', reporter: 'staff@notonlyhere.com', priority: 'Medium' },
+  { id: 'a6', type: 'Harassment signal', confidence: 'Medium', status: 'New', excerpt: 'Direct message reported by member…', reported: '2026-07-31 09:18', reporter: 'Member #883', priority: 'High' },
 ];
 
 export const donations = [
-  { id: 'd1', donor: 'Member #1042', amount: '$25.00', cadence: 'Monthly', status: 'Succeeded' },
-  { id: 'd2', donor: 'Member #883', amount: '$10.00', cadence: 'One-time', status: 'Pending' },
+  { id: 'd1', donor: 'Member #1042', email: 'member1042@example.com', amount: 25, cadence: 'Monthly', status: 'Succeeded', date: '2026-07-30' },
+  { id: 'd2', donor: 'Member #883', email: 'member883@example.com', amount: 10, cadence: 'One-time', status: 'Pending', date: '2026-07-29' },
+  { id: 'd3', donor: 'Member #2104', email: 'member2104@example.com', amount: 50, cadence: 'Monthly', status: 'Succeeded', date: '2026-07-28' },
+  { id: 'd4', donor: 'Member #556', email: 'member556@example.com', amount: 15, cadence: 'One-time', status: 'Succeeded', date: '2026-07-27' },
+  { id: 'd5', donor: 'Member #992', email: 'member992@example.com', amount: 100, cadence: 'Annual', status: 'Succeeded', date: '2026-07-25' },
+  { id: 'd6', donor: 'Member #331', email: 'member331@example.com', amount: 5, cadence: 'Monthly', status: 'Failed', date: '2026-07-24' },
+  { id: 'd7', donor: 'Member #1788', email: 'member1788@example.com', amount: 20, cadence: 'One-time', status: 'Succeeded', date: '2026-07-22' },
+  { id: 'd8', donor: 'Member #445', email: 'member445@example.com', amount: 30, cadence: 'Monthly', status: 'Succeeded', date: '2026-07-20' },
+];
+
+export const auditLog = [
+  { id: 'l1', actor: 'staff@notonlyhere.com', action: 'Suspended user', target: '@jordanl', category: 'Enforcement', time: '2026-07-28 14:22 UTC' },
+  { id: 'l2', actor: 'admin@notonlyhere.com', action: 'Approved circle', target: 'Grief & Loss', category: 'Moderation', time: '2026-07-27 09:10 UTC' },
+  { id: 'l3', actor: 'content@notonlyhere.com', action: 'Published blog post', target: 'Grounding Techniques', category: 'Content', time: '2026-07-26 16:45 UTC' },
+  { id: 'l4', actor: 'admin@notonlyhere.com', action: 'Updated role', target: '@morgank → Circle Admin', category: 'Users', time: '2026-07-25 11:30 UTC' },
+  { id: 'l5', actor: 'staff@notonlyhere.com', action: 'Dismissed alert', target: 'Alert #a4', category: 'Safety', time: '2026-07-24 08:15 UTC' },
+  { id: 'l6', actor: 'content@notonlyhere.com', action: 'Created event', target: 'Community Check-in', category: 'Content', time: '2026-07-23 13:00 UTC' },
+  { id: 'l7', actor: 'admin@notonlyhere.com', action: 'Exported analytics', target: 'Growth report Q2', category: 'Analytics', time: '2026-07-22 17:45 UTC' },
+  { id: 'l8', actor: 'staff@notonlyhere.com', action: 'Restored user', target: '@jamesl', category: 'Enforcement', time: '2026-07-21 10:20 UTC' },
+  { id: 'l9', actor: 'admin@notonlyhere.com', action: 'Archived circle', target: 'Old Support Group', category: 'Moderation', time: '2026-07-20 15:55 UTC' },
+  { id: 'l10', actor: 'content@notonlyhere.com', action: 'Updated resource', target: 'Understanding Anxiety', category: 'Content', time: '2026-07-19 09:40 UTC' },
+];
+
+export const adminContentItems = [
+  { id: 'ct1', title: 'Grounding Techniques for Anxiety', type: 'Blog', status: 'Published', author: 'content@notonlyhere.com', updated: '2026-07-26', views: 1240 },
+  { id: 'ct2', title: 'Understanding Anxiety (Video)', type: 'Resource', status: 'Draft', author: 'content@notonlyhere.com', updated: '2026-07-24', views: 0 },
+  { id: 'ct3', title: 'Community Check-in', type: 'Event', status: 'Published', author: 'content@notonlyhere.com', updated: '2026-07-23', views: 420 },
+  { id: 'ct4', title: 'Peer Support Basics', type: 'Article', status: 'Published', author: 'content@notonlyhere.com', updated: '2026-07-20', views: 890 },
+  { id: 'ct5', title: 'Mindful Breathing Workshop', type: 'Event', status: 'Scheduled', author: 'content@notonlyhere.com', updated: '2026-07-18', views: 180 },
+  { id: 'ct6', title: 'Crisis Resources Page', type: 'Resource', status: 'Published', author: 'admin@notonlyhere.com', updated: '2026-07-15', views: 2100 },
 ];
 
 export const resources = [
