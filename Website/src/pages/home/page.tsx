@@ -3,14 +3,13 @@ import Hero from './components/Hero';
 import SocialProof from './components/SocialProof';
 import Features from './components/Features';
 import Manifesto from '@/components/Manifesto';
-import HowItWorks from './components/HowItWorks';
-import CirclesPreview from './components/CirclesPreview';
+import HowWeWork from '@/components/HowWeWork';
+import RollingCirclesList from '@/components/RollingCirclesList';
 import AISupportTeaser from './components/AISupportTeaser';
 import DonationTeaser from './components/DonationTeaser';
 import WebCommunityAccess from './components/WebCommunityAccess';
 import Testimonials from './components/Testimonials';
 import DeepDive from './components/DeepDive';
-import Stats from './components/Stats';
 import BlogPreview from './components/BlogPreview';
 import FAQTeaser from './components/FAQTeaser';
 import ClosingCTA from './components/ClosingCTA';
@@ -24,14 +23,13 @@ export default function Home() {
       <SocialProof />
       <Features />
       <Manifesto />
-      <HowItWorks />
-      <CirclesPreview />
+      <HowWeWork />
+      <RollingCirclesList />
       <AISupportTeaser />
       <DonationTeaser />
       <WebCommunityAccess />
       <Testimonials />
       <DeepDive />
-      <Stats />
       <BlogPreview />
       <FAQTeaser />
       <ClosingCTA />

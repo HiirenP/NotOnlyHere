@@ -119,28 +119,193 @@
     transform: translateY(-1px);
   }
 
-  /* Animated purple-to-teal gradient background — very light, subtle wash */
+  /* === ANIMATED GRADIENT BACKGROUND === */
   .animated-gradient-bg {
-    background: linear-gradient(135deg, rgba(106,76,247,0.08) 0%, rgba(124,58,237,0.06) 15%, rgba(61,127,248,0.07) 35%, rgba(34,200,207,0.08) 55%, rgba(61,127,248,0.06) 75%, rgba(106,76,247,0.07) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(106, 76, 247, 0.16) 0%,
+      rgba(236, 72, 153, 0.11) 10%,
+      rgba(124, 58, 237, 0.14) 22%,
+      rgba(249, 115, 22, 0.09) 34%,
+      rgba(61, 127, 248, 0.14) 46%,
+      rgba(34, 200, 207, 0.15) 58%,
+      rgba(16, 185, 129, 0.11) 70%,
+      rgba(61, 127, 248, 0.12) 82%,
+      rgba(106, 76, 247, 0.15) 100%
+    );
     background-size: 400% 400%;
-    animation: gradientFlow 12s ease infinite;
+    animation: gradientFlow 14s ease infinite;
   }
 
   @keyframes gradientFlow {
-    0% {
-      background-position: 0% 50%;
-    }
-    25% {
-      background-position: 100% 0%;
-    }
-    50% {
-      background-position: 100% 100%;
-    }
-    75% {
-      background-position: 0% 100%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
+    0% { background-position: 0% 50%; }
+    25% { background-position: 100% 0%; }
+    50% { background-position: 100% 100%; }
+    75% { background-position: 0% 100%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* === FLOATING DOTS === */
+  .floating-dots {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .floating-dot {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+  }
+
+  /* Dot 1 — large slow */
+  .floating-dots .dot-1 {
+    width: 6px;
+    height: 6px;
+    background: rgba(106, 76, 247, 0.22);
+    left: 15%;
+    top: 30%;
+    animation: dotFloat1 18s ease-in-out infinite;
+  }
+
+  /* Dot 2 — small fast */
+  .floating-dots .dot-2 {
+    width: 3px;
+    height: 3px;
+    background: rgba(34, 200, 207, 0.25);
+    left: 72%;
+    top: 20%;
+    animation: dotFloat2 14s ease-in-out infinite 2s;
+  }
+
+  /* Dot 3 — medium */
+  .floating-dots .dot-3 {
+    width: 4px;
+    height: 4px;
+    background: rgba(236, 72, 153, 0.20);
+    left: 45%;
+    top: 65%;
+    animation: dotFloat3 20s ease-in-out infinite 5s;
+  }
+
+  /* Dot 4 — tiny fast */
+  .floating-dots .dot-4 {
+    width: 2px;
+    height: 2px;
+    background: rgba(61, 127, 248, 0.22);
+    left: 85%;
+    top: 55%;
+    animation: dotFloat1 12s ease-in-out infinite 3s;
+  }
+
+  /* Dot 5 — medium slow */
+  .floating-dots .dot-5 {
+    width: 5px;
+    height: 5px;
+    background: rgba(16, 185, 129, 0.20);
+    left: 30%;
+    top: 78%;
+    animation: dotFloat3 22s ease-in-out infinite 7s;
+  }
+
+  /* Dot 6 — small */
+  .floating-dots .dot-6 {
+    width: 3px;
+    height: 3px;
+    background: rgba(249, 115, 22, 0.18);
+    left: 58%;
+    top: 12%;
+    animation: dotFloat2 16s ease-in-out infinite 1s;
+  }
+
+  /* Dot 7 — large faint */
+  .floating-dots .dot-7 {
+    width: 8px;
+    height: 8px;
+    background: rgba(124, 58, 237, 0.16);
+    left: 10%;
+    top: 50%;
+    animation: dotFloat1 24s ease-in-out infinite 9s;
+  }
+
+  /* Dot 8 — tiny */
+  .floating-dots .dot-8 {
+    width: 2px;
+    height: 2px;
+    background: rgba(34, 200, 207, 0.20);
+    left: 92%;
+    top: 40%;
+    animation: dotFloat2 10s ease-in-out infinite 4s;
+  }
+
+  /* Dot 9 — medium */
+  .floating-dots .dot-9 {
+    width: 4px;
+    height: 4px;
+    background: rgba(106, 76, 247, 0.18);
+    left: 38%;
+    top: 25%;
+    animation: dotFloat3 15s ease-in-out infinite 6s;
+  }
+
+  /* Dot 10 — small */
+  .floating-dots .dot-10 {
+    width: 3px;
+    height: 3px;
+    background: rgba(61, 127, 248, 0.21);
+    left: 65%;
+    top: 82%;
+    animation: dotFloat1 17s ease-in-out infinite 8s;
+  }
+
+  /* Dot 11 — medium */
+  .floating-dots .dot-11 {
+    width: 5px;
+    height: 5px;
+    background: rgba(236, 72, 153, 0.17);
+    left: 22%;
+    top: 8%;
+    animation: dotFloat2 19s ease-in-out infinite 3s;
+  }
+
+  /* Dot 12 — tiny */
+  .floating-dots .dot-12 {
+    width: 2px;
+    height: 2px;
+    background: rgba(16, 185, 129, 0.19);
+    left: 78%;
+    top: 70%;
+    animation: dotFloat3 13s ease-in-out infinite 10s;
+  }
+
+  @keyframes dotFloat1 {
+    0% { transform: translate(0, 0) scale(1); opacity: 0; }
+    15% { opacity: 0.7; }
+    30% { transform: translate(20px, -60px) scale(1.1); opacity: 0.55; }
+    50% { transform: translate(-15px, -120px) scale(0.9); opacity: 0.2; }
+    65% { opacity: 0.65; }
+    80% { transform: translate(10px, -50px) scale(1.05); opacity: 0.3; }
+    100% { transform: translate(0, 0) scale(1); opacity: 0; }
+  }
+
+  @keyframes dotFloat2 {
+    0% { transform: translate(0, 0) scale(1); opacity: 0; }
+    20% { opacity: 0.6; }
+    35% { transform: translate(-25px, -80px) scale(0.9); opacity: 0.35; }
+    55% { transform: translate(15px, -140px) scale(1.15); opacity: 0.15; }
+    70% { opacity: 0.55; }
+    85% { transform: translate(-8px, -60px) scale(1.0); opacity: 0.25; }
+    100% { transform: translate(0, 0) scale(1); opacity: 0; }
+  }
+
+  @keyframes dotFloat3 {
+    0% { transform: translate(0, 0) scale(1); opacity: 0; }
+    10% { opacity: 0.5; }
+    25% { transform: translate(30px, -40px) scale(1.0); opacity: 0.6; }
+    45% { transform: translate(-20px, -100px) scale(0.85); opacity: 0.2; }
+    60% { opacity: 0.55; }
+    75% { transform: translate(5px, -70px) scale(1.1); opacity: 0.3; }
+    100% { transform: translate(0, 0) scale(1); opacity: 0; }
   }
 }

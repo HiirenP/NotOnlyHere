@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+﻿import { useRef, useEffect, useState } from 'react';
 import Nav from '@/pages/home/components/Nav';
 import Footer from '@/pages/home/components/Footer';
 
@@ -132,7 +132,7 @@ export default function AboutPage() {
               <div className="absolute bottom-8 right-4 w-16 h-4 bg-primary-300/70 rotate-[5deg] z-10" style={{ borderRadius: '2px' }} />
               <div className="w-full overflow-hidden" style={{ aspectRatio: '4/5' }}>
                 <img
-                  src="https://readdy.ai/api/search-image?query=Community%20members%20gathering%20in%20a%20warm%20cozy%20indoor%20space%20sharing%20stories%20soft%20natural%20light%20genuine%20connection%20candid%20documentary%20photography%20warm%20earth%20tones%20editorial%20style&width=800&height=1000&seq=about-our-story&orientation=portrait"
+                  src="/images/about-our-story.jpg"
                   alt="Community members gathering in a warm cozy space"
                   className="w-full h-full object-cover object-top"
                   loading="lazy"

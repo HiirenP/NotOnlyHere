@@ -23,10 +23,10 @@ export default function Stats() {
     <section
       id="circles"
       ref={ref}
-      className="py-16 md:py-24 bg-background-100 text-foreground-950"
+      className="py-10 md:py-16 bg-background-100 text-foreground-950"
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
-        <p className="font-mono text-xs uppercase tracking-widest text-foreground-400 text-center mb-12">
+        <p className="font-mono text-xs uppercase tracking-widest text-foreground-400 text-center mb-8">
           By the numbers
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">

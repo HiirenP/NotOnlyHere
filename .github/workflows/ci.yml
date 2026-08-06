@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main, 'cursor/**']
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: notonlyhere
+          POSTGRES_PASSWORD: notonlyhere
+          POSTGRES_DB: notonlyhere
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U notonlyhere"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql://notonlyhere:notonlyhere@localhost:5432/notonlyhere
+      PHASE0_DEV_AUTH: 'true'
+      API_URL: http://localhost:3001
+      WEB_URL: http://localhost:3000
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm install
+      - run: npm run db:migrate
+      - run: npm run db:seed
+      - run: npm run type-check
+      - run: npm run test --workspace @notonlyhere/api
+      - run: npm run build --workspace @notonlyhere/contracts
+      - run: npm run build --workspace @notonlyhere/api
+      - run: npm run build --workspace @notonlyhere/api

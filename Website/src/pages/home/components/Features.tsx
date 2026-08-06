@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+﻿import { useRef, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface PolaroidCardProps {
@@ -48,9 +48,9 @@ function PolaroidCard({ children, rotate, tapeColor, tapePos, className = '', de
 
 export default function Features() {
   return (
-    <section id="stories" className="py-16 md:py-28 px-4 sm:px-6 md:px-12 lg:px-16 bg-background-50">
-      <div className="mb-12 md:mb-16 text-center">
-        <span className="font-mono text-xs uppercase tracking-widest gradient-text block mb-3">
+    <section id="stories" className="py-10 md:py-16 px-4 sm:px-6 md:px-12 lg:px-16 bg-background-50">
+      <div className="mb-8 md:mb-12 text-center">
+        <span className="font-mono text-xs uppercase tracking-widest text-foreground-950 block mb-3">
           What We Do
         </span>
         <h2 className="font-display text-5xl md:text-6xl tracking-tighter text-charcoal-900 uppercase max-w-3xl mx-auto leading-[0.9]">
@@ -70,7 +70,7 @@ export default function Features() {
         >
           <div className="relative w-full overflow-hidden" style={{ aspectRatio: '4/5' }}>
             <img
-              src="https://readdy.ai/api/search-image?query=People%20in%20a%20supportive%20group%20conversation%20sitting%20in%20a%20circle%20warm%20indoor%20lighting%20soft%20natural%20light%20candid%20documentary%20photography%20muted%20earth%20tones%20cozy%20atmosphere&width=800&height=500&seq=feature-circles&orientation=landscape"
+              src="/images/feature-circles-v2.jpg"
               alt="People in a supportive group conversation"
               className="w-full h-full object-cover object-top"
               loading="lazy"
@@ -102,7 +102,7 @@ export default function Features() {
         >
           <div className="w-full overflow-hidden" style={{ aspectRatio: '4/5' }}>
             <img
-              src="https://readdy.ai/api/search-image?query=Quiet%20moment%20of%20reflection%20person%20sitting%20alone%20by%20a%20window%20soft%20moody%20lighting%20warm%20tones%20editorial%20photography%20intimate%20peaceful%20atmosphere&width=800&height=500&seq=feature-anon&orientation=landscape"
+              src="/images/feature-anon.jpg"
               alt="Quiet moment of reflection"
               className="w-full h-full object-cover object-top"
               loading="lazy"
@@ -134,7 +134,7 @@ export default function Features() {
         >
           <div className="w-full overflow-hidden" style={{ aspectRatio: '16/9' }}>
             <img
-              src="https://readdy.ai/api/search-image?query=Supportive%20team%20environment%20people%20working%20together%20warm%20indoor%20lighting%20collaborative%20atmosphere%20editorial%20photography%20soft%20neutral%20earth%20tones&width=800&height=500&seq=feature-moderated&orientation=landscape"
+              src="/images/feature-moderated.jpg"
               alt="Supportive team environment"
               className="w-full h-full object-cover object-top"
               loading="lazy"
@@ -166,7 +166,7 @@ export default function Features() {
         >
           <div className="w-full overflow-hidden" style={{ aspectRatio: '16/9' }}>
             <img
-              src="https://readdy.ai/api/search-image?query=Journal%20and%20reflection%20notebook%20pen%20coffee%20cup%20on%20wooden%20desk%20warm%20morning%20light%20cozy%20quiet%20moment%20editorial%20photography%20soft%20neutral%20earth%20tones&width=800&height=500&seq=feature-stories&orientation=landscape"
+              src="/images/feature-stories.jpg"
               alt="Journal and reflection"
               className="w-full h-full object-cover object-top"
               loading="lazy"
@@ -229,7 +229,7 @@ export default function Features() {
         >
           <div className="w-full overflow-hidden" style={{ aspectRatio: '1/1' }}>
             <img
-              src="https://readdy.ai/api/search-image?query=Friends%20together%20in%20community%20outdoors%20warm%20golden%20hour%20light%20genuine%20connection%20candid%20documentary%20photography%20soft%20earth%20tones%20editorial%20style&width=600&height=600&seq=feature-solidarity&orientation=squarish"
+              src="/images/feature-solidarity.jpg"
               alt="Friends together in community"
               className="w-full h-full object-cover object-top"
               loading="lazy"

@@ -39,10 +39,10 @@ export default function FAQTeaser() {
   };
 
   return (
-    <section ref={ref} className="py-16 md:py-28 px-4 sm:px-6 md:px-12 lg:px-16 bg-background-100">
+    <section ref={ref} className="py-10 md:py-16 px-4 sm:px-6 md:px-12 lg:px-16 bg-background-100">
       <div className="max-w-3xl mx-auto">
-        <div className="mb-12 md:mb-16 text-center">
-          <span className="font-mono text-xs uppercase tracking-widest gradient-text block mb-3">
+        <div className="mb-8 md:mb-12 text-center">
+          <span className="font-mono text-xs uppercase tracking-widest text-foreground-950 block mb-3">
             FAQ
           </span>
           <h2 className="font-display text-4xl md:text-5xl tracking-tighter text-foreground-950 uppercase max-w-2xl mx-auto leading-[0.9]">
@@ -83,7 +83,7 @@ export default function FAQTeaser() {
           ))}
         </div>
 
-        <div className="mt-12 text-center">
+        <div className="mt-10 text-center">
           <a
             href="/faq"
             className="inline-flex items-center gap-2 font-mono text-sm uppercase tracking-wider text-foreground-950 hover:gradient-text transition-colors duration-200 cursor-pointer"

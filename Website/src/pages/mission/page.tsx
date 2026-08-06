@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+﻿import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Heart, Users, Shield, MessageCircle, Globe, Moon } from 'lucide-react';
 import Nav from '@/pages/home/components/Nav';
@@ -168,7 +168,7 @@ export default function MissionPage() {
       <div className="relative w-full bg-foreground-950" style={{ minHeight: '500px', height: '60vh' }}>
         <div className="absolute inset-0 overflow-hidden">
           <img
-            src="https://readdy.ai/api/search-image?query=Warm%20intimate%20community%20gathering%20indoors%20soft%20natural%20light%20people%20sitting%20in%20circle%20genuine%20conversation%20editorial%20photography%20muted%20earth%20tones%20cozy%20atmosphere&width=1600&height=900&seq=mission-hero&orientation=landscape"
+            src="/images/mission-hero.jpg"
             alt="Community gathering"
             className="w-full h-full object-cover object-top opacity-25"
           />
@@ -219,7 +219,7 @@ export default function MissionPage() {
               <div className="absolute top-3 left-1/3 w-20 h-5 bg-primary-300/70 rotate-[-8deg] z-10" style={{ borderRadius: '2px' }} />
               <div className="w-full overflow-hidden" style={{ aspectRatio: '4/5' }}>
                 <img
-                  src="https://readdy.ai/api/search-image?query=Two%20people%20having%20a%20deep%20conversation%20on%20a%20couch%20warm%20indoor%20light%20soft%20natural%20tones%20editorial%20photography%20genuine%20connection%20intimate%20atmosphere&width=900&height=700&seq=mission-origin&orientation=portrait"
+                  src="/images/mission-origin.jpg"
                   alt="The first NotOnlyHere conversation"
                   className="w-full h-full object-cover object-top"
                   loading="lazy"
@@ -258,7 +258,7 @@ export default function MissionPage() {
           <div className="order-2 lg:order-1 relative">
             <div className="w-full overflow-hidden" style={{ aspectRatio: '3/4' }}>
               <img
-                src="https://readdy.ai/api/search-image?query=Person%20writing%20in%20journal%20by%20warm%20lamplight%20cozy%20quiet%20evening%20soft%20natural%20tones%20editorial%20photography%20introspective%20peaceful%20atmosphere%20muted%20earth%20colors&width=900&height=700&seq=mission-approach&orientation=portrait"
+                src="/images/mission-approach.jpg"
                 alt="Quiet reflection and journaling"
                 className="w-full h-full object-cover object-top"
                 loading="lazy"

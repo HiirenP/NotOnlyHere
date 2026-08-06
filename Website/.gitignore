@@ -43,3 +43,4 @@ Thumbs.db
 
 # optional: vercel
 .vercel/
+.vercel

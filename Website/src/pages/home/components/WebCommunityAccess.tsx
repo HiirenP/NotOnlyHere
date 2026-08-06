@@ -14,13 +14,13 @@ export default function WebCommunityAccess() {
   }, []);
 
   return (
-    <section ref={ref} className="py-16 md:py-28 px-4 sm:px-6 md:px-12 lg:px-16 bg-background-100">
+    <section ref={ref} className="py-10 md:py-16 px-4 sm:px-6 md:px-12 lg:px-16 bg-background-100">
       <div
         className={`max-w-4xl mx-auto text-center transition-all duration-700 ${
           visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}
       >
-        <span className="font-mono text-xs uppercase tracking-widest gradient-text block mb-4">
+        <span className="font-mono text-xs uppercase tracking-widest text-foreground-950 block mb-4">
           Web Community
         </span>
         <h2 className="font-display text-4xl md:text-5xl lg:text-6xl tracking-tighter text-foreground-950 uppercase mb-6 leading-[0.9]">
@@ -31,7 +31,7 @@ export default function WebCommunityAccess() {
         </p>
 
         {/* Trust pills */}
-        <div className="flex flex-wrap justify-center gap-4 mb-10">
+        <div className="flex flex-wrap justify-center gap-4 mb-8">
           <div className="flex items-center gap-2 bg-background-50 border border-background-200 px-5 py-3 rounded-full">
             <div className="w-8 h-8 flex items-center justify-center rounded-full bg-accent-100">
               <i className="ri-smartphone-line text-accent-600" />
@@ -53,7 +53,7 @@ export default function WebCommunityAccess() {
         </div>
 
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
           <a
             href="/register"
             className="font-mono text-sm uppercase tracking-wider gradient-btn text-background-50 px-8 py-4 rounded-full whitespace-nowrap cursor-pointer"

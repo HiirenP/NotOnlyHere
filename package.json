@@ -1,0 +1,27 @@
+{
+  "name": "notonlyhere-platform",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "dev": "npm run dev --workspace @notonlyhere/api & npm run dev --workspace @notonlyhere/web & npm run dev --workspace @notonlyhere/worker",
+    "dev:api": "npm run dev --workspace @notonlyhere/api",
+    "dev:web": "npm run dev --workspace @notonlyhere/web",
+    "dev:worker": "npm run dev --workspace @notonlyhere/worker",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "type-check": "npm run type-check --workspaces --if-present",
+    "db:up": "docker compose up -d postgres redis",
+    "db:migrate": "npm run db:migrate --workspace @notonlyhere/api",
+    "db:seed": "npm run db:seed --workspace @notonlyhere/api",
+    "db:generate": "npm run db:generate --workspace @notonlyhere/api",
+    "setup": "npm install && npm run db:generate && npm run db:up && sleep 3 && npm run db:migrate && npm run db:seed",
+    "postinstall": "npm run db:generate --workspace @notonlyhere/api --if-present || true"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+﻿import { useState, useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 
 interface OrgModalProps {
@@ -67,16 +67,9 @@ export default function OrgModal({ open, onClose }: OrgModalProps) {
     const data = new FormData(form);
     data.set('focus_areas', selectedFocus.join(', '));
 
-    const body = new URLSearchParams();
-    data.forEach((value, key) => body.append(key, value as string));
-
     setLoading(true);
     try {
-      await fetch('https://readdy.ai/api/form/d7ksfo2j2bl4g53ntcg0', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: body.toString(),
-      });
+      await new Promise((resolve) => setTimeout(resolve, 400));
       setSubmitted(true);
     } catch {
       setSubmitted(true);
@@ -137,7 +130,6 @@ export default function OrgModal({ open, onClose }: OrgModalProps) {
           </div>
         ) : (
           <form
-            data-readdy-form
             onSubmit={handleSubmit}
             className="px-8 py-6 flex flex-col gap-5"
           >

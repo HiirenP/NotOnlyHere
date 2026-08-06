@@ -1,66 +1,66 @@
 # NotOnlyHere Platform
 
-Community portal redesign: static marketing website, authenticated member web application, and web admin panel.
+Community portal: marketing website, authenticated member web app, admin panel, API, and workers.
 
 ## Repository structure
 
 ```text
 NotOnlyHere/
-├── Website/          # Static marketing site (Vite + React) — LIVE
-├── DesignApp/        # Interactive design preview for web app + admin — NEW
-├── docs/             # Canonical product & technical documentation
-│   ├── 00-project-execution-guide.md
-│   ├── 01-product-prd.md
-│   ├── 02-ux-spec.md
-│   ├── 03-tech-design.md
-│   ├── 04-backend-schema.md
-│   ├── 05-implementation-plan.md
-│   ├── 06-testing-plan.md
-│   └── 07-design-system.md
+├── Website/          # Static marketing site (Vite + React)
+├── DesignApp/        # Interactive design preview (approved)
+├── apps/
+│   ├── web/          # Next.js 15 — member app + admin panel
+│   ├── api/          # NestJS API
+│   └── worker/       # Background job worker
+├── packages/
+│   ├── ui/           # Shared design system
+│   ├── contracts/    # Shared API types
+│   └── config/       # Shared TypeScript config
+└── docs/             # Product & technical documentation
 ```
 
-## Current status
+## Quick start
 
-| Area | Status |
+```bash
+cp .env.example .env
+npm run setup          # install, start DB, migrate, seed
+npm run dev:api        # terminal 1 — API on :3001
+npm run dev:web        # terminal 2 — web on :3000
+npm run dev:worker     # terminal 3 — outbox consumer (emails logged in dev)
+```
+
+Then open:
+
+- http://localhost:3000 — landing
+- http://localhost:3000/register — create account
+- http://localhost:3000/login — sign in
+- http://localhost:3000/app — member app
+- http://localhost:3000/admin — admin panel (Super Admin only)
+- http://localhost:3000/app/settings/sessions — active sessions
+
+### Seeded accounts (password: `Demo1234!`)
+
+| Email | Role |
 |---|---|
-| Marketing website | Designed & built in `Website/` |
-| Product designs | Interactive preview in `DesignApp/` |
-| Member web app | Not started (designs ready) |
-| Admin panel | Not started (designs ready) |
-| Backend API | Not started |
+| demo@notonlyhere.local | Member |
+| admin@notonlyhere.local | Super Admin |
 
-## Quick start — view designs
+## Design preview
 
 ```bash
-cd DesignApp
-npm install
-npm run dev
+cd DesignApp && npm install && npm run dev
 ```
 
-Open `http://localhost:5173/design` to browse all 28 screens.
+Open http://localhost:5173/design
 
-## Quick start — marketing site
+## Documentation
 
-```bash
-cd Website
-npm install
-npm run dev
-```
+Follow `docs/00-project-execution-guide.md` in order. Current phase: **Phase 0 complete → Phase 1 (auth)** next.
 
-## Build sequence
-
-Follow `docs/00-project-execution-guide.md` in order:
-
-1. Approve designs (`DesignApp/` + `docs/07-design-system.md`)
-2. Readiness review (Prompt A)
-3. Technical approval (Prompt C)
-4. Phase 0 monorepo scaffold
-5. Phase 1+ feature implementation
-
-## Documentation authority
+## Phase 0 demo path
 
 ```text
-PRD scope → UX behavior → Technical contracts → Backend persistence → Implementation sequence → Test verification
+Browser → Next.js /app → GET /api/v1/account → NestJS → PostgreSQL → response
 ```
 
-Conflict rule: lower-authority documents cannot add product scope.
+Worker consumes `platform.noop` outbox events from the seed/migration path.

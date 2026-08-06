@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
@@ -41,7 +41,7 @@ export default function Nav() {
       <nav className="px-4 sm:px-6 md:px-12 lg:px-16 py-4 flex items-center justify-between">
         <a href="/" onClick={(e) => { e.preventDefault(); navigate('/'); setOpen(false); }} className="cursor-pointer flex-shrink-0">
           <img
-            src="https://static.readdy.ai/image/625b665eabd64e8e26dc00b3dfd3bc8f/0f7f3e340b64adaf58909c4de1c45074.png"
+            src="/images/logo.png"
             alt="NotOnlyHere — Real People. Real Connections."
             className="h-10 w-auto object-contain"
           />

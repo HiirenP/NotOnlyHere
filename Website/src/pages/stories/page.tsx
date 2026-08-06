@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+﻿import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { ArrowRight, Clock } from 'lucide-react';
 import { stories } from '@/mocks/stories';
@@ -147,7 +147,7 @@ export default function StoriesIndex() {
       <div className="relative w-full bg-foreground-950" style={{ minHeight: '420px', height: '50vh' }}>
         <div className="absolute inset-0 overflow-hidden">
           <img
-            src="https://readdy.ai/api/search-image?query=Warm%20community%20gathering%20indoors%20soft%20natural%20light%20people%20connecting%20genuine%20conversation%20cozy%20atmosphere%20editorial%20photography%20muted%20earth%20tones%20film%20grain%20texture&width=1600&height=900&seq=stories-hero&orientation=landscape"
+            src="/images/stories-hero.jpg"
             alt="Community gathering"
             className="w-full h-full object-cover object-top opacity-30"
           />

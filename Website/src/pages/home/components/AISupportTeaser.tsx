@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+﻿import { useRef, useEffect, useState } from 'react';
 
 export default function AISupportTeaser() {
   const ref = useRef<HTMLDivElement>(null);
@@ -14,8 +14,8 @@ export default function AISupportTeaser() {
   }, []);
 
   return (
-    <section ref={ref} className="py-16 md:py-28 px-4 sm:px-6 md:px-12 lg:px-16 bg-background-100">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
+    <section ref={ref} className="py-10 md:py-16 px-4 sm:px-6 md:px-12 lg:px-16 bg-background-100">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
         <div
           className="transition-all duration-700"
           style={{
@@ -23,7 +23,7 @@ export default function AISupportTeaser() {
             transform: visible ? 'translateX(0)' : 'translateX(-24px)',
           }}
         >
-          <span className="font-mono text-xs uppercase tracking-widest gradient-text block mb-4">
+          <span className="font-mono text-xs uppercase tracking-widest text-foreground-950 block mb-4">
             AI Companion
           </span>
           <h2 className="font-display text-4xl md:text-5xl tracking-tighter text-foreground-950 uppercase mb-6 leading-[0.9]">
@@ -36,7 +36,7 @@ export default function AISupportTeaser() {
             It won&apos;t replace human connection. But it will listen without judgment, suggest grounding exercises, and point you toward real community when you&apos;re ready.
           </p>
 
-          <div className="bg-background-50 border border-background-200 p-5 rounded-lg mb-8">
+          <div className="bg-background-50 border border-background-200 p-5 rounded-lg mb-6">
             <div className="flex items-start gap-3">
               <div className="w-8 h-8 flex items-center justify-center flex-shrink-0 mt-0.5">
                 <i className="ri-information-line text-lg text-foreground-500" />
@@ -58,17 +58,15 @@ export default function AISupportTeaser() {
         <div
           className={`relative transition-all duration-700 delay-200 ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}
         >
-          <div className="relative bg-background-50 p-4 pb-12 shadow-xl rotate-1">
+          <div className="relative bg-background-50 p-4 shadow-xl rotate-1">
             <div className="absolute top-3 left-1/3 w-20 h-5 bg-accent-300/70 rotate-[-8deg] z-10" style={{ borderRadius: '2px' }} />
             <div className="absolute bottom-8 right-4 w-16 h-4 bg-secondary-300/70 rotate-[5deg] z-10" style={{ borderRadius: '2px' }} />
-            <div className="w-full overflow-hidden" style={{ aspectRatio: '3/4' }}>
-              <img
-                src="https://readdy.ai/api/search-image?query=Warm%20ambient%20lighting%20in%20a%20quiet%20cozy%20room%20at%20night%20soft%20glow%20from%20a%20screen%20gentle%20peaceful%20atmosphere%20solo%20reflection%20moment%20editorial%20photography%20muted%20tones&width=800&height=960&seq=ai-support-img&orientation=portrait"
-                alt="Warm ambient lighting in a quiet room"
-                className="w-full h-full object-cover object-top"
-                loading="lazy"
-              />
-            </div>
+            <img
+              src="/images/ava-mascot.png"
+              alt="Ava AI Companion chat interface with supportive conversation and conversation starters"
+              className="w-full h-auto object-contain"
+              loading="lazy"
+            />
             <p className="font-mono text-xs uppercase tracking-widest text-foreground-400 mt-4 text-center">
               Available 24/7 &mdash; Always free
             </p>

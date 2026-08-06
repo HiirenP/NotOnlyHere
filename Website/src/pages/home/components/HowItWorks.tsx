@@ -41,9 +41,9 @@ export default function HowItWorks() {
   }, []);
 
   return (
-    <section ref={ref} className="py-16 md:py-28 px-4 sm:px-6 md:px-12 lg:px-16 bg-background-100">
-      <div className="mb-12 md:mb-16 text-center">
-        <span className="font-mono text-xs uppercase tracking-widest gradient-text block mb-3">
+    <section ref={ref} className="py-10 md:py-16 px-4 sm:px-6 md:px-12 lg:px-16 bg-background-100">
+      <div className="mb-8 md:mb-12 text-center">
+        <span className="font-mono text-xs uppercase tracking-widest text-foreground-950 block mb-3">
           How It Works
         </span>
         <h2 className="font-display text-4xl md:text-5xl tracking-tighter text-foreground-950 uppercase max-w-2xl mx-auto leading-[0.9]">
@@ -78,7 +78,7 @@ export default function HowItWorks() {
         ))}
       </div>
 
-      <div className="mt-14 text-center">
+      <div className="mt-10 text-center">
         <a
           href="/register"
           className="font-mono text-sm uppercase tracking-wider gradient-btn text-background-50 px-10 py-4 rounded-full whitespace-nowrap cursor-pointer inline-block"

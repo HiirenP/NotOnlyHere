@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+﻿import { useRef, useEffect, useState } from 'react';
 import Nav from '@/pages/home/components/Nav';
 import Footer from '@/pages/home/components/Footer';
 
@@ -42,21 +42,21 @@ const relatedPosts = [
     excerpt: 'Before you can truly show up for others, you must learn to show up for yourself.',
     date: 'Jul 14, 2026',
     readTime: '4 min',
-    image: 'https://readdy.ai/api/search-image?query=Soft%20morning%20light%20streaming%20through%20sheer%20curtains%20onto%20a%20rumpled%20bed%20a%20person%20stretching%20gently%20on%20a%20yoga%20mat%20warm%20neutral%20tones%20minimalist%20bedroom%20peaceful%20atmosphere&width=600&height=400&seq=blog-related-01&orientation=landscape',
+    image: '/images/blog-related-01.jpg',
   },
   {
     title: 'The Art of Listening Without Trying to Fix Anything',
     excerpt: 'Most people do not need solutions. They need someone to sit beside them in the mess.',
     date: 'Jun 28, 2026',
     readTime: '6 min',
-    image: 'https://readdy.ai/api/search-image?query=A%20person%20gently%20holding%20both%20hands%20of%20another%20across%20a%20simple%20wooden%20table%20focused%20attentive%20listening%20expression%20soft%20natural%20side%20lighting%20warm%20neutral%20tones%20intimate%20documentary%20photography&width=600&height=400&seq=blog-related-02&orientation=landscape',
+    image: '/images/blog-related-02.jpg',
   },
   {
     title: 'How to Build Deeper Connections Without Oversharing',
     excerpt: 'Connection does not require full disclosure. Learn how to be present and open while keeping healthy boundaries.',
     date: 'Jul 18, 2026',
     readTime: '5 min',
-    image: 'https://readdy.ai/api/search-image?query=Two%20people%20sitting%20across%20a%20small%20wooden%20table%20in%20a%20cozy%20dimly%20lit%20cafe%20having%20a%20quiet%20intimate%20conversation%20soft%20warm%20ambient%20lighting%20candid%20documentary%20photography%20natural%20expressions&width=600&height=400&seq=blog-related-03&orientation=landscape',
+    image: '/images/blog-related-03.jpg',
   },
 ];
 
@@ -94,7 +94,7 @@ export default function BlogPostPage() {
         <FadeSection className="max-w-4xl mx-auto">
           <div className="overflow-hidden" style={{ aspectRatio: '16/9' }}>
             <img
-              src="https://readdy.ai/api/search-image?query=Person%20sitting%20peacefully%20on%20a%20wooden%20bench%20in%20a%20sunlit%20botanical%20garden%20soft%20morning%20light%20filtering%20through%20leaves%20journaling%20quietly%20warm%20earth%20tones%20documentary%20photography%20style%20contemplative%20mood&width=1200&height=800&seq=blog-post-hero&orientation=landscape"
+              src="/images/blog-post-hero.jpg"
               alt="Person in peaceful contemplation"
               className="w-full h-full object-cover object-top"
               loading="lazy"

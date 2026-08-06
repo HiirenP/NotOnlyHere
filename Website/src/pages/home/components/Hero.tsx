@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+﻿import { useEffect, useRef, useState, useCallback } from 'react';
 import { ArrowDown } from 'lucide-react';
 
 interface Polaroid {
@@ -280,6 +280,22 @@ export default function Hero() {
         cursor: isDragging ? 'grabbing' : 'default',
       }}
     >
+      {/* Floating dots layer */}
+      <div className="floating-dots">
+        <span className="floating-dot dot-1" />
+        <span className="floating-dot dot-2" />
+        <span className="floating-dot dot-3" />
+        <span className="floating-dot dot-4" />
+        <span className="floating-dot dot-5" />
+        <span className="floating-dot dot-6" />
+        <span className="floating-dot dot-7" />
+        <span className="floating-dot dot-8" />
+        <span className="floating-dot dot-9" />
+        <span className="floating-dot dot-10" />
+        <span className="floating-dot dot-11" />
+        <span className="floating-dot dot-12" />
+      </div>
+
       {/* Light overlay for crisp text readability */}
       <div className="absolute inset-0 bg-background-50/30 pointer-events-none" />
 
@@ -337,7 +353,7 @@ export default function Hero() {
         style={{ zIndex: 20, maxWidth: '560px', pointerEvents: 'none' }}
       >
         <span
-          className="font-mono text-xs uppercase tracking-widest text-foreground-500 mb-6 block"
+          className="font-mono text-xs uppercase tracking-widest text-foreground-950 mb-6 block"
           style={{ pointerEvents: 'auto' }}
         >
           Community Driven &mdash; Peer Support

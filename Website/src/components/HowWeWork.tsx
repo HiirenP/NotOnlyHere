@@ -176,26 +176,15 @@ export default function HowWeWork() {
           <div className="max-w-[1600px] mx-auto flex items-baseline justify-between px-6 md:px-10">
             <span
               ref={eyebrowRef}
-              className="font-mono uppercase font-medium"
+              className="font-mono uppercase font-medium text-foreground-950"
               style={{
                 fontSize: '10px',
                 letterSpacing: '0.35em',
-                color: 'rgba(26,26,26,0.6)',
                 opacity: 0,
                 willChange: 'opacity',
               }}
             >
               Our Process
-            </span>
-            <span
-              className="hidden md:block font-mono uppercase font-medium"
-              style={{
-                fontSize: '10px',
-                letterSpacing: '0.35em',
-                color: 'rgba(26,26,26,0.6)',
-              }}
-            >
-              Chapter 04 &middot; How it works
             </span>
           </div>
         </div>
@@ -246,35 +235,6 @@ export default function HowWeWork() {
 
         {/* CORNER META (z-50) */}
         <div className="absolute bottom-8 left-6 md:left-10 z-50 pointer-events-none">
-          <div className="flex items-center gap-3">
-            <span
-              className="font-mono uppercase font-medium"
-              style={{
-                fontSize: '10px',
-                letterSpacing: '0.3em',
-                color: 'rgba(26,26,26,0.55)',
-              }}
-            >
-              Chapter 04
-            </span>
-            <span
-              className="inline-block w-8 h-[1px]"
-              style={{ backgroundColor: 'rgba(26,26,26,0.4)' }}
-            />
-            <span
-              className="font-mono uppercase font-medium"
-              style={{
-                fontSize: '10px',
-                letterSpacing: '0.3em',
-                color: 'rgba(26,26,26,0.55)',
-              }}
-            >
-              Process
-            </span>
-          </div>
-        </div>
-
-        <div className="absolute bottom-8 right-6 md:right-10 z-50 pointer-events-none">
           <div className="flex items-center gap-3">
             <span
               className="font-mono uppercase font-medium"

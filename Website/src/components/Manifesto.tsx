@@ -204,11 +204,8 @@ export default function Manifesto() {
         {/* ===== Z-30: Top labels ===== */}
         <div className="absolute top-0 left-0 right-0 z-30 pointer-events-none">
           <div className="max-w-[1600px] mx-auto px-6 md:px-10 pt-28 md:pt-32 flex justify-between">
-            <span className="text-[10px] uppercase tracking-[0.35em] font-mono whitespace-nowrap" style={{ color: 'rgba(26,26,26,0.6)' }}>
+            <span className="text-[10px] uppercase tracking-[0.35em] font-mono whitespace-nowrap text-foreground-950">
               Our Belief
-            </span>
-            <span className="hidden md:block text-[10px] uppercase tracking-[0.35em] font-mono whitespace-nowrap" style={{ color: 'rgba(26,26,26,0.6)' }}>
-              A quiet manifesto
             </span>
           </div>
         </div>
@@ -290,13 +287,6 @@ export default function Manifesto() {
         {/* ===== Z-30: Bottom corner meta ===== */}
         <div className="absolute bottom-0 left-0 right-0 z-30 pointer-events-none">
           <div className="max-w-[1600px] mx-auto px-6 md:px-10 pb-8 md:pb-10 flex justify-between">
-            <div className="flex items-center gap-3">
-              <span className="w-8 h-px" style={{ backgroundColor: 'rgba(26,26,26,0.25)' }} />
-              <span className="text-[10px] uppercase tracking-[0.3em] font-mono whitespace-nowrap" style={{ color: 'rgba(26,26,26,0.55)' }}>
-                Chapter 02 — Belief
-              </span>
-              <span className="w-8 h-px" style={{ backgroundColor: 'rgba(26,26,26,0.25)' }} />
-            </div>
             <div className="flex items-center gap-3">
               <span className="w-8 h-px" style={{ backgroundColor: 'rgba(26,26,26,0.25)' }} />
               <span className="text-[10px] uppercase tracking-[0.3em] font-mono whitespace-nowrap" style={{ color: 'rgba(26,26,26,0.55)' }}>

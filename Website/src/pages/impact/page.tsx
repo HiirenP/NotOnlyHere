@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+﻿import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Nav from '@/pages/home/components/Nav';
 import Footer from '@/pages/home/components/Footer';
@@ -15,19 +15,19 @@ const highlights = [
     year: '2022',
     stat: '94%',
     label: 'of members reported feeling less alone after their first month in the community.',
-    image: 'https://readdy.ai/api/search-image?query=People%20sitting%20in%20a%20supportive%20circle%20indoors%20warm%20soft%20light%20genuine%20conversation%20editorial%20photography%20muted%20earth%20tones%20cozy%20atmosphere&width=800&height=500&seq=impact-h1&orientation=landscape',
+    image: '/images/impact-h1.jpg',
   },
   {
     year: '2023',
     stat: '340%',
     label: 'increase in honest sharing after anonymous posting was introduced — vulnerability without visibility.',
-    image: 'https://readdy.ai/api/search-image?query=Person%20writing%20in%20notebook%20quiet%20reflection%20warm%20indoor%20light%20soft%20natural%20tones%20editorial%20photography%20peaceful%20introspective%20atmosphere&width=800&height=500&seq=impact-h2&orientation=landscape',
+    image: '/images/impact-h2.jpg',
   },
   {
     year: '2024',
     stat: '3.2x',
     label: 'more likely members are to return after receiving a response to their first post. One reply changes everything.',
-    image: 'https://readdy.ai/api/search-image?query=Two%20people%20having%20a%20gentle%20conversation%20over%20coffee%20warm%20cafe%20light%20candid%20moment%20editorial%20photography%20soft%20neutral%20earth%20tones%20genuine%20connection&width=800&height=500&seq=impact-h3&orientation=landscape',
+    image: '/images/impact-h3.jpg',
   },
 ];
 
@@ -132,7 +132,7 @@ export default function ImpactPage() {
       <section className="relative h-[60vh] min-h-[420px] flex items-end overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://readdy.ai/api/search-image?query=Warm%20community%20gathering%20indoors%20people%20sitting%20in%20circle%20soft%20natural%20light%20genuine%20conversation%20editorial%20photography%20muted%20earth%20tones%20cozy%20atmosphere%20film%20grain&width=1400&height=800&seq=impact-hero&orientation=landscape"
+            src="/images/impact-hero.jpg"
             alt="Peer support community"
             className="w-full h-full object-cover object-top"
           />

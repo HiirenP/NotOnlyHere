@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle, useRef } from 'react';
+﻿import { forwardRef, useImperativeHandle, useRef } from 'react';
 
 export interface CardMotion {
   finalLeft: string;
@@ -82,28 +82,28 @@ interface CardData {
 
 const cardsData: CardData[] = [
   {
-    image: 'https://readdy.ai/api/search-image?query=Soft%20warm%20glowing%20laptop%20screen%20on%20a%20wooden%20desk%20in%20a%20dim%20cozy%20room%2C%20gentle%20amber%20light%20spilling%20across%20the%20keyboard%2C%20a%20single%20small%20plant%20beside%20the%20laptop%2C%20warm%20earth%20tones%2C%20safe%20and%20inviting%20atmosphere%2C%20minimalist%20composition%2C%20soft%20shadows%2C%20dreamy%20shallow%20depth%20of%20field%2C%20editorial%20photography%20style%20with%20film%20grain%20texture&width=900&height=1200&seq=circle-card-01&orientation=portrait',
+    image: '/images/circle-card-01.jpg',
     alt: 'Step 01 — Create your account and join the community safely',
     title: 'Create Your Account',
     description: 'Sign up in under a minute. No real name required — pick a username that feels safe.',
     subLabel: 'Your safe space begins',
   },
   {
-    image: 'https://readdy.ai/api/search-image?query=Warm%20abstract%20overlapping%20circles%20of%20soft%20golden%20light%20floating%20in%20a%20dark%20gentle%20space%2C%20each%20circle%20glowing%20with%20its%20own%20warmth%2C%20amber%20and%20honey%20tones%20blending%20together%2C%20feeling%20of%20community%20and%20gathering%2C%20soft%20bokeh%20effect%2C%20dreamy%20ethereal%20atmosphere%2C%20cozy%20nighttime%20vibe%2C%20editorial%20photography%20with%20soft%20focus&width=900&height=1200&seq=circle-card-02&orientation=portrait',
+    image: '/images/circle-card-02.jpg',
     alt: 'Step 02 — Find your circle among themed support groups',
     title: 'Find Your Circle',
     description: 'Browse themed circles like Gentle Support, Late Night Lounge, and Night Shade. Each has its own rhythm.',
     subLabel: 'Discover your people',
   },
   {
-    image: 'https://readdy.ai/api/search-image?query=A%20quiet%20peaceful%20scene%20of%20open%20hands%20resting%20gently%20on%20a%20warm%20textured%20surface%2C%20soft%20golden%20hour%20light%20streaming%20from%20the%20side%2C%20feeling%20of%20sharing%20and%20listening%2C%20vulnerability%20held%20with%20kindness%2C%20warm%20earth%20and%20terracotta%20tones%2C%20minimalist%20composition%2C%20soft%20shadows%2C%20dreamy%20atmosphere%2C%20editorial%20photography%20with%20gentle%20texture&width=900&height=1200&seq=circle-card-03&orientation=portrait',
+    image: '/images/circle-card-03.jpg',
     alt: 'Step 03 — Share anonymously or simply listen with kindness',
     title: 'Share or Listen',
     description: 'Post anonymously, respond with kindness, or just read. There is no scoreboard — presence is enough.',
     subLabel: 'No judgment here',
   },
   {
-    image: 'https://readdy.ai/api/search-image?query=Tender%20young%20green%20seedlings%20growing%20from%20rich%20dark%20soil%20in%20soft%20morning%20light%2C%20delicate%20stems%20reaching%20upward%2C%20warm%20sunbeams%20breaking%20through%20gentle%20mist%2C%20symbol%20of%20growth%20and%20hope%20and%20quiet%20connection%2C%20earth%20tones%20with%20soft%20green%20accents%2C%20minimalist%20composition%2C%20dreamy%20atmosphere%2C%20editorial%20photography%20style&width=900&height=1200&seq=circle-card-04&orientation=portrait',
+    image: '/images/circle-card-04.jpg',
     alt: 'Step 04 — Grow together, build quiet connections over time',
     title: 'Grow Together',
     description: 'Return when you need to. Build quiet connections over time. Belonging is a practice, not a performance.',

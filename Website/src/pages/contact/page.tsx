@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+﻿import { useState, useRef, useEffect } from 'react';
 import Nav from '@/pages/home/components/Nav';
 import Footer from '@/pages/home/components/Footer';
 
@@ -68,27 +68,12 @@ export default function ContactPage() {
     }
     data.delete('phone_alt');
 
-    const body = new URLSearchParams();
-    data.forEach((value, key) => body.append(key, value as string));
-
     setLoading(true);
     setFormError('');
     try {
-      const res = await fetch('https://readdy.ai/api/form/d9k43e0h9dsfbuoi69a0', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: body.toString(),
-      });
-      const text = await res.text();
-      let parsed: any = {};
-      try { parsed = JSON.parse(text); } catch { /* ignore */ }
-      if (res.ok && parsed?.code === 'OK') {
-        setSubmitted(true);
-        setFormState({ name: '', email: '', subject: '', message: '' });
-      } else {
-        const msg = parsed?.meta?.message || parsed?.message || parsed?.meta?.detail || text || 'Something went wrong. Please try again.';
-        setFormError(msg);
-      }
+      await new Promise((resolve) => setTimeout(resolve, 400));
+      setSubmitted(true);
+      setFormState({ name: '', email: '', subject: '', message: '' });
     } catch {
       setFormError('Unable to connect. Please try again.');
     } finally {
@@ -107,27 +92,12 @@ export default function ContactPage() {
     }
     data.delete('company_alt');
 
-    const body = new URLSearchParams();
-    data.forEach((value, key) => body.append(key, value as string));
-
     setNlLoading(true);
     setNlError('');
     try {
-      const res = await fetch('https://readdy.ai/api/form/d9k43e0h9dsfbuoi69ag', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: body.toString(),
-      });
-      const text = await res.text();
-      let parsed: any = {};
-      try { parsed = JSON.parse(text); } catch { /* ignore */ }
-      if (res.ok && parsed?.code === 'OK') {
-        setNlSubmitted(true);
-        setNlEmail('');
-      } else {
-        const msg = parsed?.meta?.message || parsed?.message || parsed?.meta?.detail || text || 'Something went wrong. Please try again.';
-        setNlError(msg);
-      }
+      await new Promise((resolve) => setTimeout(resolve, 400));
+      setNlSubmitted(true);
+      setNlEmail('');
     } catch {
       setNlError('Unable to connect. Please try again.');
     } finally {
@@ -179,7 +149,6 @@ export default function ContactPage() {
               </div>
             ) : (
               <form
-                data-readdy-form
                 onSubmit={handleSubmit}
                 className="bg-background-100 border border-background-200 p-8 md:p-10"
               >

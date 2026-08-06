@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+﻿import { useRef, useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 
 export default function DeepDive() {
@@ -18,7 +18,7 @@ export default function DeepDive() {
     <section
       id="mission"
       ref={ref}
-      className="py-16 md:py-28 px-4 sm:px-6 md:px-12 lg:px-16 bg-background-100"
+      className="py-10 md:py-16 px-4 sm:px-6 md:px-12 lg:px-16 bg-background-100"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
         {/* Left: image polaroid */}
@@ -30,7 +30,7 @@ export default function DeepDive() {
             <div className="absolute bottom-8 right-4 w-16 h-4 bg-accent-300/70 rotate-[5deg] z-10" style={{ borderRadius: '2px' }} />
             <div className="w-full overflow-hidden" style={{ aspectRatio: '3/4' }}>
               <img
-                src="https://readdy.ai/api/search-image?query=Community%20members%20gathering%20outdoors%20in%20a%20park%20warm%20sunset%20light%20genuine%20connection%20candid%20documentary%20photography%20soft%20earth%20tones%20editorial%20style&width=800&height=960&seq=deepdive-img&orientation=portrait"
+                src="/images/deepdive-img.jpg"
                 alt="Community members gathering outdoors"
                 className="w-full h-full object-cover object-top"
                 loading="lazy"
@@ -46,7 +46,7 @@ export default function DeepDive() {
         <div
           className={`transition-all duration-700 delay-200 ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}
         >
-          <span className="font-mono text-xs uppercase tracking-widest text-foreground-400 block mb-4">
+          <span className="font-mono text-xs uppercase tracking-widest text-foreground-950 block mb-4">
             Our Approach
           </span>
           <h2 className="font-display text-4xl md:text-5xl tracking-tighter text-foreground-950 uppercase mb-6 leading-[0.9]">

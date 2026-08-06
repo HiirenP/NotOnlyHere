@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+﻿import { useRef, useEffect, useState } from 'react';
 import Nav from '@/pages/home/components/Nav';
 import Footer from '@/pages/home/components/Footer';
 
@@ -141,7 +141,7 @@ export default function SupportPage() {
               <div className="absolute bottom-8 right-4 w-16 h-4 bg-primary-300/70 rotate-[5deg] z-10" style={{ borderRadius: '2px' }} />
               <div className="w-full overflow-hidden" style={{ aspectRatio: '4/5' }}>
                 <img
-                  src="https://readdy.ai/api/search-image?query=People%20sitting%20in%20a%20warm%20cozy%20circle%20sharing%20stories%20and%20supporting%20each%20other%20soft%20candlelight%20gentle%20atmosphere%20community%20gathering%20editorial%20photography%20warm%20earth%20tones&width=800&height=1000&seq=support-community-1&orientation=portrait"
+                  src="/images/support-community-1.jpg"
                   alt="Community members supporting each other in a warm circle"
                   className="w-full h-full object-cover object-top"
                   loading="lazy"

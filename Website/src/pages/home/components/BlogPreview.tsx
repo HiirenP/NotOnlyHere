@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+﻿import { useRef, useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 
 const posts = [
@@ -7,21 +7,21 @@ const posts = [
     excerpt: 'How removing engagement metrics changed the way people showed up — and why it made the community kinder.',
     author: 'The NotOnlyHere Team',
     date: 'July 18, 2026',
-    image: 'https://readdy.ai/api/search-image?query=Quiet%20moment%20of%20reflection%20journal%20and%20pen%20on%20a%20wooden%20table%20warm%20morning%20light%20cozy%20atmosphere%20editorial%20photography%20soft%20neutral%20tones&width=600&height=600&seq=blog-preview-1&orientation=squarish',
+    image: '/images/blog-preview-1.jpg',
   },
   {
     title: 'The Art of Listening Without Fixing',
     excerpt: 'Most of us listen to respond. Here is what happens when you listen just to be present — and nothing more.',
     author: 'Sarah Chen',
     date: 'July 10, 2026',
-    image: 'https://readdy.ai/api/search-image?query=Two%20people%20in%20deep%20conversation%20sitting%20across%20a%20table%20warm%20indoor%20lighting%20genuine%20connection%20candid%20documentary%20style%20soft%20earth%20tones&width=600&height=600&seq=blog-preview-2&orientation=squarish',
+    image: '/images/blog-preview-2.jpg',
   },
   {
     title: 'A Letter to First-Timers',
     excerpt: 'Nervous about joining your first circle? You are not alone. Here is what to expect — and why it is okay to just listen.',
     author: 'Marcus Rivera',
     date: 'June 28, 2026',
-    image: 'https://readdy.ai/api/search-image?query=Person%20sitting%20by%20a%20window%20holding%20a%20warm%20cup%20of%20tea%20soft%20morning%20light%20peaceful%20reflective%20moment%20editorial%20photography%20warm%20neutral%20earth%20tones&width=600&height=600&seq=blog-preview-3&orientation=squarish',
+    image: '/images/blog-preview-3.jpg',
   },
 ];
 
@@ -39,9 +39,9 @@ export default function BlogPreview() {
   }, []);
 
   return (
-    <section ref={ref} className="py-16 md:py-28 px-4 sm:px-6 md:px-12 lg:px-16 bg-background-50">
-      <div className="mb-12 md:mb-16 text-center">
-        <span className="font-mono text-xs uppercase tracking-widest gradient-text block mb-3">
+    <section ref={ref} className="py-10 md:py-16 px-4 sm:px-6 md:px-12 lg:px-16 bg-background-50">
+      <div className="mb-8 md:mb-12 text-center">
+        <span className="font-mono text-xs uppercase tracking-widest text-foreground-950 block mb-3">
           Our Blog
         </span>
         <h2 className="font-display text-4xl md:text-5xl tracking-tighter text-foreground-950 uppercase max-w-2xl mx-auto leading-[0.9]">
@@ -92,7 +92,7 @@ export default function BlogPreview() {
         ))}
       </div>
 
-      <div className="mt-14 text-center">
+      <div className="mt-10 text-center">
         <a
           href="/blog"
           className="inline-flex items-center gap-2 font-mono text-sm uppercase tracking-wider text-foreground-950 hover:gradient-text transition-colors duration-200 cursor-pointer"

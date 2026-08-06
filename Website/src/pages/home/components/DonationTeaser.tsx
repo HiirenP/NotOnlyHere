@@ -14,7 +14,7 @@ export default function DonationTeaser() {
   }, []);
 
   return (
-    <section ref={ref} className="py-16 md:py-28 px-4 sm:px-6 md:px-12 lg:px-16 bg-background-50">
+    <section ref={ref} className="py-10 md:py-16 px-4 sm:px-6 md:px-12 lg:px-16 bg-background-50">
       <div
         className="max-w-3xl mx-auto text-center transition-all duration-700"
         style={{
@@ -22,7 +22,7 @@ export default function DonationTeaser() {
           transform: visible ? 'translateY(0)' : 'translateY(24px)',
         }}
       >
-        <span className="font-mono text-xs uppercase tracking-widest gradient-text block mb-4">
+        <span className="font-mono text-xs uppercase tracking-widest text-foreground-950 block mb-4">
           Support Our Mission
         </span>
         <h2 className="font-display text-4xl md:text-5xl tracking-tighter text-foreground-950 uppercase mb-6 leading-[0.9]">

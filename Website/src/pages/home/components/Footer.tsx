@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 
 const exploreLinks = [
   { label: 'Home', href: '/' },
@@ -40,27 +40,12 @@ export default function Footer() {
     }
     data.delete('website_alt');
 
-    const body = new URLSearchParams();
-    data.forEach((value, key) => body.append(key, value as string));
-
     setLoading(true);
     setFormError('');
     try {
-      const res = await fetch('https://readdy.ai/api/form/d9k3hn0hpes2mi34sfq0', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: body.toString(),
-      });
-      const text = await res.text();
-      let parsed: any = {};
-      try { parsed = JSON.parse(text); } catch { /* ignore */ }
-      if (res.ok && parsed?.code === 'OK') {
-        setSubmitted(true);
-        setEmail('');
-      } else {
-        const msg = parsed?.meta?.message || parsed?.message || parsed?.meta?.detail || text || 'Something went wrong. Please try again.';
-        setFormError(msg);
-      }
+      await new Promise((resolve) => setTimeout(resolve, 400));
+      setSubmitted(true);
+      setEmail('');
     } catch {
       setFormError('Unable to connect. Please try again.');
     } finally {
@@ -69,10 +54,10 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-background-100 text-foreground-950 py-16 px-4 sm:px-6 md:px-12 lg:px-16 border-t border-background-200">
+    <footer className="bg-background-100 text-foreground-950 py-10 md:py-12 px-4 sm:px-6 md:px-12 lg:px-16 border-t border-background-200">
       <div className="mb-12">
         <img
-          src="https://static.readdy.ai/image/625b665eabd64e8e26dc00b3dfd3bc8f/0f7f3e340b64adaf58909c4de1c45074.png"
+          src="/images/logo.png"
           alt="NotOnlyHere — Real People. Real Connections."
           className="h-12 w-auto object-contain"
         />
@@ -168,7 +153,6 @@ export default function Footer() {
             </p>
           ) : (
             <form
-              data-readdy-form
               onSubmit={handleNewsletter}
               className="flex flex-col sm:flex-row gap-2"
             >

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+﻿import { useState, useRef, useEffect } from 'react';
 import Nav from '@/pages/home/components/Nav';
 import Footer from '@/pages/home/components/Footer';
 
@@ -46,7 +46,7 @@ const allPosts = [
     author: 'Maya Chen',
     date: 'Jul 22, 2026',
     readTime: '6 min',
-    image: 'https://readdy.ai/api/search-image?query=Person%20sitting%20peacefully%20on%20a%20wooden%20bench%20in%20a%20sunlit%20botanical%20garden%20soft%20morning%20light%20filtering%20through%20leaves%20journaling%20quietly%20warm%20earth%20tones%20documentary%20photography%20style%20contemplative%20mood&width=1200&height=800&seq=blog-featured-growth&orientation=landscape',
+    image: '/images/blog-featured-growth.jpg',
     slug: '/blog/post',
     featured: true,
   },
@@ -57,7 +57,7 @@ const allPosts = [
     author: 'Darius Kim',
     date: 'Jul 18, 2026',
     readTime: '5 min',
-    image: 'https://readdy.ai/api/search-image?query=Two%20people%20sitting%20across%20a%20small%20wooden%20table%20in%20a%20cozy%20dimly%20lit%20cafe%20having%20a%20quiet%20intimate%20conversation%20soft%20warm%20ambient%20lighting%20candid%20documentary%20photography%20natural%20expressions&width=800&height=600&seq=blog-post-01&orientation=landscape',
+    image: '/images/blog-post-01.jpg',
     slug: '/blog/post',
   },
   {
@@ -67,7 +67,7 @@ const allPosts = [
     author: 'Priya Nair',
     date: 'Jul 14, 2026',
     readTime: '4 min',
-    image: 'https://readdy.ai/api/search-image?query=Soft%20morning%20light%20streaming%20through%20sheer%20curtains%20onto%20a%20rumpled%20bed%20a%20person%20stretching%20gently%20on%20a%20yoga%20mat%20warm%20neutral%20tones%20minimalist%20bedroom%20peaceful%20atmosphere&width=800&height=600&seq=blog-post-02&orientation=landscape',
+    image: '/images/blog-post-02.jpg',
     slug: '/blog/post',
   },
   {
@@ -77,7 +77,7 @@ const allPosts = [
     author: 'Team NotOnlyHere',
     date: 'Jul 10, 2026',
     readTime: '7 min',
-    image: 'https://readdy.ai/api/search-image?query=Colorful%20handwritten%20sticky%20notes%20arranged%20on%20a%20warm%20cork%20board%20wall%20close%20up%20of%20kind%20encouraging%20anonymous%20messages%20soft%20natural%20light%20warm%20textures%20community%20art%20installation&width=800&height=600&seq=blog-post-03&orientation=landscape',
+    image: '/images/blog-post-03.jpg',
     slug: '/blog/post',
   },
   {
@@ -87,7 +87,7 @@ const allPosts = [
     author: 'Jordan Reyes',
     date: 'Jul 6, 2026',
     readTime: '5 min',
-    image: 'https://readdy.ai/api/search-image?query=A%20lone%20window%20at%20night%20with%20soft%20moonlight%20streaming%20in%20view%20of%20a%20quiet%20city%20street%20below%20warm%20lamp%20glow%20inside%20cozy%20room%20peaceful%20melancholic%20atmosphere&width=800&height=600&seq=blog-post-04&orientation=landscape',
+    image: '/images/blog-post-04.jpg',
     slug: '/blog/post',
   },
   {
@@ -97,7 +97,7 @@ const allPosts = [
     author: 'Samir Torres',
     date: 'Jul 2, 2026',
     readTime: '5 min',
-    image: 'https://readdy.ai/api/search-image?query=Small%20diverse%20group%20of%20people%20sitting%20in%20a%20circle%20on%20floor%20cushions%20in%20a%20warmly%20lit%20room%20sunlight%20streaming%20through%20large%20windows%20genuine%20smiles%20inclusive%20atmosphere%20documentary%20style%20photography&width=800&height=600&seq=blog-post-05&orientation=landscape',
+    image: '/images/blog-post-05.jpg',
     slug: '/blog/post',
   },
   {
@@ -107,7 +107,7 @@ const allPosts = [
     author: 'Lena Okonkwo',
     date: 'Jun 28, 2026',
     readTime: '6 min',
-    image: 'https://readdy.ai/api/search-image?query=A%20person%20gently%20holding%20both%20hands%20of%20another%20across%20a%20simple%20wooden%20table%20focused%20attentive%20listening%20expression%20soft%20natural%20side%20lighting%20warm%20neutral%20tones%20intimate%20documentary%20photography&width=800&height=600&seq=blog-post-06&orientation=landscape',
+    image: '/images/blog-post-06.jpg',
     slug: '/blog/post',
   },
 ];
@@ -141,27 +141,12 @@ export default function BlogPage() {
     }
     data.delete('website_alt');
 
-    const body = new URLSearchParams();
-    data.forEach((value, key) => body.append(key, value as string));
-
     setLoading(true);
     setFormError('');
     try {
-      const res = await fetch('https://readdy.ai/api/form/d9k43e0h9dsfbuoi69ag', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: body.toString(),
-      });
-      const text = await res.text();
-      let parsed: any = {};
-      try { parsed = JSON.parse(text); } catch { /* ignore */ }
-      if (res.ok && parsed?.code === 'OK') {
-        setSubmitted(true);
-        setEmail('');
-      } else {
-        const msg = parsed?.meta?.message || parsed?.message || parsed?.meta?.detail || text || 'Something went wrong. Please try again.';
-        setFormError(msg);
-      }
+      await new Promise((resolve) => setTimeout(resolve, 400));
+      setSubmitted(true);
+      setEmail('');
     } catch {
       setFormError('Unable to connect. Please try again.');
     } finally {
@@ -344,7 +329,6 @@ export default function BlogPage() {
             </p>
           ) : (
             <form
-              data-readdy-form
               onSubmit={handleNewsletter}
               className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
             >
