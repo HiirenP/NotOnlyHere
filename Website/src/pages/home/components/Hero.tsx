@@ -16,8 +16,8 @@ interface Polaroid {
 
 const POLAROIDS: Polaroid[] = [
   {
-    src: 'https://readdy.ai/api/search-image?query=Two%20people%20having%20a%20supportive%20conversation%20in%20a%20warm%20cozy%20indoor%20space%20soft%20natural%20light%20gentle%20expressions%20editorial%20photography%20warm%20neutral%20tones&width=600&height=800&seq=polaroid-01&orientation=portrait',
-    alt: 'Two people having a supportive conversation',
+    src: '/images/polaroid-01.jpg',
+    alt: 'Diverse friends laughing together outdoors',
     caption: 'Gentle Support Circle',
     tapeColor: 'rgba(34,200,207,0.70)',
     tapeAngle: -8,
@@ -28,8 +28,8 @@ const POLAROIDS: Polaroid[] = [
     zBase: 8,
   },
   {
-    src: 'https://readdy.ai/api/search-image?query=Friends%20laughing%20together%20outdoors%20in%20a%20park%20warm%20afternoon%20light%20genuine%20joy%20candid%20documentary%20photography%20soft%20earth%20tones&width=600&height=800&seq=polaroid-02&orientation=portrait',
-    alt: 'Friends laughing together outdoors',
+    src: '/images/polaroid-02.jpg',
+    alt: 'Multicultural group of women in conversation',
     caption: 'Community Gathering',
     tapeColor: 'rgba(106,76,247,0.65)',
     tapeAngle: 6,
@@ -40,8 +40,8 @@ const POLAROIDS: Polaroid[] = [
     zBase: 7,
   },
   {
-    src: 'https://readdy.ai/api/search-image?query=Person%20reflecting%20quietly%20by%20a%20window%20at%20night%20soft%20lamp%20light%20cozy%20interior%20warm%20moody%20atmosphere%20editorial%20photography%20muted%20tones&width=600&height=800&seq=polaroid-03&orientation=portrait',
-    alt: 'Person reflecting quietly by a window at night',
+    src: '/images/polaroid-03.jpg',
+    alt: 'East Asian man in a quiet reflective moment',
     caption: 'Late Night Lounge',
     tapeColor: 'rgba(61,127,248,0.65)',
     tapeAngle: -4,
@@ -52,8 +52,8 @@ const POLAROIDS: Polaroid[] = [
     zBase: 6,
   },
   {
-    src: 'https://readdy.ai/api/search-image?query=Small%20group%20discussion%20around%20a%20table%20warm%20indoor%20lighting%20coffee%20cups%20supportive%20conversation%20candid%20documentary%20photography%20soft%20neutral%20background&width=600&height=800&seq=polaroid-04&orientation=portrait',
-    alt: 'Small group discussion around a table',
+    src: '/images/polaroid-04.jpg',
+    alt: 'Diverse colleagues in a supportive meeting',
     caption: 'Circle Chat 2025',
     tapeColor: 'rgba(34,200,207,0.70)',
     tapeAngle: 10,
@@ -64,8 +64,8 @@ const POLAROIDS: Polaroid[] = [
     zBase: 9,
   },
   {
-    src: 'https://readdy.ai/api/search-image?query=People%20connecting%20in%20a%20park%20sitting%20on%20grass%20warm%20sunset%20light%20genuine%20friendship%20candid%20photography%20soft%20earth%20tones%20editorial%20style&width=600&height=800&seq=polaroid-05&orientation=portrait',
-    alt: 'People connecting in a park',
+    src: '/images/polaroid-05.jpg',
+    alt: 'Black friends connecting outdoors',
     caption: 'First Time Here',
     tapeColor: 'rgba(34,200,207,0.60)',
     tapeAngle: -6,
@@ -76,8 +76,8 @@ const POLAROIDS: Polaroid[] = [
     zBase: 5,
   },
   {
-    src: 'https://readdy.ai/api/search-image?query=Team%20meeting%20with%20warm%20lighting%20people%20listening%20attentively%20soft%20natural%20light%20through%20windows%20editorial%20photography%20warm%20neutral%20tones%20cozy%20interior&width=600&height=800&seq=polaroid-06&orientation=portrait',
-    alt: 'Team meeting with warm lighting',
+    src: '/images/polaroid-06.jpg',
+    alt: 'Multicultural team collaborating together',
     caption: 'Peer Listening',
     tapeColor: 'rgba(106,76,247,0.60)',
     tapeAngle: 5,
@@ -88,8 +88,8 @@ const POLAROIDS: Polaroid[] = [
     zBase: 6,
   },
   {
-    src: 'https://readdy.ai/api/search-image?query=Friends%20supporting%20each%20other%20sitting%20close%20together%20warm%20indoor%20setting%20soft%20natural%20light%20candid%20moment%20editorial%20photography%20muted%20warm%20tones&width=600&height=800&seq=polaroid-07&orientation=portrait',
-    alt: 'Friends supporting each other',
+    src: '/images/polaroid-07.jpg',
+    alt: 'Diverse community gathering indoors',
     caption: 'Anonymous Stories',
     tapeColor: 'rgba(106,76,247,0.50)',
     tapeAngle: -9,
@@ -100,8 +100,8 @@ const POLAROIDS: Polaroid[] = [
     zBase: 7,
   },
   {
-    src: 'https://readdy.ai/api/search-image?query=Casual%20conversation%20over%20coffee%20two%20people%20at%20a%20cafe%20warm%20ambient%20lighting%20genuine%20connection%20candid%20photography%20soft%20neutral%20earth%20tones%20editorial%20style&width=600&height=800&seq=polaroid-08&orientation=portrait',
-    alt: 'Casual conversation over coffee',
+    src: '/images/polaroid-08.jpg',
+    alt: 'Diverse peers working together around a table',
     caption: 'Night Shade Circle',
     tapeColor: 'rgba(34,200,207,0.55)',
     tapeAngle: 7,

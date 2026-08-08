@@ -82,28 +82,28 @@ interface CardData {
 
 const cardsData: CardData[] = [
   {
-    image: '/images/circle-card-01.jpg',
+    image: '/images/how-create-account.png',
     alt: 'Step 01 — Create your account and join the community safely',
     title: 'Create Your Account',
     description: 'Sign up in under a minute. No real name required — pick a username that feels safe.',
     subLabel: 'Your safe space begins',
   },
   {
-    image: '/images/circle-card-02.jpg',
+    image: '/images/how-browse-circles.png',
     alt: 'Step 02 — Find your circle among themed support groups',
     title: 'Find Your Circle',
     description: 'Browse themed circles like Gentle Support, Late Night Lounge, and Night Shade. Each has its own rhythm.',
     subLabel: 'Discover your people',
   },
   {
-    image: '/images/circle-card-03.jpg',
+    image: '/images/how-share-or-listen.png',
     alt: 'Step 03 — Share anonymously or simply listen with kindness',
     title: 'Share or Listen',
     description: 'Post anonymously, respond with kindness, or just read. There is no scoreboard — presence is enough.',
     subLabel: 'No judgment here',
   },
   {
-    image: '/images/circle-card-04.jpg',
+    image: '/images/how-connect-on-web.png',
     alt: 'Step 04 — Grow together, build quiet connections over time',
     title: 'Grow Together',
     description: 'Return when you need to. Build quiet connections over time. Belonging is a practice, not a performance.',

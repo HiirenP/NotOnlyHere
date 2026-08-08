@@ -7,21 +7,21 @@ const posts = [
     excerpt: 'How removing engagement metrics changed the way people showed up — and why it made the community kinder.',
     author: 'The NotOnlyHere Team',
     date: 'July 18, 2026',
-    image: '/images/blog-preview-1.jpg',
+    image: '/images/blog-preview-1.png',
   },
   {
     title: 'The Art of Listening Without Fixing',
     excerpt: 'Most of us listen to respond. Here is what happens when you listen just to be present — and nothing more.',
     author: 'Sarah Chen',
     date: 'July 10, 2026',
-    image: '/images/blog-preview-2.jpg',
+    image: '/images/blog-preview-2.png',
   },
   {
     title: 'A Letter to First-Timers',
     excerpt: 'Nervous about joining your first circle? You are not alone. Here is what to expect — and why it is okay to just listen.',
     author: 'Marcus Rivera',
     date: 'June 28, 2026',
-    image: '/images/blog-preview-3.jpg',
+    image: '/images/blog-preview-3.png',
   },
 ];
 

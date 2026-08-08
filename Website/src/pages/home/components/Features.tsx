@@ -70,7 +70,7 @@ export default function Features() {
         >
           <div className="relative w-full overflow-hidden" style={{ aspectRatio: '4/5' }}>
             <img
-              src="/images/feature-circles-v2.jpg"
+              src="/images/what-we-do-1.png"
               alt="People in a supportive group conversation"
               className="w-full h-full object-cover object-top"
               loading="lazy"
@@ -102,7 +102,7 @@ export default function Features() {
         >
           <div className="w-full overflow-hidden" style={{ aspectRatio: '4/5' }}>
             <img
-              src="/images/feature-anon.jpg"
+              src="/images/what-we-do-2.png"
               alt="Quiet moment of reflection"
               className="w-full h-full object-cover object-top"
               loading="lazy"
@@ -134,7 +134,7 @@ export default function Features() {
         >
           <div className="w-full overflow-hidden" style={{ aspectRatio: '16/9' }}>
             <img
-              src="/images/feature-moderated.jpg"
+              src="/images/what-we-do-3.png"
               alt="Supportive team environment"
               className="w-full h-full object-cover object-top"
               loading="lazy"
@@ -166,7 +166,7 @@ export default function Features() {
         >
           <div className="w-full overflow-hidden" style={{ aspectRatio: '16/9' }}>
             <img
-              src="/images/feature-stories.jpg"
+              src="/images/what-we-do-4.png"
               alt="Journal and reflection"
               className="w-full h-full object-cover object-top"
               loading="lazy"
@@ -229,7 +229,7 @@ export default function Features() {
         >
           <div className="w-full overflow-hidden" style={{ aspectRatio: '1/1' }}>
             <img
-              src="/images/feature-solidarity.jpg"
+              src="/images/what-we-do-5.png"
               alt="Friends together in community"
               className="w-full h-full object-cover object-top"
               loading="lazy"

@@ -258,7 +258,7 @@ export default function MissionPage() {
           <div className="order-2 lg:order-1 relative">
             <div className="w-full overflow-hidden" style={{ aspectRatio: '3/4' }}>
               <img
-                src="/images/mission-approach.jpg"
+                src="/images/our-approach.png"
                 alt="Quiet reflection and journaling"
                 className="w-full h-full object-cover object-top"
                 loading="lazy"

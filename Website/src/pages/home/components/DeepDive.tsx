@@ -30,7 +30,7 @@ export default function DeepDive() {
             <div className="absolute bottom-8 right-4 w-16 h-4 bg-accent-300/70 rotate-[5deg] z-10" style={{ borderRadius: '2px' }} />
             <div className="w-full overflow-hidden" style={{ aspectRatio: '3/4' }}>
               <img
-                src="/images/deepdive-img.jpg"
+                src="/images/our-approach.png"
                 alt="Community members gathering outdoors"
                 className="w-full h-full object-cover object-top"
                 loading="lazy"
