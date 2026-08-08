@@ -68,7 +68,7 @@ export function AdminPanel({ title, subtitle, action, children }: { title?: stri
 export function AdminTabs({ tabs, active, onChange, rightAction }: { tabs: { id: string; label: string }[]; active: string; onChange: (id: string) => void; rightAction?: ReactNode }) {
   return (
     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#e8eaed] pb-0">
-      <div className="flex gap-1 overflow-x-auto">
+      <div className="flex gap-1 flex-wrap">
         {tabs.map((tab) => (
           <button
             key={tab.id}

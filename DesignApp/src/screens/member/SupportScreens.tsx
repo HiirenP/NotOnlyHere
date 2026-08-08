@@ -158,14 +158,30 @@ export function AvaScreen() {
 
 export function MoodScreen() {
   const [period, setPeriod] = useState('30');
+  const [selected, setSelected] = useState(2);
+  const moods = [
+    { emoji: '🙂', label: 'Hopeful' },
+    { emoji: '😐', label: 'Okay' },
+    { emoji: '😔', label: 'Struggling' },
+    { emoji: '😰', label: 'Overwhelmed' },
+    { emoji: '😴', label: 'Exhausted' },
+  ];
   return (
     <MemberShell>
-      <PageHeader title="Mood check-in" subtitle="Private to you — not shared on your profile" />
+      <PageHeader title="Mood check-in" subtitle="Private history — daily check-in also lives at the top of Feed" />
       <TCard className="mb-4">
         <h3 className="text-sm font-bold text-[#14191e] mb-4">How are you feeling today?</h3>
         <div className="grid grid-cols-5 gap-2 mb-4">
-          {['😔', '😕', '😐', '🙂', '😊'].map((e, i) => (
-            <button key={i} type="button" className={`p-4 rounded-xl border text-2xl transition-all ${i === 3 ? 'border-[#0f6fec] bg-[#0f6fec]/5 shadow-sm' : 'border-[#e8eaed] hover:border-[#0f6fec]/30'}`}>{e}</button>
+          {moods.map((mood, i) => (
+            <button
+              key={mood.label}
+              type="button"
+              onClick={() => setSelected(i)}
+              className={`p-3 rounded-xl border text-center transition-all ${selected === i ? 'border-[#0f6fec] bg-[#0f6fec]/5 shadow-sm' : 'border-[#e8eaed] hover:border-[#0f6fec]/30'}`}
+            >
+              <span className="text-2xl block">{mood.emoji}</span>
+              <span className={`text-[10px] font-semibold mt-1 block ${selected === i ? 'text-[#0f6fec]' : 'text-[#676a79]'}`}>{mood.label}</span>
+            </button>
           ))}
         </div>
         <textarea className="w-full min-h-24 text-sm p-4 bg-[#f5f6f8] rounded-xl border-0 focus:ring-2 focus:ring-[#0f6fec]/10 focus:outline-none mb-4" placeholder="Optional private note..." />
@@ -252,7 +268,7 @@ export function ResourcesScreen() {
 export function ExploreScreen() {
   const items = [
     { title: 'Search', desc: 'Find posts, members, circles', image: images.exploreSearch, icon: Search, color: 'blue' as const, to: '/design/app/search' },
-    { title: 'Circles', desc: 'Peer-support communities', image: images.exploreCircles, icon: Circle, color: 'teal' as const, to: '/design/app/circles' },
+    { title: 'Circles', desc: 'The heart of belonging here', image: images.exploreCircles, icon: Circle, color: 'teal' as const, to: '/design/app/circles' },
     { title: 'Events', desc: 'Upcoming community events', image: images.exploreEvents, icon: Calendar, color: 'red' as const, to: '/design/app/events' },
     { title: 'Resources', desc: 'Learning library', image: images.exploreResources, icon: Compass, color: 'yellow' as const, to: '/design/app/resources' },
     { title: 'Ava', desc: 'Private AI companion chat', image: images.exploreAva, icon: Sparkles, color: 'pink' as const, to: '/design/app/ava' },
@@ -287,7 +303,7 @@ export function ExploreScreen() {
 export function SettingsScreen() {
   const sections = [
     { title: 'Profile', desc: 'Display name, bio, avatar', icon: User, color: 'blue' as const },
-    { title: 'Connections', desc: 'Requests and mutual connections for messaging', icon: User, color: 'green' as const },
+    { title: 'People you’ve welcomed', desc: 'Requests and people who can message you', icon: User, color: 'green' as const },
     { title: 'Blocked accounts', desc: 'Manage blocked members', icon: Shield, color: 'red' as const },
     { title: 'Active sessions', desc: 'Signed-in devices', icon: Lock, color: 'purple' as const },
     { title: 'Ava data & consent', desc: 'AI preferences, consent, and chat history', icon: Sparkles, color: 'pink' as const },

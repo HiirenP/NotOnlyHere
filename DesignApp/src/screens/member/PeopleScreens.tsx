@@ -13,7 +13,7 @@ export function CirclesScreen() {
 
   return (
     <MemberShell fullWidth>
-      <PageHeader title="Circles" subtitle="Discover and join peer-support communities" action={<TBtn>Create circle</TBtn>} />
+      <PageHeader title="Circles" subtitle="The heart of NotOnlyHere — find people who get it" action={<TBtn>Create circle</TBtn>} />
       <TSearch placeholder="Search circles..." className="mb-4" />
       <TTabs className="mb-4" tabs={[{ id: 'joined', label: `Your circles (${joined.length})` }, { id: 'discover', label: 'Discover' }]} active={tab} onChange={setTab} />
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -42,7 +42,7 @@ export function CircleDetailScreen() {
             <div className="flex-1">
               <h1 className="text-xl font-bold text-[#14191e]">{circle.name}</h1>
               <p className="text-sm text-[#676a79] mt-1 flex items-center gap-3">
-                <span className="flex items-center gap-1"><Users size={14} /> {circle.members.toLocaleString()} members</span>
+                <span className="flex items-center gap-1"><Users size={14} /> {circle.activeToday} people active today</span>
                 <TBadge>{circle.access}</TBadge>
               </p>
             </div>
@@ -52,7 +52,8 @@ export function CircleDetailScreen() {
               <TBtn size="sm">Joined ✓</TBtn>
             </div>
           </div>
-          <p className="text-sm text-[#676a79] mt-4">{circle.description}</p>
+          <p className="text-sm font-semibold text-[#14191e] mt-4">{circle.identityLine}</p>
+          <p className="text-sm text-[#676a79] mt-2">{circle.description}</p>
         </div>
       </TCard>
 
@@ -116,24 +117,26 @@ export function ProfileScreen() {
           </div>
           <p className="text-sm text-[#676a79] mt-4 leading-relaxed">{currentUser.bio}</p>
           <div className="flex flex-wrap gap-x-6 gap-y-2 mt-4 text-sm">
-            <span><strong className="text-[#14191e]">{currentUser.posts}</strong> <span className="text-[#676a79]">posts</span></span>
-            <span><strong className="text-[#14191e]">{currentUser.connections}</strong> <span className="text-[#676a79]">connections</span></span>
-            <span><strong className="text-[#14191e]">{currentUser.circles}</strong> <span className="text-[#676a79]">circles</span></span>
+            <span><strong className="text-[#14191e]">{currentUser.supportGiven}</strong> <span className="text-[#676a79]">support given</span></span>
+            <span><strong className="text-[#14191e]">{currentUser.kindResponses}</strong> <span className="text-[#676a79]">kind responses</span></span>
+            <span><strong className="text-[#14191e]">{currentUser.circlesJoined}</strong> <span className="text-[#676a79]">circles joined</span></span>
+            <span><strong className="text-[#14191e]">{currentUser.daysCheckedIn}</strong> <span className="text-[#676a79]">days checked in</span></span>
+            <span><strong className="text-[#14191e]">{currentUser.encouragementShared}</strong> <span className="text-[#676a79]">encouragement shared</span></span>
           </div>
         </div>
       </TCard>
       <TCard className="p-0 overflow-hidden">
-        <TTabs className="px-2" tabs={[{ id: 'posts', label: 'Posts' }, { id: 'about', label: 'About' }, { id: 'connections', label: 'Connections' }]} active={tab} onChange={setTab} />
+        <TTabs className="px-2" tabs={[{ id: 'posts', label: 'Posts' }, { id: 'about', label: 'About' }, { id: 'people', label: 'People' }]} active={tab} onChange={setTab} />
         <div className="p-4 pt-0">
           {tab === 'posts' && feedPosts.slice(0, 2).map((p) => <PostCard key={p.id} post={p} />)}
           {tab === 'about' && <p className="text-sm text-[#676a79] p-2">{currentUser.bio}</p>}
-          {tab === 'connections' && (
+          {tab === 'people' && (
             <div className="p-2 space-y-3">
               <p className="text-sm text-[#676a79]">
-                Connections are people you&apos;ve mutually agreed to connect with. Once connected, you can send private messages.
+                People you’ve welcomed can message you privately. This isn’t a follower count — it’s mutual trust.
               </p>
-              <p className="text-sm font-semibold text-[#14191e]">{currentUser.connections} connections</p>
-              <TBtn variant="soft" size="sm">Manage connection requests</TBtn>
+              <p className="text-sm font-semibold text-[#14191e]">{currentUser.peopleWelcomed} people welcomed</p>
+              <TBtn variant="soft" size="sm">Manage welcome requests</TBtn>
             </div>
           )}
         </div>
@@ -148,7 +151,7 @@ export function MessagesScreen() {
 
   return (
     <MemberShell fullWidth>
-      <PageHeader title="Messages" subtitle="Private conversations with your connections" />
+      <PageHeader title="Messages" subtitle="Private conversations with people you’ve welcomed" />
       <TCard className="p-0 overflow-hidden flex flex-col sm:flex-row h-[calc(100vh-220px)] min-h-[500px]">
         <div className="w-full sm:w-80 border-r border-[#e8eaed] flex flex-col">
           <div className="p-4 border-b border-[#e8eaed]">

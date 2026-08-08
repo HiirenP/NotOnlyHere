@@ -18,7 +18,7 @@ export function CreatePostCard() {
           to="/design/app/composer"
           className="flex-1 text-sm text-[#a1a5b3] bg-[#f5f6f8] hover:bg-[#eef0f4] rounded-lg px-4 py-2.5 transition-colors"
         >
-          Share your thoughts...
+          What’s one true sentence for today?
         </Link>
       </div>
       <div className="flex items-center justify-between pt-3 border-t border-[#e8eaed]">

@@ -4,19 +4,17 @@ import {
   Calendar,
   ChevronDown,
   Circle,
+  CircleDollarSign,
   Compass,
   Globe,
-  HelpCircle,
   Home,
   LayoutDashboard,
   LogOut,
   MessageCircle,
-  Moon,
   Search,
   Settings,
   Shield,
   Sparkles,
-  Sun,
   User,
   Users,
   Video,
@@ -25,6 +23,25 @@ import type { ReactNode } from 'react';
 import { iconColors, type IconColor } from '@/components/template';
 import { FeedRightRail } from '@/components/social';
 import { currentUser } from '@/data/mock';
+
+function BrandLogo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
+  const box =
+    size === 'lg'
+      ? 'w-16 h-16 rounded-2xl'
+      : size === 'sm'
+        ? 'w-8 h-8 rounded-lg'
+        : 'w-10 h-10 rounded-xl';
+
+  return (
+    <div className={`${box} overflow-hidden shrink-0 shadow-[0_1px_3px_rgba(0,0,0,0.08)] bg-[#0b4fbf]`}>
+      <img
+        src="/logo-icon.png"
+        alt="NotOnlyHere"
+        className="w-full h-full object-cover scale-[2.15] origin-[center_32%]"
+      />
+    </div>
+  );
+}
 
 const sidebarNav: { to: string; label: string; icon: typeof Home; color: IconColor; badge?: number }[] = [
   { to: '/design/app/feed', label: 'Feed', icon: Home, color: 'blue' },
@@ -52,7 +69,7 @@ const adminNav = [
   { to: '/design/admin/circles', label: 'Circles', icon: Circle },
   { to: '/design/admin/safety', label: 'Safety alerts', icon: Shield, badge: 3 },
   { to: '/design/admin/content', label: 'Content', icon: Video },
-  { to: '/design/admin/donations', label: 'Donations', icon: Settings },
+  { to: '/design/admin/donations', label: 'Donations', icon: CircleDollarSign },
   { to: '/design/admin/audit', label: 'Audit log', icon: Search },
 ];
 
@@ -61,13 +78,7 @@ function MemberTopHeader() {
     <header className="sticky top-0 z-50 bg-white border-b border-[#e8eaed] shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
       <div className="max-w-[1320px] mx-auto px-4 h-[70px] flex items-center gap-3 lg:gap-5">
         <NavLink to="/design/app/feed" className="shrink-0">
-          <div className="w-10 h-10 rounded-lg bg-[#0f6fec] flex items-center justify-center">
-            <img
-              src="https://static.readdy.ai/image/625b665eabd64e8e26dc00b3dfd3bc8f/0f7f3e340b64adaf58909c4de1c45074.png"
-              alt="NotOnlyHere"
-              className="h-6 brightness-0 invert"
-            />
-          </div>
+          <BrandLogo />
         </NavLink>
 
         <div className="hidden md:flex flex-1 max-w-md relative">
@@ -147,18 +158,18 @@ function MemberLeftSidebar() {
           <p className="text-xs text-[#676a79] mt-2 leading-relaxed line-clamp-2">{currentUser.bio}</p>
           <div className="flex items-center justify-between mt-4 pt-3 border-t border-[#e8eaed] text-center">
             <div className="flex-1">
-              <p className="text-sm font-bold text-[#14191e]">{currentUser.posts}</p>
-              <p className="text-[10px] text-[#676a79] font-medium">Posts</p>
+              <p className="text-sm font-bold text-[#14191e]">{currentUser.supportGiven}</p>
+              <p className="text-[10px] text-[#676a79] font-medium leading-tight">Support<br />Given</p>
             </div>
             <div className="w-px h-8 bg-[#e8eaed]" />
             <div className="flex-1">
-              <p className="text-sm font-bold text-[#14191e]">{currentUser.connections}</p>
-              <p className="text-[10px] text-[#676a79] font-medium">Connections</p>
+              <p className="text-sm font-bold text-[#14191e]">{currentUser.kindResponses}</p>
+              <p className="text-[10px] text-[#676a79] font-medium leading-tight">Kind<br />Responses</p>
             </div>
             <div className="w-px h-8 bg-[#e8eaed]" />
             <div className="flex-1">
-              <p className="text-sm font-bold text-[#14191e]">{currentUser.circles}</p>
-              <p className="text-[10px] text-[#676a79] font-medium">Circles</p>
+              <p className="text-sm font-bold text-[#14191e]">{currentUser.circlesJoined}</p>
+              <p className="text-[10px] text-[#676a79] font-medium leading-tight">Circles<br />Joined</p>
             </div>
           </div>
         </div>
@@ -284,9 +295,7 @@ export function AdminShell({ children, title, subtitle, action }: { children: Re
       {/* Light sidebar — modern admin */}
       <aside className="hidden lg:flex w-[260px] flex-col bg-white border-r border-[#e8eaed] shrink-0 sticky top-0 h-screen">
         <div className="p-5 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#0f6fec] to-[#6610f2] flex items-center justify-center">
-            <span className="text-white font-bold text-sm">NH</span>
-          </div>
+          <BrandLogo />
           <div>
             <h2 className="text-base font-bold text-[#14191e]">NotOnlyHere</h2>
             <p className="text-[10px] text-[#a1a5b3] font-semibold uppercase tracking-wide">Admin panel</p>
@@ -316,18 +325,7 @@ export function AdminShell({ children, title, subtitle, action }: { children: Re
           ))}
         </nav>
 
-        {/* Promo card */}
-        <div className="mx-3 mb-3 p-4 rounded-2xl bg-gradient-to-br from-[#14191e] to-[#2d3436] text-white">
-          <p className="text-xs font-semibold leading-relaxed">Need advanced moderation tools?</p>
-          <button type="button" className="mt-3 w-full py-2 bg-[#e91e8c] hover:bg-[#d4187d] text-white text-xs font-bold rounded-xl transition-colors">
-            Upgrade plan
-          </button>
-        </div>
-
         <div className="p-4 border-t border-[#e8eaed] space-y-2">
-          <button type="button" className="flex items-center gap-2 text-xs font-semibold text-[#676a79] hover:text-[#14191e] w-full px-2 py-1.5">
-            <HelpCircle size={14} /> Get help
-          </button>
           <button type="button" className="flex items-center gap-2 text-xs font-semibold text-[#676a79] hover:text-[#14191e] w-full px-2 py-1.5">
             <Globe size={14} /> English <ChevronDown size={12} className="ml-auto" />
           </button>
@@ -348,12 +346,6 @@ export function AdminShell({ children, title, subtitle, action }: { children: Re
             />
           </div>
           <div className="flex items-center gap-2 ml-auto">
-            <button type="button" className="w-9 h-9 rounded-xl bg-[#f5f6f8] flex items-center justify-center text-[#676a79] hover:bg-[#eef0f4]">
-              <Sun size={16} />
-            </button>
-            <button type="button" className="w-9 h-9 rounded-xl bg-[#f5f6f8] flex items-center justify-center text-[#676a79] hover:bg-[#eef0f4]">
-              <Moon size={16} />
-            </button>
             <NavLink to="/design/admin/safety" className="relative w-9 h-9 rounded-xl bg-[#f5f6f8] flex items-center justify-center text-[#676a79] hover:bg-[#eef0f4]">
               <Bell size={16} />
               <span className="absolute top-1 right-1 w-2 h-2 bg-[#d6293e] rounded-full border border-white" />
@@ -386,11 +378,7 @@ export function AuthShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-[#eff2f6] font-ui flex">
       <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-[#0f6fec] to-[#6610f2] p-12 flex-col justify-between text-white">
-        <img
-          src="https://static.readdy.ai/image/625b665eabd64e8e26dc00b3dfd3bc8f/0f7f3e340b64adaf58909c4de1c45074.png"
-          alt=""
-          className="h-10 brightness-0 invert"
-        />
+        <BrandLogo size="lg" />
         <div>
           <h2 className="text-4xl font-bold leading-tight mb-4">
             Real people.
@@ -405,11 +393,7 @@ export function AuthShell({ children }: { children: ReactNode }) {
       </div>
       <div className="flex-1 flex flex-col">
         <header className="lg:hidden px-6 py-5 flex items-center justify-between">
-          <img
-            src="https://static.readdy.ai/image/625b665eabd64e8e26dc00b3dfd3bc8f/0f7f3e340b64adaf58909c4de1c45074.png"
-            alt=""
-            className="h-8"
-          />
+          <BrandLogo />
           <NavLink to="/design" className="text-xs font-semibold text-[#0f6fec]">
             Design catalog
           </NavLink>

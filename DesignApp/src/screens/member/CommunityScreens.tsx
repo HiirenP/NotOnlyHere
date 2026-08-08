@@ -1,14 +1,46 @@
 import { Image, MapPin, Smile, Users } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { ColorIcon, PageHeader, TAvatar, TBtn, TCard, TSearch, TTabs } from '@/components/template';
-import { CircleMomentsRail, CreatePostCard, GroupCard, PostCard } from '@/components/social';
+import { CircleMomentsRail, CreatePostCard, DailyCheckIn, GroupCard, PostCard } from '@/components/social';
 import { circles, currentUser, feedPosts, images } from '@/data/mock';
 import { MemberShell } from '@/layouts/Shells';
 import { useState } from 'react';
 
 export function FeedScreen() {
+  const yourCircles = circles.filter((c) => c.joined);
+
   return (
     <MemberShell showRightRail>
+      <DailyCheckIn />
       <CircleMomentsRail />
+
+      <div className="bg-white border border-[#e8eaed] rounded-lg shadow-[0_1px_3px_rgba(0,0,0,0.06)] p-4 mb-4">
+        <div className="flex items-center justify-between gap-3 mb-3">
+          <div>
+            <h3 className="text-sm font-bold text-[#14191e]">Your Circles</h3>
+            <p className="text-xs text-[#676a79] mt-0.5">Where belonging starts</p>
+          </div>
+          <Link to="/design/app/circles" className="text-xs font-semibold text-[#0f6fec] hover:underline shrink-0">
+            Browse all
+          </Link>
+        </div>
+        <div className="flex gap-2 overflow-x-auto scrollbar-hide">
+          {yourCircles.map((circle) => (
+            <Link
+              key={circle.id}
+              to="/design/app/circles/detail"
+              className="flex items-center gap-2 shrink-0 px-3 py-2 rounded-lg bg-[#f5f6f8] hover:bg-[#eef0f4] transition-colors"
+            >
+              <img src={circle.thumb} alt="" className="w-8 h-8 rounded-md object-cover" />
+              <div className="min-w-0">
+                <p className="text-xs font-semibold text-[#14191e] truncate max-w-[120px]">{circle.name}</p>
+                <p className="text-[10px] text-[#a1a5b3]">{circle.activeToday} active today</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+
       <CreatePostCard />
       {feedPosts.map((post) => (
         <PostCard key={post.id} post={post} />
@@ -32,7 +64,7 @@ export function ComposerScreen() {
             <button type="button" className="text-xs font-semibold text-[#0f6fec] bg-[#0f6fec]/10 px-2 py-0.5 rounded-md mt-0.5">Members ▾</button>
           </div>
         </div>
-        <textarea className="w-full min-h-48 text-base p-4 focus:outline-none resize-none placeholder:text-[#a1a5b3]" placeholder="Share what feels comfortable..." autoFocus />
+        <textarea className="w-full min-h-48 text-base p-4 focus:outline-none resize-none placeholder:text-[#a1a5b3]" placeholder="What’s one true sentence for today?" autoFocus />
         <div className="mx-4 mb-4 rounded-xl overflow-hidden">
           <img src={images.postNature} alt="" className="w-full max-h-64 object-cover" />
         </div>
@@ -78,17 +110,17 @@ export function SearchScreen() {
         <TCard>
           <div className="space-y-3">
             {[
-              { name: 'Jordan Lee', username: 'jordanl', avatar: images.avatar2, mutual: 3 },
-              { name: 'Sam Rivera', username: 'samr', avatar: images.avatar3, mutual: 5 },
-              { name: 'Morgan Kim', username: 'morgank', avatar: images.avatar1, mutual: 2 },
+              { name: 'Jordan Lee', username: 'jordanl', avatar: images.avatar2, sharedCircle: 'Anxiety Support' },
+              { name: 'Sam Rivera', username: 'samr', avatar: images.avatar3, sharedCircle: 'New Parents' },
+              { name: 'Morgan Kim', username: 'morgank', avatar: images.avatar1, sharedCircle: 'Work Stress' },
             ].map((m) => (
               <div key={m.username} className="flex items-center gap-3 p-2 rounded-xl hover:bg-[#f5f6f8]">
                 <TAvatar src={m.avatar} name={m.name} />
                 <div className="flex-1">
                   <p className="text-sm font-semibold text-[#14191e]">{m.name}</p>
-                  <p className="text-xs text-[#676a79]">@{m.username} · {m.mutual} mutual</p>
+                  <p className="text-xs text-[#676a79]">@{m.username} · Also in {m.sharedCircle}</p>
                 </div>
-                <TBtn size="sm" variant="soft">Connect</TBtn>
+                <TBtn size="sm" variant="soft">Welcome</TBtn>
               </div>
             ))}
           </div>
@@ -108,11 +140,11 @@ export function PostDetailScreen() {
     <MemberShell>
       <PostCard post={feedPosts[0]} showCommentInput={false} />
       <TCard>
-        <h2 className="text-sm font-bold text-[#14191e] mb-4">Comments (12)</h2>
+        <h2 className="text-sm font-bold text-[#14191e] mb-4">Comments (9)</h2>
         <div className="space-y-4 mb-4">
           {[
-            { author: 'Sam R.', avatar: images.avatar3, text: 'Proud of you for showing up today.', time: '1h' },
-            { author: 'Morgan K.', avatar: images.avatar1, text: 'One hour at a time — that resonates.', time: '45m' },
+            { author: 'Sam R.', avatar: images.avatar3, text: 'That counts. Really glad you shared it here.', time: '1h' },
+            { author: 'Morgan K.', avatar: images.avatar1, text: 'Sitting with you in that — one step is enough.', time: '45m' },
           ].map((c) => (
             <div key={c.author} className="flex gap-3">
               <TAvatar src={c.avatar} name={c.author} size="sm" />

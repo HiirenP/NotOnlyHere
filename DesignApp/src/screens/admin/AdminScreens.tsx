@@ -3,6 +3,7 @@ import {
   AlertTriangle,
   ArrowDownRight,
   ArrowUpRight,
+  CircleDollarSign,
   Clock,
   Download,
   Edit,
@@ -363,7 +364,7 @@ export function AdminUserDetailScreen() {
           <TCard className="!rounded-2xl">
             <h3 className="text-sm font-bold text-[#14191e] mb-3">Quick actions</h3>
             <div className="space-y-2">
-              {['Reset password', 'Change role', 'View posts', 'View messages'].map((a) => (
+              {['Change role', 'View posts'].map((a) => (
                 <button key={a} type="button" className="w-full text-left text-sm font-semibold text-[#676a79] hover:text-[#0f6fec] px-3 py-2 rounded-lg hover:bg-[#f5f6f8] transition-colors">{a}</button>
               ))}
             </div>
@@ -593,7 +594,6 @@ export function AdminDonationsScreen() {
       render: () => (
         <div className="flex gap-1">
           <TBtn variant="soft" size="sm"><Eye size={12} /></TBtn>
-          <TBtn variant="outline" size="sm">Refund</TBtn>
         </div>
       ),
     },
@@ -606,7 +606,7 @@ export function AdminDonationsScreen() {
       action={<TBtn variant="outline" size="sm"><Download size={14} className="inline mr-1" />Export CSV</TBtn>}
     >
       <div className="grid sm:grid-cols-3 gap-4 mb-4">
-        <AdminStatCard label="Total this month" value="$2,840" change="18%" changeType="up" icon={TrendingUp} iconBg="bg-[#0cbc87]/10 text-[#0cbc87]" />
+        <AdminStatCard label="Total this month" value="$2,840" change="18%" changeType="up" icon={CircleDollarSign} iconBg="bg-[#0cbc87]/10 text-[#0cbc87]" />
         <AdminStatCard label="Recurring donors" value="142" change="5%" changeType="up" icon={Users} iconBg="bg-[#0f6fec]/10 text-[#0f6fec]" />
         <AdminStatCard label="Failed payments" value="3" change="2" changeType="down" icon={Clock} iconBg="bg-[#d6293e]/10 text-[#d6293e]" />
       </div>

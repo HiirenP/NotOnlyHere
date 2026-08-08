@@ -78,11 +78,23 @@ export type CircleGroup = {
   thumb: string;
   members: number;
   posts24h: number;
+  activeToday: number;
+  identityLine: string;
   access: 'Open' | 'Request' | 'Invite';
   joined: boolean;
   description: string;
   privacy: string;
   admins: string[];
+};
+
+export type CheckInMood = {
+  id: string;
+  emoji: string;
+  label: string;
+  circle: string;
+  circlePath: string;
+  avaPrompt: string;
+  discussion: string;
 };
 
 export const circleHighlights: CircleHighlight[] = [
@@ -100,21 +112,21 @@ export const feedPosts: FeedPost[] = [
     author: 'Jordan Lee',
     username: 'jordanl',
     avatar: images.avatar2,
-    jobTitle: 'Peer supporter at NotOnlyHere',
+    jobTitle: 'In Anxiety Support',
     anonymous: false,
     circle: 'Anxiety Support',
     circleId: 'c1',
     time: '2h',
-    content: 'Had a rough morning but writing it out helped. Grateful this space exists. Taking things one hour at a time today.',
-    images: [{ src: images.postNature, alt: 'Peaceful morning walk in nature' }],
-    reactions: 47,
-    comments: 12,
-    shares: 3,
+    content: 'I finally got out of bed today.',
+    images: [{ src: images.postNature, alt: 'Quiet morning light' }],
+    reactions: 24,
+    comments: 9,
+    shares: 1,
     audience: 'Circle',
     liked: true,
     topComments: [
-      { author: 'Sam R.', text: 'Proud of you for showing up today.' },
-      { author: 'Morgan K.', text: 'One hour at a time — that really resonates.' },
+      { author: 'Sam R.', text: 'That counts. Really glad you shared it here.' },
+      { author: 'Morgan K.', text: 'Sitting with you in that — one step is enough.' },
     ],
   },
   {
@@ -122,17 +134,17 @@ export const feedPosts: FeedPost[] = [
     author: 'Anonymous',
     username: 'anon',
     anonymous: true,
-    circle: 'Members',
-    circleId: 'global',
+    circle: 'Anxiety Support',
+    circleId: 'c1',
     time: '4h',
-    content: 'Does anyone else feel guilty for taking a mental health day? Trying to unlearn that. Would love to hear how others reframe it.',
-    images: [{ src: images.postJournal, alt: 'Journal and self-reflection' }],
-    reactions: 128,
-    comments: 34,
-    shares: 8,
-    audience: 'Members',
+    content: 'Today was my first panic-free morning in weeks.',
+    images: [{ src: images.postJournal, alt: 'Open journal on a desk' }],
+    reactions: 41,
+    comments: 14,
+    shares: 2,
+    audience: 'Circle',
     topComments: [
-      { author: 'Anonymous', text: 'Rest is productive. You are allowed to need it.' },
+      { author: 'Anonymous', text: 'I heard you. Holding that with you.' },
     ],
   },
   {
@@ -140,37 +152,60 @@ export const feedPosts: FeedPost[] = [
     author: 'Sam Rivera',
     username: 'samr',
     avatar: images.avatar3,
-    jobTitle: 'Community member',
+    jobTitle: 'In New Parents',
     anonymous: false,
     circle: 'New Parents',
     circleId: 'c2',
     time: 'Yesterday',
-    content: 'Small win today: asked for help instead of pushing through alone. The village showed up.',
+    content: 'I don’t need advice today. I just needed someone to hear me.',
     images: [
-      { src: images.postCoffee, alt: 'Morning coffee and journal' },
-      { src: images.postGroup, alt: 'Supportive group conversation' },
+      { src: images.postCoffee, alt: 'Quiet coffee moment' },
     ],
-    reactions: 89,
-    comments: 21,
-    shares: 5,
-    audience: 'Connections',
+    reactions: 33,
+    comments: 11,
+    shares: 1,
+    audience: 'Circle',
+    topComments: [
+      { author: 'Jamie L.', text: 'I’m here. No advice — just listening.' },
+    ],
   },
   {
     id: '4',
     author: 'Taylor Brooks',
     username: 'taylorb',
     avatar: images.avatar4,
+    jobTitle: 'In Work Stress',
     anonymous: false,
     circle: 'Work Stress',
     circleId: 'c4',
     time: 'Yesterday',
-    content: 'Reminder: you don\'t have to earn rest. Sharing this because I needed to hear it too.',
-    images: [{ src: images.postSunset, alt: 'Peaceful sunset' }],
-    reactions: 203,
-    comments: 45,
-    shares: 18,
+    content: 'The Late Night Lounge got me through a difficult week. Joining Work Stress again tonight.',
+    images: [{ src: images.postSunset, alt: 'Soft evening sky' }],
+    reactions: 28,
+    comments: 8,
+    shares: 2,
     audience: 'Members',
     liked: true,
+    topComments: [
+      { author: 'Chris P.', text: 'Glad that circle was there when you needed it.' },
+    ],
+  },
+  {
+    id: '5',
+    author: 'Anonymous',
+    username: 'anon2',
+    anonymous: true,
+    circle: 'Grief & Loss',
+    circleId: 'c3',
+    time: '2d',
+    content: 'Some days the quiet feels too loud. Showing up anyway.',
+    reactions: 19,
+    comments: 7,
+    shares: 0,
+    audience: 'Circle',
+    topComments: [
+      { author: 'Riley N.', text: 'You’re welcome here exactly as you are.' },
+    ],
   },
 ];
 
@@ -180,8 +215,10 @@ export const circles: CircleGroup[] = [
     name: 'Anxiety Support',
     cover: images.coverAnxiety,
     thumb: images.circleThumb1,
-    members: 8420,
-    posts24h: 124,
+    members: 842,
+    posts24h: 24,
+    activeToday: 38,
+    identityLine: 'A calm place when your mind won’t quiet down',
     access: 'Open',
     joined: true,
     description: 'A calm, moderated space to share experiences, coping strategies, and encouragement. No judgment — just peer support.',
@@ -193,8 +230,10 @@ export const circles: CircleGroup[] = [
     name: 'New Parents',
     cover: images.coverParents,
     thumb: images.circleThumb2,
-    members: 5160,
-    posts24h: 89,
+    members: 516,
+    posts24h: 18,
+    activeToday: 22,
+    identityLine: 'For the village you wish you already had',
     access: 'Request',
     joined: true,
     description: 'For parents navigating the beautiful chaos. Share wins, worries, and resources.',
@@ -206,8 +245,10 @@ export const circles: CircleGroup[] = [
     name: 'Grief & Loss',
     cover: images.coverGrief,
     thumb: images.circleThumb3,
-    members: 3110,
-    posts24h: 42,
+    members: 311,
+    posts24h: 12,
+    activeToday: 14,
+    identityLine: 'A gentle space that doesn’t rush your process',
     access: 'Open',
     joined: false,
     description: 'A gentle space for those processing loss. Move at your own pace.',
@@ -219,8 +260,10 @@ export const circles: CircleGroup[] = [
     name: 'Work Stress',
     cover: images.coverWork,
     thumb: images.circleThumb1,
-    members: 6900,
-    posts24h: 156,
+    members: 690,
+    posts24h: 31,
+    activeToday: 41,
+    identityLine: 'I’m joining Work Stress Circle tonight',
     access: 'Open',
     joined: false,
     description: 'Boundaries, burnout, and finding balance. You are more than your job title.',
@@ -229,16 +272,22 @@ export const circles: CircleGroup[] = [
   },
 ];
 
-export const suggestedConnections = [
-  { name: 'Morgan Kim', username: 'morgank', avatar: images.avatar1, mutual: 3 },
-  { name: 'Priya Shah', username: 'priyas', avatar: images.avatar4, mutual: 5 },
-  { name: 'Chris Park', username: 'chrisp', avatar: images.avatar2, mutual: 2 },
+export const suggestedPeople = [
+  { name: 'Morgan Kim', username: 'morgank', avatar: images.avatar1, sharedCircle: 'Anxiety Support' },
+  { name: 'Priya Shah', username: 'priyas', avatar: images.avatar4, sharedCircle: 'New Parents' },
+  { name: 'Chris Park', username: 'chrisp', avatar: images.avatar2, sharedCircle: 'Work Stress' },
 ];
 
+/** @deprecated use suggestedPeople */
+export const suggestedConnections = suggestedPeople.map((p) => ({
+  ...p,
+  mutual: 2,
+}));
+
 export const friendRequests = [
-  { name: 'Emerson Calzoni', avatar: images.avatar3, mutual: 4 },
-  { name: 'James Levin', avatar: images.avatar2, mutual: 2 },
-  { name: 'Taylor Brooks', avatar: images.avatar4, mutual: 6 },
+  { name: 'Emerson Calzoni', avatar: images.avatar3, sharedCircle: 'Anxiety Support' },
+  { name: 'James Levin', avatar: images.avatar2, sharedCircle: 'Work Stress' },
+  { name: 'Taylor Brooks', avatar: images.avatar4, sharedCircle: 'New Parents' },
 ];
 
 export const upcomingEvents = [
@@ -251,21 +300,78 @@ export const currentUser = {
   username: 'alexm',
   avatar: images.avatar1,
   cover: images.profileCover,
-  title: 'Community member at NotOnlyHere',
+  title: 'Member of Anxiety Support · Work Stress',
   bio: 'Finding calm in community. Here for peer support and honest conversations.',
   joinedAt: 'March 2025',
-  connections: 48,
-  circles: 6,
-  posts: 256,
-  followers: 2500,
-  following: 365,
+  supportGiven: 47,
+  kindResponses: 32,
+  circlesJoined: 6,
+  daysCheckedIn: 28,
+  encouragementShared: 19,
+  peopleWelcomed: 12,
 };
 
-export const todaysNews = [
-  { id: 'n1', title: 'New peer support resources added this week', time: '2hr', image: images.news1 },
-  { id: 'n2', title: 'Community check-in event this Saturday', time: '3hr', image: images.news2 },
-  { id: 'n3', title: 'Tips for supporting a friend in crisis', time: '5hr', image: images.news3 },
-  { id: 'n4', title: 'Anxiety Support circle reaches 2,000 members', time: '8hr', image: images.news4 },
+export const todaysCommunity = [
+  { id: 'c1', text: '38 people checked in today', meta: 'Today', to: '/design/app/mood' },
+  { id: 'c2', text: 'Someone celebrated a new job', meta: 'Work Stress', to: '/design/app/circles/detail' },
+  { id: 'c3', text: 'A new grief circle starts tonight', meta: 'Tonight · 7:00 PM', to: '/design/app/events' },
+  { id: 'c4', text: 'Five members welcomed their first week', meta: 'Community', to: '/design/app/circles' },
+];
+
+/** @deprecated use todaysCommunity */
+export const todaysNews = todaysCommunity.map((item, i) => ({
+  id: item.id,
+  title: item.text,
+  time: item.meta,
+  image: [images.news1, images.news2, images.news3, images.news4][i],
+}));
+
+export const checkInMoods: CheckInMood[] = [
+  {
+    id: 'hopeful',
+    emoji: '🙂',
+    label: 'Hopeful',
+    circle: 'Anxiety Support',
+    circlePath: '/design/app/circles/detail',
+    avaPrompt: 'Share what’s giving you hope today with Ava',
+    discussion: 'People celebrating small wins this week',
+  },
+  {
+    id: 'okay',
+    emoji: '😐',
+    label: 'Okay',
+    circle: 'Anxiety Support',
+    circlePath: '/design/app/circles/detail',
+    avaPrompt: 'A gentle check-in with Ava — no pressure',
+    discussion: 'Quiet company: members just sitting together',
+  },
+  {
+    id: 'struggling',
+    emoji: '😔',
+    label: 'Struggling',
+    circle: 'Anxiety Support',
+    circlePath: '/design/app/circles/detail',
+    avaPrompt: 'Talk it through gently with Ava',
+    discussion: '“I don’t need advice — just hearing me”',
+  },
+  {
+    id: 'overwhelmed',
+    emoji: '😰',
+    label: 'Overwhelmed',
+    circle: 'Work Stress',
+    circlePath: '/design/app/circles/detail',
+    avaPrompt: 'Ground with Ava for a few calm minutes',
+    discussion: 'Work Stress Circle meets tonight',
+  },
+  {
+    id: 'exhausted',
+    emoji: '😴',
+    label: 'Exhausted',
+    circle: 'Late Night Lounge',
+    circlePath: '/design/app/circles',
+    avaPrompt: 'Rest-forward conversation with Ava',
+    discussion: 'Soft evening check-ins in Circles',
+  },
 ];
 
 export const conversations = [

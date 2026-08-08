@@ -24,10 +24,6 @@ export function DesignCatalog() {
         <h1 className="text-3xl md:text-4xl font-bold text-[#14191e]">
           Web App & <span className="text-[#0f6fec]">Admin Panel</span>
         </h1>
-        <p className="text-sm text-[#676a79] max-w-2xl mt-4 leading-relaxed">
-          Interactive design preview styled after the Stackbros Social template. Built from{' '}
-          <code className="text-[#14191e] bg-[#f5f6f8] px-1.5 py-0.5 rounded">docs/02-ux-spec.md</code>.
-        </p>
 
         <div className="flex flex-wrap items-center gap-3 mt-5">
           <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#0cbc87]/10 text-[#0cbc87] text-xs font-semibold border border-[#0cbc87]/20">
