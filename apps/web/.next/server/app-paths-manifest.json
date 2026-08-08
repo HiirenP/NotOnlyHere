@@ -1,0 +1,18 @@
+{
+  "/api/auth/login/route": "app/api/auth/login/route.js",
+  "/api/circles/route": "app/api/circles/route.js",
+  "/api/connections/route": "app/api/connections/route.js",
+  "/api/profile/me/route": "app/api/profile/me/route.js",
+  "/api/notifications/route": "app/api/notifications/route.js",
+  "/api/conversations/route": "app/api/conversations/route.js",
+  "/api/profiles/[username]/posts/route": "app/api/profiles/[username]/posts/route.js",
+  "/api/feed/route": "app/api/feed/route.js",
+  "/app/page": "app/app/page.js",
+  "/app/post/[postId]/page": "app/app/post/[postId]/page.js",
+  "/page": "app/page.js",
+  "/login/page": "app/login/page.js",
+  "/app/ava/page": "app/app/ava/page.js",
+  "/app/feed/page": "app/app/feed/page.js",
+  "/app/profile/page": "app/app/profile/page.js",
+  "/app/circles/page": "app/app/circles/page.js"
+}
