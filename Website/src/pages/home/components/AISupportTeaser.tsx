@@ -58,17 +58,33 @@ export default function AISupportTeaser() {
         <div
           className={`relative transition-all duration-700 delay-200 ${visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}
         >
-          <div className="relative bg-background-50 p-4 shadow-xl rotate-1">
-            <div className="absolute top-3 left-1/3 w-20 h-5 bg-accent-300/70 rotate-[-8deg] z-10" style={{ borderRadius: '2px' }} />
-            <div className="absolute bottom-8 right-4 w-16 h-4 bg-secondary-300/70 rotate-[5deg] z-10" style={{ borderRadius: '2px' }} />
-            <img
-              src="/images/ava-mascot.png"
-              alt="Ava AI Companion chat interface with supportive conversation and conversation starters"
-              className="w-full h-auto object-contain"
-              loading="lazy"
-            />
-            <p className="font-mono text-xs uppercase tracking-widest text-foreground-400 mt-4 text-center">
-              Available 24/7 &mdash; Always free
+          <div className="bg-white border border-background-200 rounded-2xl overflow-hidden shadow-xl">
+            <div className="p-4 border-b border-background-200 flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-secondary-500 to-accent-500 flex items-center justify-center text-background-50 font-mono text-xs">
+                Ava
+              </div>
+              <div>
+                <p className="font-mono text-sm font-semibold text-foreground-950">Ava</p>
+                <p className="font-mono text-xs text-foreground-500">Private · not a therapist</p>
+              </div>
+            </div>
+            <div className="p-4 space-y-3 bg-background-100 min-h-[280px]">
+              <div className="max-w-[90%] bg-background-50 border border-background-200 rounded-2xl rounded-bl-md px-4 py-3">
+                <p className="font-mono text-xs text-foreground-800 leading-relaxed">
+                  Hi. I’m here for supportive conversation. What would feel helpful today?
+                </p>
+              </div>
+              <div className="ml-auto max-w-[85%] bg-secondary-500/10 rounded-2xl rounded-br-md px-4 py-3">
+                <p className="font-mono text-xs text-foreground-800 leading-relaxed">I feel lonely tonight.</p>
+              </div>
+              <div className="max-w-[90%] bg-background-50 border border-background-200 rounded-2xl rounded-bl-md px-4 py-3">
+                <p className="font-mono text-xs text-foreground-800 leading-relaxed">
+                  You’re not the only one awake. Would you like a grounding exercise, or a Circle that stays open late?
+                </p>
+              </div>
+            </div>
+            <p className="font-mono text-[10px] uppercase tracking-widest text-foreground-400 py-3 text-center border-t border-background-200">
+              Available 24/7 — Always free
             </p>
           </div>
         </div>
