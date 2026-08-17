@@ -16,12 +16,14 @@ import {
   Shield,
   Sparkles,
   User,
+  UserPlus,
   Users,
   Video,
 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { iconColors, type IconColor } from '@/components/template';
 import { FeedRightRail } from '@/components/social';
+import { FoundingMemberBadge } from '@/components/social/FoundingMemberBadge';
 import { currentUser } from '@/data/mock';
 
 function BrandLogo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
@@ -53,6 +55,7 @@ const sidebarNav: { to: string; label: string; icon: typeof Home; color: IconCol
   { to: '/design/app/events', label: 'Events', icon: Calendar, color: 'red' },
   { to: '/design/app/resources', label: 'Resources', icon: Video, color: 'yellow' },
   { to: '/design/app/explore', label: 'Explore', icon: Compass, color: 'blue' },
+  { to: '/design/app/invite', label: 'Invite people', icon: UserPlus, color: 'green' },
 ];
 
 const headerNav = [
@@ -66,6 +69,7 @@ const adminNav = [
   { to: '/design/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
   { to: '/design/admin/analytics', label: 'Analytics', icon: Compass },
   { to: '/design/admin/users', label: 'Users', icon: Users },
+  { to: '/design/admin/roles', label: 'Roles & permissions', icon: Shield },
   { to: '/design/admin/circles', label: 'Circles', icon: Circle },
   { to: '/design/admin/safety', label: 'Safety alerts', icon: Shield, badge: 3 },
   { to: '/design/admin/content', label: 'Content', icon: Video },
@@ -152,7 +156,10 @@ function MemberLeftSidebar() {
             />
           </NavLink>
           <NavLink to="/design/app/profile" className="block mt-2">
-            <h3 className="text-base font-bold text-[#14191e] hover:text-[#0f6fec] transition-colors">{currentUser.displayName}</h3>
+            <span className="flex items-center gap-1.5">
+              <h3 className="text-base font-bold text-[#14191e] hover:text-[#0f6fec] transition-colors">{currentUser.displayName}</h3>
+              {currentUser.foundingMember && <FoundingMemberBadge compact />}
+            </span>
           </NavLink>
           <p className="text-xs text-[#676a79] mt-0.5">{currentUser.title}</p>
           <p className="text-xs text-[#676a79] mt-2 leading-relaxed line-clamp-2">{currentUser.bio}</p>

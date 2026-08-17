@@ -9,6 +9,7 @@ import {
   AdminDashboardScreen,
   AdminDonationsScreen,
   AdminSafetyScreen,
+  AdminRolesScreen,
   AdminUserDetailScreen,
   AdminUsersScreen,
 } from '@/screens/admin/AdminScreens';
@@ -25,9 +26,12 @@ import {
   EventsScreen,
   ExploreScreen,
   MoodScreen,
+  BlockedAccountsScreen,
   ResourcesScreen,
   SettingsScreen,
 } from '@/screens/member/SupportScreens';
+import { OnboardingScreen } from '@/screens/member/OnboardingScreen';
+import { InviteScreen } from '@/screens/member/InviteScreen';
 
 export default function App() {
   return (
@@ -40,6 +44,7 @@ export default function App() {
       <Route path="/design/auth/verify-email" element={<VerifyEmailScreen />} />
       <Route path="/design/auth/forgot-password" element={<ForgotPasswordScreen />} />
 
+      <Route path="/design/app/onboarding" element={<OnboardingScreen />} />
       <Route path="/design/app/feed" element={<FeedScreen />} />
       <Route path="/design/app/composer" element={<ComposerScreen />} />
       <Route path="/design/app/post" element={<PostDetailScreen />} />
@@ -55,6 +60,8 @@ export default function App() {
       <Route path="/design/app/resources" element={<ResourcesScreen />} />
       <Route path="/design/app/explore" element={<ExploreScreen />} />
       <Route path="/design/app/settings" element={<SettingsScreen />} />
+      <Route path="/design/app/settings/blocked" element={<BlockedAccountsScreen />} />
+      <Route path="/design/app/invite" element={<InviteScreen />} />
 
       <Route path="/design/admin" element={<AdminDashboardScreen />} />
       <Route path="/design/admin/users" element={<AdminUsersScreen />} />
@@ -65,6 +72,7 @@ export default function App() {
       <Route path="/design/admin/donations" element={<AdminDonationsScreen />} />
       <Route path="/design/admin/analytics" element={<AdminAnalyticsScreen />} />
       <Route path="/design/admin/audit" element={<AdminAuditScreen />} />
+      <Route path="/design/admin/roles" element={<AdminRolesScreen />} />
 
       <Route path="*" element={<Navigate to="/design" replace />} />
     </Routes>

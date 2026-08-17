@@ -10,9 +10,13 @@ import {
   Eye,
   FileText,
   Filter,
+  KeyRound,
+  LockKeyhole,
   Plus,
+  ShieldCheck,
   Trash2,
   TrendingUp,
+  UserCog,
   UserPlus,
   Users,
 } from 'lucide-react';
@@ -285,9 +289,10 @@ export function AdminUsersScreen() {
             label: 'Role',
             options: [
               { value: 'Member', label: 'Member' },
-              { value: 'Staff', label: 'Staff' },
-              { value: 'Circle Admin', label: 'Circle Admin' },
-              { value: 'Super Admin', label: 'Super Admin' },
+              { value: 'Community Guide', label: 'Community Guide' },
+              { value: 'Moderator', label: 'Moderator' },
+              { value: 'Admin', label: 'Admin' },
+              { value: 'Owner', label: 'Owner' },
             ],
             filterFn: (r, v) => r.role === v,
           },
@@ -299,6 +304,148 @@ export function AdminUsersScreen() {
         ]}
         onRowAction={() => {}}
       />
+    </AdminShell>
+  );
+}
+
+const roleDefinitions = [
+  {
+    name: 'Member',
+    count: 1246,
+    description: 'Participate in Circles, post, respond, invite, report, and block.',
+    color: 'bg-[#f5f6f8] text-[#676a79]',
+  },
+  {
+    name: 'Community Guide',
+    count: 8,
+    description: 'Welcome members and guide conversations in assigned Circles.',
+    color: 'bg-[#0cbc87]/10 text-[#087f60]',
+  },
+  {
+    name: 'Moderator',
+    count: 5,
+    description: 'Review reports, remove content, warn, restrict, suspend, and ban.',
+    color: 'bg-[#f7c32e]/15 text-[#9b7900]',
+  },
+  {
+    name: 'Admin',
+    count: 3,
+    description: 'Manage members, roles, Circles, moderation, content, and reports.',
+    color: 'bg-[#6610f2]/10 text-[#6610f2]',
+  },
+  {
+    name: 'Owner',
+    count: 1,
+    description: 'Full platform control, including owners and security settings.',
+    color: 'bg-[#0f6fec]/10 text-[#0f6fec]',
+  },
+];
+
+const permissionRows = [
+  { label: 'Post, respond, invite & block', values: [true, true, true, true, true] },
+  { label: 'Guide assigned Circles', values: [false, true, true, true, true] },
+  { label: 'Review member reports', values: [false, false, true, true, true] },
+  { label: 'Remove posts and comments', values: [false, false, true, true, true] },
+  { label: 'Warn or restrict members', values: [false, false, true, true, true] },
+  { label: 'Suspend or ban members', values: [false, false, true, true, true] },
+  { label: 'Assign roles', values: [false, false, false, true, true] },
+  { label: 'Manage admins and security', values: [false, false, false, false, true] },
+];
+
+export function AdminRolesScreen() {
+  const [tab, setTab] = useState('roles');
+
+  return (
+    <AdminShell
+      title="Roles & permissions"
+      subtitle="Give trusted people only the access they need"
+      action={<TBtn size="sm"><UserCog size={14} className="inline mr-1" />Assign role</TBtn>}
+    >
+      <div className="mb-5 p-4 rounded-xl border border-[#0f6fec]/20 bg-[#0f6fec]/5 flex items-start gap-3">
+        <LockKeyhole size={18} className="text-[#0f6fec] shrink-0 mt-0.5" />
+        <div>
+          <p className="text-sm font-bold text-[#14191e]">Permissions are enforced by role</p>
+          <p className="text-xs text-[#676a79] mt-1 leading-relaxed">
+            Moderation actions always require a reason and are written to the audit log. Members can block others without removing them from the platform.
+          </p>
+        </div>
+      </div>
+
+      <AdminTabs
+        tabs={[
+          { id: 'roles', label: 'Role overview' },
+          { id: 'permissions', label: 'Permission matrix' },
+          { id: 'team', label: 'Trusted team' },
+        ]}
+        active={tab}
+        onChange={setTab}
+      />
+
+      {tab === 'roles' && (
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4 mt-5">
+          {roleDefinitions.map((role, index) => (
+            <TCard key={role.name} className="!rounded-xl">
+              <div className="flex items-center justify-between gap-3">
+                <span className={`w-10 h-10 rounded-lg flex items-center justify-center ${role.color}`}>
+                  {index < 2 ? <Users size={18} /> : index === 2 ? <ShieldCheck size={18} /> : <KeyRound size={18} />}
+                </span>
+                <TBadge color="muted">{role.count.toLocaleString()} people</TBadge>
+              </div>
+              <h3 className="text-base font-bold text-[#14191e] mt-4">{role.name}</h3>
+              <p className="text-xs text-[#676a79] mt-2 leading-relaxed min-h-10">{role.description}</p>
+              <button type="button" className="mt-4 text-xs font-bold text-[#0f6fec] hover:underline">View permissions</button>
+            </TCard>
+          ))}
+        </div>
+      )}
+
+      {tab === 'permissions' && (
+        <TCard className="p-0 overflow-x-auto !rounded-xl mt-5">
+          <table className="w-full min-w-[760px] text-sm">
+            <thead>
+              <tr className="border-b border-[#e8eaed] bg-[#f8f9fb]">
+                <th className="text-left px-4 py-3 text-xs font-bold text-[#676a79]">Permission</th>
+                {roleDefinitions.map((role) => (
+                  <th key={role.name} className="px-3 py-3 text-center text-xs font-bold text-[#676a79]">{role.name}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[#e8eaed]">
+              {permissionRows.map((permission) => (
+                <tr key={permission.label}>
+                  <td className="px-4 py-3 text-xs font-semibold text-[#14191e]">{permission.label}</td>
+                  {permission.values.map((allowed, index) => (
+                    <td key={`${permission.label}-${roleDefinitions[index].name}`} className="px-3 py-3 text-center">
+                      {allowed ? (
+                        <span className="inline-flex w-6 h-6 rounded-full bg-[#0cbc87]/10 text-[#0cbc87] items-center justify-center">✓</span>
+                      ) : (
+                        <span className="text-[#c8cbd2]">—</span>
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </TCard>
+      )}
+
+      {tab === 'team' && (
+        <div className="grid lg:grid-cols-2 gap-4 mt-5">
+          {adminUsers.filter((user) => user.role !== 'Member').map((user) => (
+            <TCard key={user.id} className="!rounded-xl flex items-center gap-3">
+              <TAvatar src={user.avatar} name={user.name} />
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-bold text-[#14191e]">{user.name}</p>
+                <p className="text-xs text-[#676a79] truncate">{user.email}</p>
+              </div>
+              <select defaultValue={user.role} className="text-xs font-semibold border border-[#e8eaed] rounded-lg px-2 py-2 text-[#676a79] bg-white">
+                {roleDefinitions.map((role) => <option key={role.name}>{role.name}</option>)}
+              </select>
+            </TCard>
+          ))}
+        </div>
+      )}
     </AdminShell>
   );
 }
@@ -362,12 +509,13 @@ export function AdminUserDetailScreen() {
             </div>
           </TCard>
           <TCard className="!rounded-2xl">
-            <h3 className="text-sm font-bold text-[#14191e] mb-3">Quick actions</h3>
-            <div className="space-y-2">
-              {['Change role', 'View posts'].map((a) => (
-                <button key={a} type="button" className="w-full text-left text-sm font-semibold text-[#676a79] hover:text-[#0f6fec] px-3 py-2 rounded-lg hover:bg-[#f5f6f8] transition-colors">{a}</button>
-              ))}
-            </div>
+            <h3 className="text-sm font-bold text-[#14191e] mb-3">Role & access</h3>
+            <label className="block text-[10px] font-bold uppercase tracking-wide text-[#a1a5b3] mb-1.5">Assigned role</label>
+            <select defaultValue={user.role} className="w-full text-sm font-semibold border border-[#e8eaed] rounded-lg px-3 py-2.5 text-[#676a79] bg-white">
+              {roleDefinitions.map((role) => <option key={role.name}>{role.name}</option>)}
+            </select>
+            <p className="text-[10px] text-[#a1a5b3] mt-2 leading-relaxed">Role changes require confirmation and appear in the audit log.</p>
+            <Link to="/design/admin/roles" className="block mt-3 text-xs font-bold text-[#0f6fec] hover:underline">View all permissions</Link>
           </TCard>
         </div>
       </div>

@@ -1,8 +1,8 @@
-import { Settings, UserPlus, Users } from 'lucide-react';
+import { Share2, Settings, UserPlus, Users } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PageHeader, TAvatar, TBadge, TBtn, TCard, TListItem, TSearch, TTabs } from '@/components/template';
-import { GroupCard, PostCard } from '@/components/social';
+import { FoundingMemberBadge, GroupCard, PostCard } from '@/components/social';
 import { circles, conversations, currentUser, feedPosts, images, notifications } from '@/data/mock';
 import { MemberShell } from '@/layouts/Shells';
 
@@ -76,7 +76,10 @@ export function CircleDetailScreen() {
                 <div key={admin} className="flex items-center gap-3 p-3 rounded-xl hover:bg-[#f5f6f8]">
                   <TAvatar src={[images.avatar1, images.avatar2, images.avatar3][i]} name={admin} />
                   <div>
-                    <p className="text-sm font-semibold text-[#14191e]">{admin}</p>
+                    <p className="text-sm font-semibold text-[#14191e] flex items-center gap-1">
+                      {admin}
+                      {i === 0 && <FoundingMemberBadge compact />}
+                    </p>
                     <p className="text-xs text-[#0f6fec] font-semibold">Circle Admin</p>
                   </div>
                 </div>
@@ -107,10 +110,14 @@ export function ProfileScreen() {
         <div className="px-6 pb-8 pt-20">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
             <div className="min-w-0">
-              <h1 className="text-xl font-bold text-[#14191e]">{currentUser.displayName}</h1>
+              <div className="flex items-center gap-2 flex-wrap">
+                <h1 className="text-xl font-bold text-[#14191e]">{currentUser.displayName}</h1>
+                {currentUser.foundingMember && <FoundingMemberBadge />}
+              </div>
               <p className="text-sm text-[#676a79] mt-1">@{currentUser.username} · Joined {currentUser.joinedAt}</p>
             </div>
             <div className="flex gap-2 shrink-0">
+              <Link to="/design/app/invite"><TBtn variant="soft" size="sm"><Share2 size={14} className="inline mr-1" />Invite people</TBtn></Link>
               <TBtn variant="outline" size="sm">Edit profile</TBtn>
               <Link to="/design/app/settings"><TBtn variant="outline" size="sm"><Settings size={14} /></TBtn></Link>
             </div>

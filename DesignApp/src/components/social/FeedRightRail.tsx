@@ -2,12 +2,17 @@ import { Link } from 'react-router-dom';
 import { HeartHandshake, Sparkles, Users } from 'lucide-react';
 import { TAvatar, TCard } from '@/components/template';
 import { suggestedPeople, todaysCommunity } from '@/data/mock';
+import { AvaPromptCard, EncouragementPromptCard } from './FeedPrompts';
+import { FoundingMemberBadge } from './FoundingMemberBadge';
 
 const communityIcons = [Users, HeartHandshake, Sparkles, Users];
 
 export function FeedRightRail() {
   return (
     <aside className="hidden xl:block w-[300px] shrink-0 space-y-4 sticky top-[86px] self-start max-h-[calc(100vh-100px)] overflow-y-auto scrollbar-hide">
+      <AvaPromptCard />
+      <EncouragementPromptCard />
+
       <TCard className="!rounded-lg">
         <h3 className="text-sm font-bold text-[#14191e] mb-4">People to welcome</h3>
         <div className="space-y-4">
@@ -15,7 +20,10 @@ export function FeedRightRail() {
             <div key={p.username} className="flex items-center gap-3">
               <TAvatar src={p.avatar} name={p.name} />
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-[#14191e] truncate">{p.name}</p>
+                <p className="text-sm font-semibold text-[#14191e] truncate flex items-center gap-1">
+                  <span className="truncate">{p.name}</span>
+                  {p.foundingMember && <FoundingMemberBadge compact />}
+                </p>
                 <p className="text-xs text-[#676a79] truncate">Also in {p.sharedCircle}</p>
               </div>
               <button

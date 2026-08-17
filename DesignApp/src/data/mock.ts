@@ -59,7 +59,8 @@ export type FeedPost = {
   shares: number;
   audience: string;
   liked?: boolean;
-  topComments?: { author: string; text: string }[];
+  foundingMember?: boolean;
+  topComments?: { author: string; text: string; foundingMember?: boolean }[];
 };
 
 export type CircleHighlight = {
@@ -124,9 +125,10 @@ export const feedPosts: FeedPost[] = [
     shares: 1,
     audience: 'Circle',
     liked: true,
+    foundingMember: true,
     topComments: [
-      { author: 'Sam R.', text: 'That counts. Really glad you shared it here.' },
-      { author: 'Morgan K.', text: 'Sitting with you in that — one step is enough.' },
+      { author: 'Sam R.', text: 'That counts. Really glad you shared it here.', foundingMember: true },
+      { author: 'Morgan K.', text: 'Sitting with you in that — one step is enough.', foundingMember: true },
     ],
   },
   {
@@ -273,10 +275,27 @@ export const circles: CircleGroup[] = [
 ];
 
 export const suggestedPeople = [
-  { name: 'Morgan Kim', username: 'morgank', avatar: images.avatar1, sharedCircle: 'Anxiety Support' },
-  { name: 'Priya Shah', username: 'priyas', avatar: images.avatar4, sharedCircle: 'New Parents' },
-  { name: 'Chris Park', username: 'chrisp', avatar: images.avatar2, sharedCircle: 'Work Stress' },
+  { name: 'Morgan Kim', username: 'morgank', avatar: images.avatar1, sharedCircle: 'Anxiety Support', foundingMember: true },
+  { name: 'Priya Shah', username: 'priyas', avatar: images.avatar4, sharedCircle: 'New Parents', foundingMember: true },
+  { name: 'Chris Park', username: 'chrisp', avatar: images.avatar2, sharedCircle: 'Work Stress', foundingMember: false },
 ];
+
+export const blockedMembers = [
+  { id: 'b1', name: 'James Levin', username: 'jamesl', avatar: images.avatar2, blockedAt: 'Jul 12, 2026' },
+];
+
+export const referralStats = {
+  inviteCode: 'alexm',
+  inviteLink: 'https://notonlyhere.com/join/alexm',
+  sent: 12,
+  opened: 5,
+  joined: 3,
+  recent: [
+    { name: 'Taylor Brooks', joinedAt: 'Aug 10, 2026' },
+    { name: 'Chris Park', joinedAt: 'Aug 3, 2026' },
+    { name: 'Riley N.', joinedAt: 'Jul 28, 2026' },
+  ],
+};
 
 /** @deprecated use suggestedPeople */
 export const suggestedConnections = suggestedPeople.map((p) => ({
@@ -309,6 +328,9 @@ export const currentUser = {
   daysCheckedIn: 28,
   encouragementShared: 19,
   peopleWelcomed: 12,
+  foundingMember: true,
+  inviteCode: referralStats.inviteCode,
+  inviteLink: referralStats.inviteLink,
 };
 
 export const todaysCommunity = [
@@ -389,16 +411,16 @@ export const notifications = [
 export const adminUsers = [
   { id: 'u1', name: 'Alex Morgan', email: 'alex@example.com', username: 'alexm', status: 'Active', role: 'Member', joined: '2025-03-12', lastActive: '2026-07-30', posts: 42, avatar: images.avatar1 },
   { id: 'u2', name: 'Jordan Lee', email: 'jordan@example.com', username: 'jordanl', status: 'Suspended', role: 'Member', joined: '2025-01-08', lastActive: '2026-07-28', posts: 18, avatar: images.avatar2 },
-  { id: 'u3', name: 'Staff User', email: 'staff@notonlyhere.com', username: 'staff', status: 'Active', role: 'Staff', joined: '2024-11-01', lastActive: '2026-07-31', posts: 0, avatar: images.avatar3 },
+  { id: 'u3', name: 'Maya Chen', email: 'maya@notonlyhere.com', username: 'mayac', status: 'Active', role: 'Moderator', joined: '2024-11-01', lastActive: '2026-07-31', posts: 0, avatar: images.avatar3 },
   { id: 'u4', name: 'Sam Rivera', email: 'sam@example.com', username: 'samr', status: 'Active', role: 'Member', joined: '2025-05-20', lastActive: '2026-07-31', posts: 67, avatar: images.avatar3 },
-  { id: 'u5', name: 'Morgan Kim', email: 'morgan@example.com', username: 'morgank', status: 'Active', role: 'Circle Admin', joined: '2025-02-14', lastActive: '2026-07-29', posts: 124, avatar: images.avatar1 },
+  { id: 'u5', name: 'Morgan Kim', email: 'morgan@example.com', username: 'morgank', status: 'Active', role: 'Community Guide', joined: '2025-02-14', lastActive: '2026-07-29', posts: 124, avatar: images.avatar1 },
   { id: 'u6', name: 'Priya Shah', email: 'priya@example.com', username: 'priyas', status: 'Active', role: 'Member', joined: '2025-06-03', lastActive: '2026-07-27', posts: 9, avatar: images.avatar4 },
   { id: 'u7', name: 'Chris Park', email: 'chris@example.com', username: 'chrisp', status: 'Pending', role: 'Member', joined: '2026-07-25', lastActive: '2026-07-25', posts: 0, avatar: images.avatar2 },
   { id: 'u8', name: 'Taylor Brooks', email: 'taylor@example.com', username: 'taylorb', status: 'Active', role: 'Member', joined: '2025-08-11', lastActive: '2026-07-30', posts: 31, avatar: images.avatar4 },
   { id: 'u9', name: 'Emerson Calzoni', email: 'emerson@example.com', username: 'emersonc', status: 'Active', role: 'Member', joined: '2025-04-22', lastActive: '2026-07-28', posts: 55, avatar: images.avatar3 },
   { id: 'u10', name: 'James Levin', email: 'james@example.com', username: 'jamesl', status: 'Suspended', role: 'Member', joined: '2025-01-30', lastActive: '2026-07-15', posts: 3, avatar: images.avatar2 },
-  { id: 'u11', name: 'Content Admin', email: 'content@notonlyhere.com', username: 'content', status: 'Active', role: 'Staff', joined: '2024-09-01', lastActive: '2026-07-31', posts: 0, avatar: images.avatar1 },
-  { id: 'u12', name: 'Super Admin', email: 'admin@notonlyhere.com', username: 'admin', status: 'Active', role: 'Super Admin', joined: '2024-01-01', lastActive: '2026-07-31', posts: 0, avatar: images.avatar2 },
+  { id: 'u11', name: 'Content Admin', email: 'content@notonlyhere.com', username: 'content', status: 'Active', role: 'Admin', joined: '2024-09-01', lastActive: '2026-07-31', posts: 0, avatar: images.avatar1 },
+  { id: 'u12', name: 'Platform Owner', email: 'admin@notonlyhere.com', username: 'admin', status: 'Active', role: 'Owner', joined: '2024-01-01', lastActive: '2026-07-31', posts: 0, avatar: images.avatar2 },
 ];
 
 export const adminCircles = [

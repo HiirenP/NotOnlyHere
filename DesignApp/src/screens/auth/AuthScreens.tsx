@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { TBtn, TCard, TDivider } from '@/components/template';
 import { AuthShell } from '@/layouts/Shells';
 
-function AuthField({ label, type = 'text', placeholder }: { label: string; type?: string; placeholder?: string }) {
+function AuthField({ label, type = 'text', placeholder, defaultValue }: { label: string; type?: string; placeholder?: string; defaultValue?: string }) {
   return (
     <div>
       <label className="block text-sm font-semibold text-[#14191e] mb-2">{label}</label>
-      <input type={type} placeholder={placeholder} className="w-full text-sm px-4 py-3 bg-[#f5f6f8] border border-[#e8eaed] rounded-xl focus:outline-none focus:border-[#0f6fec] focus:ring-2 focus:ring-[#0f6fec]/10" />
+      <input type={type} placeholder={placeholder} defaultValue={defaultValue} className="w-full text-sm px-4 py-3 bg-[#f5f6f8] border border-[#e8eaed] rounded-xl focus:outline-none focus:border-[#0f6fec] focus:ring-2 focus:ring-[#0f6fec]/10" />
     </div>
   );
 }
@@ -39,11 +39,22 @@ export function LoginScreen() {
 }
 
 export function RegisterScreen() {
+  const [searchParams] = useSearchParams();
+  const refCode = searchParams.get('ref');
+
   return (
     <AuthShell>
       <TCard className="w-full max-w-lg p-8 shadow-lg">
         <h1 className="text-2xl font-bold text-[#14191e] mb-2">Join NotOnlyHere</h1>
         <p className="text-sm text-[#676a79] mb-6">A peer-support community for people 16 and older</p>
+        {refCode && (
+          <div className="mb-4 p-3 rounded-xl bg-[#0cbc87]/10 border border-[#0cbc87]/20">
+            <p className="text-xs font-bold text-[#087f60] uppercase tracking-wide">You were invited</p>
+            <p className="text-sm text-[#14191e] mt-1">
+              <strong>@{refCode}</strong> invited you to find your Circle here.
+            </p>
+          </div>
+        )}
         <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
           <div className="grid sm:grid-cols-2 gap-4">
             <AuthField label="Display name" placeholder="Your name" />
@@ -51,6 +62,7 @@ export function RegisterScreen() {
           </div>
           <AuthField label="Email" type="email" placeholder="you@example.com" />
           <AuthField label="Password" type="password" placeholder="Min. 8 characters" />
+          <AuthField label="Invite code (optional)" placeholder="Friend’s invite code" defaultValue={refCode ?? ''} />
           <label className="flex items-start gap-3 text-sm text-[#676a79]">
             <input type="checkbox" className="mt-1 rounded" />
             I confirm I am 16 or older
@@ -59,7 +71,12 @@ export function RegisterScreen() {
             <input type="checkbox" className="mt-1 rounded" />
             I accept the Terms and Community Guidelines
           </label>
-          <TBtn className="w-full py-3">Create account</TBtn>
+          <Link
+            to="/design/app/onboarding"
+            className="block w-full py-3 rounded-lg bg-[#0f6fec] hover:bg-[#0d5ed4] text-white text-sm font-semibold text-center transition-colors"
+          >
+            Create account
+          </Link>
         </form>
       </TCard>
     </AuthShell>

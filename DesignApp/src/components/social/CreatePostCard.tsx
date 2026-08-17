@@ -1,12 +1,13 @@
-import { Calendar, Image, MoreHorizontal, Smile, Video } from 'lucide-react';
+import { Calendar, EyeOff, Image, MoreHorizontal, Smile, Video } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { currentUser } from '@/data/mock';
 
 const actions = [
-  { icon: Image, label: 'Photo', bg: 'bg-[#0cbc87]/15', color: 'text-[#0cbc87]' },
-  { icon: Video, label: 'Video', bg: 'bg-[#6610f2]/15', color: 'text-[#6610f2]' },
-  { icon: Calendar, label: 'Event', bg: 'bg-[#d6293e]/15', color: 'text-[#d6293e]' },
-  { icon: Smile, label: 'Feeling', bg: 'bg-[#f7c32e]/20', color: 'text-[#c9a000]' },
+  { icon: Image, label: 'Photo', bg: 'bg-[#0cbc87]/15', color: 'text-[#0cbc87]', mode: 'photo' },
+  { icon: Video, label: 'Video', bg: 'bg-[#6610f2]/15', color: 'text-[#6610f2]', mode: 'video' },
+  { icon: Calendar, label: 'Event', bg: 'bg-[#d6293e]/15', color: 'text-[#d6293e]', mode: 'event' },
+  { icon: Smile, label: 'Feeling', bg: 'bg-[#f7c32e]/20', color: 'text-[#c9a000]', mode: 'feeling' },
+  { icon: EyeOff, label: 'Anonymous', bg: 'bg-[#6610f2]/15', color: 'text-[#6610f2]', mode: 'anonymous' },
 ];
 
 export function CreatePostCard() {
@@ -22,18 +23,18 @@ export function CreatePostCard() {
         </Link>
       </div>
       <div className="flex items-center justify-between pt-3 border-t border-[#e8eaed]">
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 overflow-x-auto scrollbar-hide">
           {actions.map((item) => (
-            <button
+            <Link
               key={item.label}
-              type="button"
-              className="flex items-center gap-2 text-xs font-semibold text-[#676a79] hover:bg-[#f5f6f8] rounded-lg px-2 py-2 transition-colors"
+              to={`/design/app/composer?mode=${item.mode}`}
+              className="flex items-center gap-2 text-xs font-semibold text-[#676a79] rounded-lg px-2 py-2 transition-colors shrink-0 hover:bg-[#f5f6f8]"
             >
               <span className={`w-8 h-8 rounded-lg flex items-center justify-center ${item.bg}`}>
                 <item.icon size={16} className={item.color} />
               </span>
               <span className="hidden sm:inline">{item.label}</span>
-            </button>
+            </Link>
           ))}
         </div>
         <button type="button" className="w-8 h-8 rounded-lg flex items-center justify-center text-[#a1a5b3] hover:bg-[#f5f6f8]">

@@ -1,8 +1,8 @@
-import { Bell, Calendar, Circle, Compass, Download, Lock, Search, Shield, Sparkles, User } from 'lucide-react';
+import { Bell, Calendar, Circle, Compass, Download, Lock, Search, Share2, Shield, Sparkles, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { ColorIcon, PageHeader, TBtn, TCard } from '@/components/template';
-import { events, images, resources } from '@/data/mock';
+import { events, blockedMembers, images, resources } from '@/data/mock';
 import { MemberShell } from '@/layouts/Shells';
 
 const avaStarters = [
@@ -301,30 +301,65 @@ export function ExploreScreen() {
 }
 
 export function SettingsScreen() {
-  const sections = [
-    { title: 'Profile', desc: 'Display name, bio, avatar', icon: User, color: 'blue' as const },
-    { title: 'People you’ve welcomed', desc: 'Requests and people who can message you', icon: User, color: 'green' as const },
-    { title: 'Blocked accounts', desc: 'Manage blocked members', icon: Shield, color: 'red' as const },
-    { title: 'Active sessions', desc: 'Signed-in devices', icon: Lock, color: 'purple' as const },
-    { title: 'Ava data & consent', desc: 'AI preferences, consent, and chat history', icon: Sparkles, color: 'pink' as const },
-    { title: 'Account data export', desc: 'GDPR data request', icon: Download, color: 'teal' as const },
-    { title: 'Account & security', desc: 'Password and deletion', icon: Shield, color: 'orange' as const },
+  const sections: { title: string; desc: string; icon: typeof User; color: 'blue' | 'green' | 'red' | 'purple' | 'pink' | 'teal' | 'orange'; to?: string }[] = [
+    { title: 'Profile', desc: 'Display name, bio, avatar', icon: User, color: 'blue' },
+    { title: 'Invite people', desc: 'Share your personal link and grow the community', icon: Share2, color: 'green', to: '/design/app/invite' },
+    { title: 'People you’ve welcomed', desc: 'Requests and people who can message you', icon: User, color: 'green' },
+    { title: 'Blocked accounts', desc: 'Manage blocked members', icon: Shield, color: 'red', to: '/design/app/settings/blocked' },
+    { title: 'Active sessions', desc: 'Signed-in devices', icon: Lock, color: 'purple' },
+    { title: 'Ava data & consent', desc: 'AI preferences, consent, and chat history', icon: Sparkles, color: 'pink' },
+    { title: 'Account data export', desc: 'GDPR data request', icon: Download, color: 'teal' },
+    { title: 'Account & security', desc: 'Password and deletion', icon: Shield, color: 'orange' },
   ];
   return (
     <MemberShell>
       <PageHeader title="Settings" subtitle="Manage your account and preferences" />
       <TCard className="p-0 overflow-hidden divide-y divide-[#e8eaed]">
-        {sections.map((s) => (
-          <button key={s.title} type="button" className="w-full text-left p-4 hover:bg-[#f5f6f8] transition-colors flex items-center gap-3 group">
-            <ColorIcon icon={s.icon} color={s.color} size="sm" />
+        {sections.map((s) => {
+          const content = (
+            <>
+              <ColorIcon icon={s.icon} color={s.color} size="sm" />
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-[#14191e] group-hover:text-[#0f6fec] transition-colors">{s.title}</p>
+                <p className="text-xs text-[#676a79] mt-0.5">{s.desc}</p>
+              </div>
+              <span className="text-[#a1a5b3]">›</span>
+            </>
+          );
+          return s.to ? (
+            <Link key={s.title} to={s.to} className="w-full text-left p-4 hover:bg-[#f5f6f8] transition-colors flex items-center gap-3 group">
+              {content}
+            </Link>
+          ) : (
+            <button key={s.title} type="button" className="w-full text-left p-4 hover:bg-[#f5f6f8] transition-colors flex items-center gap-3 group">
+              {content}
+            </button>
+          );
+        })}
+      </TCard>
+    </MemberShell>
+  );
+}
+
+export function BlockedAccountsScreen() {
+  return (
+    <MemberShell>
+      <PageHeader title="Blocked accounts" subtitle="Blocked members can’t contact you or appear in your feed" />
+      <TCard className="p-0 overflow-hidden divide-y divide-[#e8eaed]">
+        {blockedMembers.map((member) => (
+          <div key={member.id} className="p-4 flex items-center gap-3">
+            <img src={member.avatar} alt="" className="w-10 h-10 rounded-full object-cover" />
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-[#14191e] group-hover:text-[#0f6fec] transition-colors">{s.title}</p>
-              <p className="text-xs text-[#676a79] mt-0.5">{s.desc}</p>
+              <p className="text-sm font-bold text-[#14191e]">{member.name}</p>
+              <p className="text-xs text-[#676a79]">@{member.username} · Blocked {member.blockedAt}</p>
             </div>
-            <span className="text-[#a1a5b3]">›</span>
-          </button>
+            <TBtn variant="outline" size="sm">Unblock</TBtn>
+          </div>
         ))}
       </TCard>
+      <p className="text-xs text-[#676a79] mt-4 leading-relaxed">
+        Blocking is private. It hides their posts and messages from you without removing them from the platform.
+      </p>
     </MemberShell>
   );
 }

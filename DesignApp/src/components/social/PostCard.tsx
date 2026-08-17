@@ -1,8 +1,9 @@
-import { Bookmark, Heart, MessageCircle, MoreHorizontal, Send } from 'lucide-react';
+import { Ban, Bookmark, Flag, Heart, MessageCircle, MoreHorizontal, Send } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { FeedPost } from '@/data/mock';
 import { currentUser } from '@/data/mock';
+import { FoundingMemberBadge } from './FoundingMemberBadge';
 
 function PostImage({ src, alt, className }: { src: string; alt: string; className?: string }) {
   const [failed, setFailed] = useState(false);
@@ -40,6 +41,18 @@ function ImageGrid({ images }: { images: NonNullable<FeedPost['images']> }) {
 }
 
 export function PostCard({ post, showCommentInput = true }: { post: FeedPost; showCommentInput?: boolean }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [blocked, setBlocked] = useState(false);
+
+  if (blocked) {
+    return (
+      <div className="mb-4 p-4 rounded-lg border border-[#e8eaed] bg-white text-sm text-[#676a79] flex items-center justify-between gap-3">
+        <span>You blocked this member. Their posts and messages are now hidden.</span>
+        <button type="button" onClick={() => setBlocked(false)} className="text-xs font-bold text-[#0f6fec] hover:underline">Undo</button>
+      </div>
+    );
+  }
+
   return (
     <article className="bg-white border border-[#e8eaed] rounded-lg shadow-[0_1px_3px_rgba(0,0,0,0.06)] overflow-hidden mb-4">
       {/* Header */}
@@ -51,9 +64,12 @@ export function PostCard({ post, showCommentInput = true }: { post: FeedPost; sh
             <img src={post.avatar} alt="" className="w-10 h-10 rounded-full object-cover" loading="lazy" />
           )}
           <div>
-            <Link to="/design/app/profile" className="text-sm font-bold text-[#14191e] hover:text-[#0f6fec] transition-colors">
-              {post.author}
-            </Link>
+            <div className="flex items-center gap-1.5">
+              <Link to="/design/app/profile" className="text-sm font-bold text-[#14191e] hover:text-[#0f6fec] transition-colors">
+                {post.author}
+              </Link>
+              {!post.anonymous && post.foundingMember && <FoundingMemberBadge compact />}
+            </div>
             <p className="text-xs text-[#a1a5b3]">
               {post.time} ago
               {!post.anonymous && post.jobTitle && (
@@ -65,9 +81,32 @@ export function PostCard({ post, showCommentInput = true }: { post: FeedPost; sh
             </p>
           </div>
         </div>
-        <button type="button" className="w-8 h-8 rounded-md flex items-center justify-center text-[#a1a5b3] hover:bg-[#f5f6f8]">
-          <MoreHorizontal size={18} />
-        </button>
+        <div className="relative">
+          <button
+            type="button"
+            onClick={() => setMenuOpen((open) => !open)}
+            className="w-8 h-8 rounded-md flex items-center justify-center text-[#a1a5b3] hover:bg-[#f5f6f8]"
+            aria-label="Post options"
+          >
+            <MoreHorizontal size={18} />
+          </button>
+          {menuOpen && (
+            <div className="absolute right-0 top-9 z-20 w-48 p-1.5 rounded-lg border border-[#e8eaed] bg-white shadow-lg">
+              <button type="button" className="w-full flex items-center gap-2 px-3 py-2 rounded-md text-xs font-semibold text-[#676a79] hover:bg-[#f5f6f8]">
+                <Flag size={14} /> Report post
+              </button>
+              {!post.anonymous && (
+                <button
+                  type="button"
+                  onClick={() => setBlocked(true)}
+                  className="w-full flex items-center gap-2 px-3 py-2 rounded-md text-xs font-semibold text-[#d6293e] hover:bg-[#d6293e]/5"
+                >
+                  <Ban size={14} /> Block {post.author}
+                </button>
+              )}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Caption */}
@@ -122,7 +161,10 @@ export function PostCard({ post, showCommentInput = true }: { post: FeedPost; sh
         <div className="px-4 py-3 border-t border-[#e8eaed] space-y-3 bg-[#fafbfc]">
           {post.topComments.map((c) => (
             <div key={c.author} className="text-sm">
-              <span className="font-bold text-[#14191e]">{c.author}</span>{' '}
+              <span className="font-bold text-[#14191e] inline-flex items-center gap-1">
+                {c.author}
+                {c.foundingMember && <FoundingMemberBadge compact />}
+              </span>{' '}
               <span className="text-[#676a79]">{c.text}</span>
             </div>
           ))}
