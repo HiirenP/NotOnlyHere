@@ -35,11 +35,11 @@ function BrandLogo({ size = 'md' }: { size?: 'sm' | 'md' | 'lg' }) {
         : 'w-10 h-10 rounded-xl';
 
   return (
-    <div className={`${box} overflow-hidden shrink-0 shadow-[0_1px_3px_rgba(0,0,0,0.08)] bg-[#0b4fbf]`}>
+    <div className={`${box} overflow-hidden shrink-0 shadow-[0_1px_3px_rgba(0,0,0,0.08)]`}>
       <img
-        src="/logo-icon.png"
+        src="/favicon.png"
         alt="NotOnlyHere"
-        className="w-full h-full object-cover scale-[2.15] origin-[center_32%]"
+        className="w-full h-full object-cover scale-[1.95] object-center"
       />
     </div>
   );
@@ -304,7 +304,7 @@ export function AdminShell({ children, title, subtitle, action }: { children: Re
         <div className="p-5 flex items-center gap-3">
           <BrandLogo />
           <div>
-            <h2 className="text-base font-bold text-[#14191e]">NotOnlyHere</h2>
+            <h2 className="text-base font-bold" style={{ background: 'linear-gradient(135deg, #2563EB 0%, #3B82F6 35%, #06B6D4 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>NotOnlyHere</h2>
             <p className="text-[10px] text-[#a1a5b3] font-semibold uppercase tracking-wide">Admin panel</p>
           </div>
         </div>

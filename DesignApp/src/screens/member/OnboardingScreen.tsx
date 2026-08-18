@@ -39,11 +39,11 @@ export function OnboardingScreen() {
       <div className="max-w-4xl mx-auto">
         <header className="flex items-center justify-between gap-4 mb-8">
           <Link to="/design" className="flex items-center gap-3">
-            <span className="w-10 h-10 rounded-xl overflow-hidden bg-[#0b4fbf] shadow-sm">
+            <span className="w-10 h-10 rounded-xl overflow-hidden shadow-sm">
               <img
-                src="/logo-icon.png"
+                src="/favicon.png"
                 alt="NotOnlyHere"
-                className="w-full h-full object-cover scale-[2.15] origin-[center_32%]"
+                className="w-full h-full object-cover scale-[1.95] object-center"
               />
             </span>
             <span className="text-sm font-bold text-[#14191e] hidden sm:inline">NotOnlyHere</span>

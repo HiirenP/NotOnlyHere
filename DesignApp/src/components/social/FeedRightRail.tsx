@@ -9,7 +9,7 @@ const communityIcons = [Users, HeartHandshake, Sparkles, Users];
 
 export function FeedRightRail() {
   return (
-    <aside className="hidden xl:block w-[300px] shrink-0 space-y-4 sticky top-[86px] self-start max-h-[calc(100vh-100px)] overflow-y-auto scrollbar-hide">
+    <aside className="hidden xl:block w-[300px] shrink-0 space-y-4">
       <AvaPromptCard />
       <EncouragementPromptCard />
 
