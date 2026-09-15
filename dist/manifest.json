@@ -1,0 +1,19 @@
+{
+  "name": "Label Cropper",
+  "short_name": "Label Cropper",
+  "description": "Free Flipkart & Meesho shipping label PDF cropper for Indian sellers",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4f46e5",
+  "lang": "en-IN",
+  "categories": ["business", "productivity"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

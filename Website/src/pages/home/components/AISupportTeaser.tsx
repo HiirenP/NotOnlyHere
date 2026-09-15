@@ -24,13 +24,13 @@ export default function AISupportTeaser() {
           }}
         >
           <span className="font-mono text-xs uppercase tracking-widest gradient-text block mb-4">
-            AI Companion
+            Meet Ava
           </span>
           <h2 className="font-display text-4xl md:text-5xl tracking-tighter text-foreground-950 uppercase mb-6 leading-[0.9]">
             Support That Never <em className="not-italic gradient-text">Sleeps</em>
           </h2>
           <p className="font-mono text-base text-foreground-600 leading-relaxed mb-4">
-            Meet our AI companion — trained on peer-support principles to offer a kind ear when circles are quiet.
+            Meet Ava — our AI companion trained on peer-support principles to offer a kind ear when circles are quiet.
           </p>
           <p className="font-mono text-sm text-foreground-500 leading-relaxed mb-6">
             It won&apos;t replace human connection. But it will listen without judgment, suggest grounding exercises, and point you toward real community when you&apos;re ready.
@@ -51,7 +51,7 @@ export default function AISupportTeaser() {
             href="/ai-support"
             className="font-mono text-sm uppercase tracking-wider gradient-btn text-background-50 px-8 py-4 rounded-full whitespace-nowrap cursor-pointer inline-block"
           >
-            Learn About AI Support
+            Learn About Ava
           </a>
         </div>
 

@@ -1,0 +1,186 @@
+import { Ban, Bookmark, Flag, Heart, MessageCircle, MoreHorizontal, Send } from 'lucide-react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import type { FeedPost } from '@/data/mock';
+import { currentUser } from '@/data/mock';
+import { FoundingMemberBadge } from './FoundingMemberBadge';
+
+function PostImage({ src, alt, className }: { src: string; alt: string; className?: string }) {
+  const [failed, setFailed] = useState(false);
+  if (failed) {
+    return (
+      <div className={`bg-gradient-to-br from-[#0f6fec]/10 to-[#6610f2]/10 flex items-center justify-center text-xs text-[#676a79] font-medium ${className ?? ''}`}>
+        Image unavailable
+      </div>
+    );
+  }
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={className}
+      loading="lazy"
+      onError={() => setFailed(true)}
+    />
+  );
+}
+
+function ImageGrid({ images }: { images: NonNullable<FeedPost['images']> }) {
+  if (images.length === 1) {
+    return <PostImage src={images[0].src} alt="" className="w-full max-h-[420px] object-cover rounded-lg" />;
+  }
+  return (
+    <div className="grid grid-cols-2 gap-1 rounded-lg overflow-hidden">
+      {images.slice(0, 4).map((img, i) => (
+        <div key={i} className={`relative ${images.length === 3 && i === 0 ? 'row-span-2' : 'aspect-square'}`}>
+          <PostImage src={img.src} alt="" className="w-full h-full object-cover" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function PostCard({ post, showCommentInput = true }: { post: FeedPost; showCommentInput?: boolean }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [blocked, setBlocked] = useState(false);
+
+  if (blocked) {
+    return (
+      <div className="mb-4 p-4 rounded-lg border border-[#e8eaed] bg-white text-sm text-[#676a79] flex items-center justify-between gap-3">
+        <span>You blocked this member. Their posts and messages are now hidden.</span>
+        <button type="button" onClick={() => setBlocked(false)} className="text-xs font-bold text-[#0f6fec] hover:underline">Undo</button>
+      </div>
+    );
+  }
+
+  return (
+    <article className="bg-white border border-[#e8eaed] rounded-lg shadow-[0_1px_3px_rgba(0,0,0,0.06)] overflow-hidden mb-4">
+      {/* Header */}
+      <div className="flex items-start justify-between p-4 pb-2">
+        <div className="flex items-center gap-3">
+          {post.anonymous ? (
+            <div className="w-10 h-10 rounded-full bg-[#6610f2]/15 text-[#6610f2] flex items-center justify-center font-bold text-sm">?</div>
+          ) : (
+            <img src={post.avatar} alt="" className="w-10 h-10 rounded-full object-cover" loading="lazy" />
+          )}
+          <div>
+            <div className="flex items-center gap-1.5">
+              <Link to="/design/app/profile" className="text-sm font-bold text-[#14191e] hover:text-[#0f6fec] transition-colors">
+                {post.author}
+              </Link>
+              {!post.anonymous && post.foundingMember && <FoundingMemberBadge compact />}
+            </div>
+            <p className="text-xs text-[#a1a5b3]">
+              {post.time} ago
+              {!post.anonymous && post.jobTitle && (
+                <>
+                  <span className="mx-1">·</span>
+                  <span className="text-[#676a79]">{post.jobTitle}</span>
+                </>
+              )}
+            </p>
+          </div>
+        </div>
+        <div className="relative">
+          <button
+            type="button"
+            onClick={() => setMenuOpen((open) => !open)}
+            className="w-8 h-8 rounded-md flex items-center justify-center text-[#a1a5b3] hover:bg-[#f5f6f8]"
+            aria-label="Post options"
+          >
+            <MoreHorizontal size={18} />
+          </button>
+          {menuOpen && (
+            <div className="absolute right-0 top-9 z-20 w-48 p-1.5 rounded-lg border border-[#e8eaed] bg-white shadow-lg">
+              <button type="button" className="w-full flex items-center gap-2 px-3 py-2 rounded-md text-xs font-semibold text-[#676a79] hover:bg-[#f5f6f8]">
+                <Flag size={14} /> Report post
+              </button>
+              {!post.anonymous && (
+                <button
+                  type="button"
+                  onClick={() => setBlocked(true)}
+                  className="w-full flex items-center gap-2 px-3 py-2 rounded-md text-xs font-semibold text-[#d6293e] hover:bg-[#d6293e]/5"
+                >
+                  <Ban size={14} /> Block {post.author}
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Caption */}
+      <div className="px-4 pb-3">
+        <p className="text-sm text-[#14191e] leading-relaxed">{post.content}</p>
+        {post.anonymous && (
+          <span className="inline-block mt-2 text-[10px] font-bold px-2 py-0.5 bg-[#6610f2]/10 text-[#6610f2] rounded uppercase">
+            Anonymous
+          </span>
+        )}
+      </div>
+
+      {/* Media */}
+      {post.images && post.images.length > 0 && (
+        <div className="px-4 pb-3">
+          <ImageGrid images={post.images} />
+        </div>
+      )}
+
+      {/* Interaction links — Stackbros style */}
+      <div className="px-4 py-2 flex items-center gap-4 border-t border-[#e8eaed]">
+        <button
+          type="button"
+          className={`flex items-center gap-1.5 text-xs font-semibold transition-colors ${
+            post.liked ? 'text-[#0f6fec]' : 'text-[#676a79] hover:text-[#0f6fec]'
+          }`}
+        >
+          <Heart size={14} className={post.liked ? 'fill-[#0f6fec]' : ''} />
+          Liked ({post.reactions})
+        </button>
+        <Link
+          to="/design/app/post"
+          className="flex items-center gap-1.5 text-xs font-semibold text-[#676a79] hover:text-[#0f6fec] transition-colors"
+        >
+          <MessageCircle size={14} />
+          Comments ({post.comments})
+        </Link>
+        <button
+          type="button"
+          className="flex items-center gap-1.5 text-xs font-semibold text-[#676a79] hover:text-[#0f6fec] transition-colors"
+        >
+          <Send size={14} />
+          Share ({post.shares})
+        </button>
+        <button type="button" className="ml-auto w-8 h-8 rounded-md flex items-center justify-center text-[#a1a5b3] hover:bg-[#f5f6f8]">
+          <Bookmark size={16} />
+        </button>
+      </div>
+
+      {/* Existing comments preview */}
+      {post.topComments && post.topComments.length > 0 && (
+        <div className="px-4 py-3 border-t border-[#e8eaed] space-y-3 bg-[#fafbfc]">
+          {post.topComments.map((c) => (
+            <div key={c.author} className="text-sm">
+              <span className="font-bold text-[#14191e] inline-flex items-center gap-1">
+                {c.author}
+                {c.foundingMember && <FoundingMemberBadge compact />}
+              </span>{' '}
+              <span className="text-[#676a79]">{c.text}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Comment input */}
+      {showCommentInput && (
+        <div className="px-4 py-3 border-t border-[#e8eaed] flex items-center gap-3">
+          <img src={currentUser.avatar} alt="" className="w-8 h-8 rounded-full object-cover shrink-0" />
+          <input
+            placeholder="Add a comment..."
+            className="flex-1 text-sm bg-[#f5f6f8] border border-transparent rounded-lg px-4 py-2 focus:outline-none focus:bg-white focus:border-[#0f6fec]/30"
+          />
+        </div>
+      )}
+    </article>
+  );
+}

@@ -124,7 +124,7 @@ export default function AiSupportPage() {
             AI Companion
           </span>
           <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.92] tracking-tighter text-foreground-950 uppercase mb-6">
-            AI Support, <em className="not-italic gradient-text">Built with Care</em>
+            Meet Ava, <em className="not-italic gradient-text">Here with Care</em>
           </h1>
           <p className="font-mono text-base md:text-lg text-foreground-600 leading-relaxed max-w-2xl mx-auto">
             A 24/7 peer-support companion that listens without judgment. Not a replacement for human connection — a bridge toward it. Available whenever you need someone to talk to.

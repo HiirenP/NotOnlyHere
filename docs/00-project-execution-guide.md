@@ -18,6 +18,7 @@ Follow this guide in order. Do not ask an AI agent to build the whole platform i
 | 4 | [`04-backend-schema.md`](./04-backend-schema.md) | Database entities, constraints, retention, migration order |
 | 5 | [`05-implementation-plan.md`](./05-implementation-plan.md) | Delivery sequence and phase entry/exit criteria |
 | 6 | [`06-testing-plan.md`](./06-testing-plan.md) | Public test seams, TDD process, verification, release gates |
+| — | [`07-design-system.md`](./07-design-system.md) | Design tokens, components, motion, screen inventory, handoff |
 
 Conflict rule:
 
