@@ -68,7 +68,7 @@ const featureCards = [
     color: 'bg-accent-500',
   },
   {
-    title: 'AI Support',
+    title: 'Ava',
     description: 'A 24/7 companion trained on peer-support principles. It listens without judgment, suggests grounding exercises, and points you toward real community when you are ready.',
     icon: 'ri-robot-line',
     color: 'bg-primary-500',

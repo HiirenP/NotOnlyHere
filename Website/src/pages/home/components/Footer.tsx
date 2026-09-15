@@ -11,7 +11,7 @@ const exploreLinks = [
 ];
 
 const communityLinks = [
-  { label: 'AI Support', href: '/ai-support' },
+  { label: 'Ava', href: '/ai-support' },
   { label: 'Support Us', href: '/support' },
   { label: 'FAQ', href: '/faq' },
   { label: 'Contact', href: '/contact' },
